@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Activity extends Model
 {
@@ -18,4 +19,8 @@ class Activity extends Model
         'start_date',
         'end_date',
     ];
+
+    public function registrations() : HasMany {
+        return $this->hasMany(Registration::class);
+    }
 }

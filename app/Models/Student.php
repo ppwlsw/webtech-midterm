@@ -37,4 +37,8 @@ class Student extends Model
         return $this->belongsTo(Alumni::class);
     }
 
+    public function registrations(): HasMany {
+        return $this->hasMany(Registration::class);
+    }
+
 }
