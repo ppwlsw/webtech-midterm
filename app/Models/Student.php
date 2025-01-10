@@ -37,8 +37,8 @@ class Student extends Model
         return $this->belongsTo(Alumni::class);
     }
 
-    public function registrations(): HasMany {
-        return $this->hasMany(Registration::class);
+    public function activities(): belongsToMany {
+        return $this->belongsToMany(Activity::class, 'registration');
     }
 
 }
