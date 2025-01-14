@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                kanit: ['Kanit', 'sans-serif'],
             },
         },
     },

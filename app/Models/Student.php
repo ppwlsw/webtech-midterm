@@ -37,4 +37,8 @@ class Student extends Model
         return $this->belongsTo(Alumni::class);
     }
 
+    public function activities(): belongsToMany {
+        return $this->belongsToMany(Activity::class, 'registration');
+    }
+
 }
