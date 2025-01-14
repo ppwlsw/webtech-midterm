@@ -4,17 +4,33 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('announcement/index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/announcement', function () {
+    return view('announcement/index');
+})->name('announcement');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/document', function () {
+    return view('document/index');
+})->name('document');
 
-require __DIR__.'/auth.php';
+Route::get('/grade', function () {
+    return view('grade/index');
+})->name('grade');
+
+Route::get('/achievement', function () {
+    return view('achievement/index');
+})->name('achievement');
+
+Route::get('/profile', function () {
+    return view('profile/index');
+})->name('profile');
+
+Route::get('/login', function () {
+    return view('login/index');
+})->name('login');
+
+
+
+
