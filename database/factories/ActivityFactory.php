@@ -17,22 +17,28 @@ class ActivityFactory extends Factory
     public function definition(): array
     {
 
+        $activity_name = $this->faker->words(3, true);
+        $activity_type = $this->faker->randomElement(['Workshop', 'Seminar', 'Competition', 'Department']);
+        $activity_details = $this->faker->realText(255);
+        $max_participants = $this->faker->numberBetween(10, 200);
+        $condition = $this->faker->randomElement([
+            'Open to all students',
+            'Registration required',
+            'Only 3rd year student',
+            'Limited seats available'
+        ]);
 
-        $activity_name = $this->faker->unique()->name();
-        $activity_type = $this->faker->creditCardType();
-        $activity_details = $this->faker->text();
-        $max_participants = $this->faker->numberBetween(2, 10);
-        $condition = $this->faker->unique()->text();
-        $start_date = $this->faker->date();
-        $end_date = $this->faker->date();
+        $start_datetime = $this->faker->dateTimeBetween('now', '+1 month');
+        $random_days = $this->faker->numberBetween(1, 7);
+        $end_datetime = (clone $start_datetime)->modify("+{$random_days} days");
 
         return [
             'activity_name' => $activity_name,
             'activity_type' => $activity_type,
             'activity_detail' => $activity_details,
             'max_participants' => $max_participants,
-            'start_date' => $start_date,
-            'end_date' => $end_date,
+            'start_datetime' => $start_datetime,
+            'end_datetime' => $end_datetime,
             'condition' => $condition,
         ];
     }

@@ -1,12 +1,25 @@
-@extends('layouts/nav')
-@section('topic','ตรวจสอบผลการเรียน')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-gray-100 font-sans">
+<div class="flex">
 
-<body class="pt-20 w-full bg-gray-100 font-sans">
-<div class="flex h-screen">
     <!-- Sidebar -->
-    <div class="w-2/12 bg-gray-100 p-4">
-        @extends('layouts/sidebar')
-    </div>
+    <aside class="w-64 bg-gray-800 text-white min-h-screen p-6">
+        <h2 class="text-xl font-bold mb-6">Menu</h2>
+        <ul class="space-y-4">
+            <li><a href="#" class="block hover:underline">Home</a></li>
+            <li><a href="#" class="block hover:underline">Announcements</a></li>
+            <li><a href="#" class="block hover:underline">Activities</a></li>
+            <li><a href="#" class="block hover:underline">Settings</a></li>
+        </ul>
+    </aside>
 
     <!-- Main -->
     <div class="flex-1 p-6">
@@ -25,9 +38,7 @@
             </div>
             <div class="space-x-2">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Update Status</button>
-                <a href="{{route('create-alumni-grade')}}">
                 <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Alumni</button>
-                </a>
             </div>
         </div>
 
@@ -52,9 +63,6 @@
                 <ul class="space-y-2">
                     <li><button class="w-full bg-white px-4 py-2 rounded hover:bg-gray-100">ปีการศึกษา</button></li>
                     <li><button class="w-full bg-white px-4 py-2 rounded hover:bg-gray-100">ภาคการศึกษา</button></li>
-                    <a href="{{route('list-grade')}}">
-                    <li><button class="w-full text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-500">Search</button></li>
-                    </a>
                 </ul>
 
             </div>
@@ -93,3 +101,4 @@
 
 </div>
 </body>
+</html>
