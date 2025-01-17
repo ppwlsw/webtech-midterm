@@ -16,8 +16,8 @@ class Activity extends Model
         'activity_detail',
         'max_participants',
         'condition',
-        'start_date',
-        'end_date',
+        'start_datetime',
+        'end_datetime',
     ];
 
     public function students() : belongsToMany {
