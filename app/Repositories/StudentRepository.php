@@ -16,13 +16,8 @@ class StudentRepository
         return  $this->model::where('id', $id)->get();
     }
 
-    public function filterByCourseIds(array $courseIds): Collection
-    {
-        return $this->model::whereHas('courses', function ($query) use ($courseIds) {
-            foreach ($courseIds as $courseId) {
-                $query->where('course_id', $courseId);
-            }
-        })->get();
+    public function getStudentByStudentCode(string $studentCode): Collection {
+        return  $this->model::where('student_code', $studentCode)->get();
     }
 
     public function filterStudents(array $filters): Collection
@@ -70,5 +65,6 @@ class StudentRepository
            }
         })->get();
     }
+
 
 }

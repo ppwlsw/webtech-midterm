@@ -29,7 +29,6 @@ class CourseResultSeeder extends Seeder
                     'semester' => ['1', '2'][array_rand(['1', '2'])], // Random semester
                     'academic_year' => rand(2020, 2025), // Random academic year
                     'course_grade' => ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F'][array_rand(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F'])], // Random grade
-
                 ]);
             }
         }

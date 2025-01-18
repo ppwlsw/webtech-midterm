@@ -12,6 +12,7 @@ class Student extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
         'student_code',
         'first_name',
         'last_name',
@@ -24,6 +25,10 @@ class Student extends Model
         'admission_year',
         'student_status',
     ];
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
 
     public function achievements(): HasMany {
         return $this->hasMany(Achievement::class);
