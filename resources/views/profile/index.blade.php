@@ -1,4 +1,3 @@
-@extends('layouts/nav')
-@extends('layouts/sidebar')
+@extends('layouts.nav')
+@extends('layouts.sidebar')
 @section('topic','ประวัตินิสิต')
-@extends('layouts/content-test')

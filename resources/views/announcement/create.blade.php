@@ -1,12 +1,12 @@
-@extends('layouts/nav')
+@extends('layouts.nav')
 @section('topic','ข่าวสารนิสิต')
 
 <body class="pt-20 w-full bg-gray-100 font-sans">
 <div class="flex">
 
-    <!-- Sidebar -->
+    //role
     <div class="w-2/12 bg-gray-100 p-4">
-        @extends('layouts/sidebar')
+        @extends('layouts.sidebar')
     </div>
 
     <!-- Main -->
@@ -67,7 +67,8 @@
 
                 <!-- Max Participants -->
                 <div>
-                    <label for="max-participants" class="block text-sm font-medium text-gray-700">Max Participants</label>
+                    <label for="max-participants" class="block text-sm font-medium text-gray-700">Max
+                        Participants</label>
                     <input
                         type="number"
                         id="max-participants"

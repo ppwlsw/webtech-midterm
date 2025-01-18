@@ -1,11 +1,12 @@
-@extends('layouts/nav')
+@extends('layouts.nav')
 @section('topic','ข่าวสารนิสิต')
 
 <body class="pt-20 w-full bg-gray-100 font-sans">
 <div class="flex h-screen">
-    <!-- Sidebar -->
+
+    //role
     <div class="w-2/12 bg-gray-100 p-4">
-        @extends('layouts/sidebar')
+        @extends('layouts.sidebar')
     </div>
 
     <!-- Main Content -->
@@ -14,7 +15,8 @@
         <section class="mb-8">
             <a href="{{route('create-announcement')}}" class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Announcement</h2>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create new announcement</button>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create new announcement
+                </button>
             </a>
             <div class="grid grid-cols-3 gap-4">
                 <a href="{{route('detail-announcement')}}" class="bg-gray-200 p-4 h-72 rounded-md">Sample Open House</a>
@@ -26,9 +28,9 @@
         <!-- Search Bar -->
         <div class="mb-8">
             <input
-                type="text"
-                placeholder="Search..."
-                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                    type="text"
+                    placeholder="Search..."
+                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             >
         </div>
 
