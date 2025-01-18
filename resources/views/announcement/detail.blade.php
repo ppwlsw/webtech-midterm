@@ -19,8 +19,14 @@
         <!-- Open House Details -->
         <section class="mb-8">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold">ช่วย Open House</h2>
+                <div class="flex space-x-7">
+                    <h2 class="text-xl font-bold">ช่วย Open House</h2>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Join</button>
+                </div>
+
+                <a href="{{route('edit-announcement')}}">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Edit</button>
+                </a>
             </div>
 
             <!-- Detail -->
