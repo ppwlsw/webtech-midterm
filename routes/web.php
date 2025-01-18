@@ -4,6 +4,21 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
+Route::get('/students',[
+    \App\Http\Controllers\StudentController::class, 'getStudents'
+])->name('get-students');
+
+
+
+
+
+
+
+
+
+
+
+// Front-side
 Route::get('/', function () {return view('login/index');});
 
 Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
