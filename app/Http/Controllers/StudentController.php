@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\User;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class StudentController extends Controller
 {
@@ -48,7 +50,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+
     }
 
     /**
@@ -56,7 +58,6 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        $this->studentRepository->update($request, $student->id);
         //return
     }
 
@@ -70,6 +71,7 @@ class StudentController extends Controller
 
     public function getAllStudents(Request $request)
     {
+        Gate::authorize('getAllStudents', User::class);
        return $this->studentRepository->getAll();
     }
 

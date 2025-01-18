@@ -48,6 +48,21 @@ class User extends Authenticatable
         ];
     }
 
+    public function isStudent(): bool
+    {
+        return $this->role == 'STUDENT';
+    }
+
+    public function isTeacher(): bool
+    {
+        return $this->role == 'TEACHER';
+    }
+
+    public function isDepartment(): bool
+    {
+        return $this->role == 'DEPARTMENT';
+    }
+
     public function student(): HasOne {
         return $this->hasOne(Student::class);
     }
