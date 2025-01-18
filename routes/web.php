@@ -29,7 +29,7 @@ Route::get('/', [ProfileController::class, 'edit'])->name('profile');
 Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
 Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
 Route::get('/announcement/detail', function () {return view('/announcement/detail');})->name('detail-announcement');
-
+Route::get('/announcement/edit', function () {return view('/announcement/edit');})->name('edit-announcement');
 
 Route::get('/document', function () {return view('/document/index');})->name('document');
 Route::get('/document/create', function () {return view('/document/create');})->name('create-document');
@@ -44,6 +44,8 @@ Route::get('/achievement', function () {return view('/achievement/index');})->na
 Route::get('/achievement/create', function () {return view('/achievement/create');})->name('create-achievement');
 
 Route::get('/profile', function () {return view('/profile/index');})->name('profile');
+
+Route::get('/activity', function () {return view('/activity/index');})->name('activity');
 
 
 

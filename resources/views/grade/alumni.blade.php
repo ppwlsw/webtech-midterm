@@ -94,7 +94,13 @@
             id="openModal"
             class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
         >
-            Open Pop-up
+            Update Status
+        </button>
+        <button
+            id="openModal"
+            class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
+        >
+            Alumni
         </button>
 
         <!-- Pop-up (hidden by default) -->

@@ -101,14 +101,32 @@
 
         </section>
 
-        <!-- Achievements -->
-        <section class="bg-white p-6 rounded-md shadow-md mt-6">
-            <h2 class="text-xl font-bold mb-4">Achievements</h2>
-            <p class="text-gray-700">No achievements added yet.</p>
-            <a href="{{route('achievement')}}">
-            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Achievement</button>
-            </a>
-        </section>
+        <div class="py-10">
+        <a href="{{route('achievement')}}">
+            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Achievement</button>
+        </a>
+
+        <a href="{{route('activity')}}">
+            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Activity</button>
+        </a>
+        </div>
+{{--        <!-- Achievements -->--}}
+{{--        <section class="bg-white p-6 rounded-md shadow-md mt-6">--}}
+{{--            <h2 class="text-xl font-bold mb-4">Achievements</h2>--}}
+{{--            <p class="text-gray-700">No achievements added yet.</p>--}}
+{{--            <a href="{{route('achievement')}}">--}}
+{{--            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Achievement</button>--}}
+{{--            </a>--}}
+{{--        </section>--}}
+
+{{--        <!-- Activity -->--}}
+{{--        <section class="bg-white p-6 rounded-md shadow-md mt-6">--}}
+{{--            <h2 class="text-xl font-bold mb-4">Activity</h2>--}}
+{{--            <p class="text-gray-700">No achievements added yet.</p>--}}
+{{--            <a href="{{route('activity')}}">--}}
+{{--                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Achievement</button>--}}
+{{--            </a>--}}
+{{--        </section>--}}
 
     </div>
 
