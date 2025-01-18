@@ -2,7 +2,7 @@
 @section('topic','ข่าวสารนิสิต')
 
 <body class="pt-20 w-full bg-gray-100 font-sans">
-<div class="flex">
+<div class="flex h-screen">
 
     //role
     <div class="w-2/12 bg-gray-100 p-4">
