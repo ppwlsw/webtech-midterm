@@ -17,7 +17,7 @@
             <button class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Profile</button>
         </div>
 
-        <!-- User Info -->
+        <!-- Alumni Info -->
         <div class="bg-gray-200 p-4 rounded mb-6 flex items-center justify-between">
             <div>
                 <p class="text-lg font-medium">6510400000</p>

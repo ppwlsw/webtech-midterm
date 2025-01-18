@@ -32,4 +32,3 @@ Route::get('/login', function () {return view('login/index');})->name('login');
 
 
 
-

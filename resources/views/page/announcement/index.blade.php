@@ -1,4 +1,4 @@
-@extends('layouts/nav')
+@extends('layouts.nav')
 @section('topic','ข่าวสารนิสิต')
 
 <body class="pt-20 w-full bg-gray-100 font-sans">
@@ -14,7 +14,8 @@
         <section class="mb-8">
             <a href="{{route('create-announcement')}}" class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Announcement</h2>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create new announcement</button>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create new announcement
+                </button>
             </a>
             <div class="grid grid-cols-3 gap-4">
                 <a href="{{route('detail-announcement')}}" class="bg-gray-200 p-4 h-72 rounded-md">Sample Open House</a>
