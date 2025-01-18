@@ -71,4 +71,26 @@ class StudentController extends Controller
     {
        return $this->studentRepository->getAll();
     }
+
+    public function queryStudents(Request $request){
+        $curriculum = $request->get('course_curriculum') ;
+        $student_type = $request->get('student_type');
+        $student_name = $request->get('student_name');
+        $student_code = $request->get('student_code');
+        $course_code = $request->get('course_code');
+        $course_code = json_decode(str_replace("'", '"',$course_code ), true);
+
+//dd($course_code, $student_type, $student_name, $curriculum, $student_code);
+
+        $request = [
+            'course_curriculum' => $curriculum,
+            'student_type' => $student_type,
+            'student_name' => $student_name,
+            'student_code' => $student_code,
+            'course_code' => $course_code,
+        ];
+
+        return $this->studentRepository->filterStudents($request);
+
+    }
 }

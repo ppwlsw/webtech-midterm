@@ -22,49 +22,47 @@ class StudentRepository
 
     public function filterStudents(array $filters): Collection
     {
-        return $this->model::whereHas('courses', function ($query) use ($filters) {
-            if (isset($filters['course_curriculum'])) {
-                $query->where('course_curriculum', $filters['course_curriculum']);
-            }
+        $query = $this->model::query();
 
-            if (isset($filters['student_type'])) {
-                $query->where('student_type', $filters['student_type']);
-            }
+        if (isset($filters['course_curriculum'])) {
+            $query->whereHas('courses', function ($q) use ($filters) {
+                $q->where('course_curriculum', $filters['course_curriculum']);
+            });
+        }
 
-            if (isset($filters['student_name'])) {
-                // Normalize the input to remove extra spaces or special characters
-                $studentName = preg_replace('/\s+/', ' ', trim($filters['student_name'])); // Remove extra spaces
-                $nameParts = explode(' ', $studentName);
+        if (isset($filters['student_type'])) {
+            $query->whereHas('courses', function ($q) use ($filters) {
+                $q->where('student_type', $filters['student_type']);
+            });
+        }
 
-                // Handle cases with missing or malformed names
-                $first_name = $nameParts[0] ?? '';
-                $last_name = $nameParts[1] ?? '';
+        if (isset($filters['student_name'])) {
+            $studentName = preg_replace('/\s+/', ' ', trim($filters['student_name']));
+            $nameParts = explode(' ', $studentName);
 
-                printf("First Name: %s, Last Name: %s", $first_name, $last_name);
+            $first_name = $nameParts[0] ?? '';
+            $last_name = $nameParts[1] ?? '';
 
-                $query->where('first_name', 'LIKE', "%{$first_name}%");
+            $query->where(function($q) use ($first_name, $last_name) {
+                $q->where('first_name', 'LIKE', "%{$first_name}%");
                 if (!empty($last_name)) {
-                    $query->where('last_name', 'LIKE', "%{$last_name}%");
+                    $q->where('last_name', 'LIKE', "%{$last_name}%");
                 }
-            }
+            });
+        }
 
-            if (isset($filters['student_code'])) {
-                $query->where('student_code', 'like', '%' . $filters['student_code'] . '%');
-            }
+        if (isset($filters['student_code'])) {
+            $query->where('student_code', 'like', '%' . $filters['student_code'] . '%');
+        }
 
-            if (isset($filters['course_code'])) {
-                foreach ($filters['course_code'] as $courseCode) {
-                    $query->where('course_code', $courseCode);
-                }
+        if (isset($filters['course_code']) && is_array($filters['course_code'])) {
+            foreach ($filters['course_code'] as $courseCode) {
+                $query->whereHas('courses', function ($q) use ($courseCode) {
+                    $q->where('course_code', $courseCode);
+                });
             }
+        }
 
-           if (isset($filters['course_ids'])) {
-               foreach ($filters['course_ids'] as $courseId) {
-                   $query->where('course_id', $courseId);
-               }
-           }
-        })->get();
+        return $query->get();
     }
-
-
 }

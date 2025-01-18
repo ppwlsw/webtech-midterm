@@ -24,10 +24,10 @@ class CourseResultSeeder extends Seeder
 
             foreach ($studentCourses as $course) {
                 DB::table('course_result')->insert([
-                    'course_id' => [114,115][array_rand([114,115])],
+                    'course_id' => $course->id,
                     'student_id' => $student->id,
                     'semester' => ['1', '2'][array_rand(['1', '2'])], // Random semester
-                    'academic_year' => rand(2020, 2025), // Random academic year
+                    'academic_year' => rand(2020, 2025),
                     'course_grade' => ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F'][array_rand(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F'])], // Random grade
                 ]);
             }

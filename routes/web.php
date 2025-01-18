@@ -8,7 +8,9 @@ Route::get('/students',[
     \App\Http\Controllers\StudentController::class, 'getStudents'
 ])->name('get-students');
 
-
+Route::get('/students/conditions',[
+    \App\Http\Controllers\StudentController::class, 'queryStudents'
+])->name('query-students');
 
 
 
