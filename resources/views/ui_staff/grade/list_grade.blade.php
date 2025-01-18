@@ -28,7 +28,14 @@
         <div class="mb-6">
             <input
                 type="text"
-                placeholder="search bar"
+                placeholder="ค้นหาด้วยรหัสวิชา"
+                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+            />
+        </div>
+        <div class="mb-6">
+            <input
+                type="text"
+                placeholder="ค้นหาด้วยรหัสนิสิต"
                 class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
             />
         </div>
@@ -37,8 +44,20 @@
         <div class="bg-gray-200 p-4 rounded mb-6">
             <p class="font-bold mb-2">filter</p>
             <div class="space-y-2">
-                <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">ปีการศึกษา</button>
-                <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">ภาคปกติ / ภาคพิเศษ</button>
+                <label for="course-curriculum"> หลักสูตร </label>
+                <select name="course-curriculum">
+                    <option value=""> เลือก </option>
+                    <option value="2560"> 2560 </option>
+                    <option value="2565"> 2565 </option>
+                </select>
+                <label for="student-type"> ภาคการศึกษา </label>
+                <select name="student-type">
+                    <option value=""> เลือก </option>
+                    <option value="regular"> ปกติ </option>
+                    <option value="special"> พิเศษ </option>
+                </select>
+
+
             </div>
         </div>
 

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
 Route::get('/students',[
-    \App\Http\Controllers\StudentController::class, 'getStudents'
+    \App\Http\Controllers\StudentController::class, 'getAllStudents'
 ])->name('get-students');
 
 Route::get('/students/conditions',[
@@ -21,7 +21,10 @@ Route::get('/students/conditions',[
 
 
 // Front-side
-Route::get('/', function () {return view('login/index');});
+Route::get('/', [ProfileController::class, 'edit'])->name('profile');
+
+// Route for Test
+//Route::get('/test', function () {return view('/ui_staff/grade/list_grade');})->name('test');
 
 Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
 Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
@@ -43,5 +46,4 @@ Route::get('/achievement/create', function () {return view('/achievement/create'
 Route::get('/profile', function () {return view('/profile/index');})->name('profile');
 
 
-Route::get('/login', function () {return view('login/index');})->name('login');
 
