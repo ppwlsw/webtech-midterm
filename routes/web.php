@@ -38,13 +38,10 @@ Route::get('/grade/list', function () {return view('/grade/list');})->name('list
 
 
 Route::get('/achievement', function () {return view('/achievement/index');})->name('achievement');
-
+Route::get('/achievement/create', function () {return view('/achievement/create');})->name('create-achievement');
 
 Route::get('/profile', function () {return view('/profile/index');})->name('profile');
 
 
 Route::get('/login', function () {return view('login/index');})->name('login');
-
-
-
 

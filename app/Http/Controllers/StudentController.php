@@ -56,7 +56,8 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $this->studentRepository->update($request, $student->id);
+        //return
     }
 
     /**
@@ -67,7 +68,7 @@ class StudentController extends Controller
         //
     }
 
-    public function getStudents(Request $request)
+    public function getAllStudents(Request $request)
     {
        return $this->studentRepository->getAll();
     }

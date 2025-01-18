@@ -10,7 +10,7 @@
     </div>
 
     <!-- Main -->
-    <div class="flex-1 max-w-4xl mx-auto p-6">
+    <div class="flex-1 p-6">
 
         <!-- Achievement -->
         <section class="bg-white p-6 rounded-md shadow-md">
@@ -33,8 +33,8 @@
 
                 <!-- Button -->
                 <div class="flex justify-between">
-                    <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</button>
-                    <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</button>
+                    <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</a>
+                    <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</a>
                 </div>
 
         </section>

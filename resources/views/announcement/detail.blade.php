@@ -1,4 +1,4 @@
-@extends('layouts/nav')
+@extends('layouts.nav')
 @section('topic','ข่าวสารนิสิต')
 
 <body class="pt-20 w-full bg-gray-100 font-sans">
@@ -6,7 +6,7 @@
 
     //role
     <div class="w-2/12 bg-gray-100 p-4">
-        @extends('layouts/sidebar')
+        @extends('layouts.sidebar')
     </div>
 
     <!-- Main -->
