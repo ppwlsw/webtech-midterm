@@ -25,10 +25,12 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
-
-        return redirect()->intended(route('ui_staff.grade.index', absolute: false));
+        $role = Auth::user()->role;
+        $path = "";
+        $role === 'STUDENT' ? $path = 'announcement' : "" ;
+        $role === 'TEACHER' || $role === 'DEPARTMENT' ? $path = 'test' : "";
+        return redirect()->route($path);
     }
 
     /**

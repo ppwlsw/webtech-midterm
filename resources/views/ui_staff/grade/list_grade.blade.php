@@ -23,57 +23,69 @@
 
     <!-- Main -->
     <div class="flex-1 p-6">
+        <form method="GET" action="{{ route('query-students') }}">
 
-        <!-- Search Bar -->
-        <div class="mb-6">
-            <input
-                type="text"
-                placeholder="ค้นหาด้วยรหัสวิชา"
-                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-            />
-        </div>
-        <div class="mb-6">
-            <input
-                type="text"
-                placeholder="ค้นหาด้วยรหัสนิสิต"
-                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-            />
-        </div>
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <input
+                    type="text"
+                    placeholder="ค้นหาด้วยรหัสวิชา"
+                    class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                />
+            </div>
+            <div class="mb-6">
+                <input
+                    type="text"
+                    placeholder="ค้นหาด้วยรหัสนิสิต"
+                    class="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                />
+            </div>
 
-        <!-- Filter -->
-        <div class="bg-gray-200 p-4 rounded mb-6">
-            <p class="font-bold mb-2">filter</p>
-            <div class="space-y-2">
-                <label for="course-curriculum"> หลักสูตร </label>
-                <select name="course-curriculum">
-                    <option value=""> เลือก </option>
-                    <option value="2560"> 2560 </option>
-                    <option value="2565"> 2565 </option>
-                </select>
-                <label for="student-type"> ภาคการศึกษา </label>
-                <select name="student-type">
-                    <option value=""> เลือก </option>
-                    <option value="regular"> ปกติ </option>
-                    <option value="special"> พิเศษ </option>
-                </select>
+            <!-- Filter -->
+            <div class="bg-gray-200 p-4 rounded mb-6">
+                <p class="font-bold mb-2">filter</p>
+                <div class="space-y-2">
+                    <label for="course-curriculum"> หลักสูตร </label>
+                    <select name="course-curriculum">
+                        <option value=""> เลือก </option>
+                        <option value="2560"> 2560 </option>
+                        <option value="2565"> 2565 </option>
+                    </select>
+                    <label for="student-type"> ภาคการศึกษา </label>
+                    <select name="student-type">
+                        <option value=""> เลือก </option>
+                        <option value="regular"> ปกติ </option>
+                        <option value="special"> พิเศษ </option>
+                    </select>
 
+
+                    <button type="submit"> </button>
+                </div>
+                <button type="submit"> Search </button>
 
             </div>
-        </div>
+
+
+        </form>
+
 
         <!-- List -->
         <div class="space-y-4">
             <!-- List Item -->
+            @foreach($data as $listItem)
+                <div class="bg-gray-200 p-4 rounded flex justify-between items-center">
+                    <p class="font-medium">{{ $listItem->student_code }}</p>
+                    <p> {{ $listItem }}</p>
+                    <p>{{ $listItem->first_name . " " . $listItem->last_name}}</p>
+                </div>
+            @endforeach
             <div class="bg-gray-200 p-4 rounded flex justify-between items-center">
                 <p class="font-medium">6510405771</p>
                 <p>name</p>
             </div>
 
             <!-- Repeat List Items -->
-            <div class="bg-gray-200 p-4 rounded flex justify-between items-center">
-                <p class="font-medium">6510405771</p>
-                <p>name</p>
-            </div>
+
             <div class="bg-gray-200 p-4 rounded flex justify-between items-center">
                 <p class="font-medium">6510405771</p>
                 <p>name</p>

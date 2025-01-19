@@ -69,15 +69,17 @@ class StudentController extends Controller
         //
     }
 
+
     public function getStudentByUserId(Request $request){
         $userId = auth()->guard()->user()->id;
+//        dd($this->studentRepository->getStudentByUserId($userId));
         return $this->studentRepository->getStudentByUserId($userId);
     }
 
     public function getAllStudents(Request $request)
     {
         Gate::authorize('getAllStudents', User::class);
-       return $this->studentRepository->getAll();
+        return $this->studentRepository->getAll();
     }
 
     public function queryStudents(Request $request){
@@ -99,5 +101,11 @@ class StudentController extends Controller
 
         return $this->studentRepository->filterStudents($request);
 
+    }
+
+    public function staffIndex(Request $request){
+        $data = $this->queryStudents($request);
+
+        return view('/ui_staff/grade/list_grade', ["data" => $data]);
     }
 }

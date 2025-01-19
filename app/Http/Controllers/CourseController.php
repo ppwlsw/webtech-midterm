@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Repositories\CourseRepository;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    public function __construct(
+        private CourseRepository $courseRepository,
+    ){}
     /**
      * Display a listing of the resource.
      */
@@ -61,5 +65,11 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    public function getEnrolledCourseByStudentId(Request $request){
+        $studentCode = $request->get('student_code');
+        $course = $this->courseRepository->getEnrolledCourseByStudentId($studentCode);
+        return $course;
     }
 }
