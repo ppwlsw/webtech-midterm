@@ -18,13 +18,33 @@
 
             <!-- Detail Content -->
             <div class="mt-6 space-y-4">
-                <div class="bg-gray-100 p-4 rounded-md shadow-sm">
-                    <p class="text-gray-600 mt-2">Achievement Detail</p>
-                    <p class="text-gray-600 mt-2">Achievement Type</p>
-                </div>
 
                 <!-- Picture -->
                 <div class="mt-6">
+                    <form action="#" method="POST" class="space-y-4">
+                        <!-- Topic Name -->
+                        <div>
+                            <label for="topic-name" class="block text-sm font-medium text-gray-700">Detail</label>
+                            <textarea
+                                id="detail"
+                                name="detail"
+                                rows="4"
+                                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            >
+                    </textarea>
+                        </div>
+
+                        <div>
+                            <label for="topic-name" class="block text-sm font-medium text-gray-700">Type</label>
+                            <input
+                                type="text"
+                                id="type"
+                                name="type"
+                                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                             >
+                        </div>
+                    </form>
+
                     <h3 class="text-lg font-bold mb-4">Achievement Picture</h3>
                     <div class="bg-gray-200 h-48 rounded-md flex items-center justify-center">
                         <span class="text-gray-500">Picture Placeholder</span>
@@ -36,6 +56,7 @@
                     <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</a>
                     <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</a>
                 </div>
+            </div>
 
         </section>
 
