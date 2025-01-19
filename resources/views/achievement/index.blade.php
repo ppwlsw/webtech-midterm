@@ -12,15 +12,15 @@
     <!-- Main -->
     <div class="flex-1 p-6">
 
-        <a href="{{route('profile')}}" class="flex justify-between items-center mb-6">
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</button>
-        </a>
+        <div class="flex justify-between">
+            <a href="{{route('profile')}}" class="flex mb-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</a>
+            <a href="{{route('create-achievement')}}" class="flex mb-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add New Achievement</a>
+        </div>
+
         <!-- Achievement -->
         <section class="bg-white p-6 rounded-md shadow-md">
             <div class="flex justify-between items-center">
                 <h2 class="text-xl font-bold">Achievement</h2>
-                <a href="{{route('create-achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add New Achievement
-                </a>
             </div>
 
             <!-- Detail Content -->
