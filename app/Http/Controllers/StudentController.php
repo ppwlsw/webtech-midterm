@@ -69,6 +69,11 @@ class StudentController extends Controller
         //
     }
 
+    public function getStudentByUserId(Request $request){
+        $userId = auth()->guard()->user()->id;
+        return $this->studentRepository->getStudentByUserId($userId);
+    }
+
     public function getAllStudents(Request $request)
     {
         Gate::authorize('getAllStudents', User::class);
@@ -83,7 +88,6 @@ class StudentController extends Controller
         $course_code = $request->get('course_code');
         $course_code = json_decode(str_replace("'", '"',$course_code ), true);
 
-//dd($course_code, $student_type, $student_name, $curriculum, $student_code);
 
         $request = [
             'course_curriculum' => $curriculum,

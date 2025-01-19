@@ -12,8 +12,9 @@ Route::get('/students/conditions',[
     \App\Http\Controllers\StudentController::class, 'queryStudents'
 ])->name('query-students');
 
-
-
+Route::get('/student/info',[
+    \App\Http\Controllers\StudentController::class, 'getStudentByUserId'
+])->name('get-student-info');
 
 
 
