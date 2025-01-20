@@ -69,10 +69,17 @@ class StudentController extends Controller
         //
     }
 
+
+    public function getStudentByUserId(Request $request){
+        $userId = auth()->guard()->user()->id;
+//        dd($this->studentRepository->getStudentByUserId($userId));
+        return $this->studentRepository->getStudentByUserId($userId);
+    }
+
     public function getAllStudents(Request $request)
     {
         Gate::authorize('getAllStudents', User::class);
-       return $this->studentRepository->getAll();
+        return $this->studentRepository->getAll();
     }
 
     public function queryStudents(Request $request){
@@ -83,7 +90,6 @@ class StudentController extends Controller
         $course_code = $request->get('course_code');
         $course_code = json_decode(str_replace("'", '"',$course_code ), true);
 
-//dd($course_code, $student_type, $student_name, $curriculum, $student_code);
 
         $request = [
             'course_curriculum' => $curriculum,
@@ -95,5 +101,11 @@ class StudentController extends Controller
 
         return $this->studentRepository->filterStudents($request);
 
+    }
+
+    public function staffIndex(Request $request){
+        $data = $this->queryStudents($request);
+
+        return view('/ui_staff/grade/list_grade', ["data" => $data]);
     }
 }

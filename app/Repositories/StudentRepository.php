@@ -12,8 +12,8 @@ class StudentRepository
 
     private string $model = Student::class;
 
-    public function getStudentById(int $id): Collection {
-        return  $this->model::where('id', $id)->get();
+    public function getStudentByUserId(int $userId): Collection {
+        return  $this->model::where('user_id', $userId)->get();
     }
 
     public function getStudentByStudentCode(string $studentCode): Collection {

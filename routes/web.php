@@ -9,22 +9,28 @@ Route::get('/students',[
 ])->name('get-students');
 
 Route::get('/students/conditions',[
-    \App\Http\Controllers\StudentController::class, 'queryStudents'
+    \App\Http\Controllers\StudentController::class, 'staffIndex'
 ])->name('query-students');
 
+Route::get('/student/info',[
+    \App\Http\Controllers\StudentController::class, 'getStudentByUserId'
+])->name('get-student-info');
 
 
+//Course
 
-
-
+Route::get('/student/enrolled', [
+    \App\Http\Controllers\CourseController::class, 'getEnrolledCourseByStudentId'
+])->name('get-enrolled-course');
 
 
 
 // Front-side
-Route::get('/', [ProfileController::class, 'edit'])->name('profile');
+//Route::get('/', [ProfileController::class, 'edit'])->name('profile');
 
 // Route for Test
-//Route::get('/test', function () {return view('/ui_staff/grade/list_grade');})->name('test');
+Route::get('/test', function () {return view('/ui_staff/grade/list_grade');})->name('test');
+Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
 Route::get('/login', function () {return view('login/index');})->name('login');
 

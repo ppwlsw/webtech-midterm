@@ -35,8 +35,8 @@ class StudentSeeder extends Seeder
                 'contact_info' => fake()->address(),
                 'telephone_num' => fake()->phoneNumber(),
                 'admission_channel' => fake()->randomElement(['1', '2', '3']),
-                'admission_year' => fake()->year(),
-                'completion_year' => fake()->year(),
+                'admission_year' => $admission_year = fake()->year(),
+                'completion_year' => fake()->numberBetween((int)$admission_year + 4, (int)$admission_year + 8) ?? null,
                 'student_status' => fake()->randomElement(['active', 'inactive']),
                 'curriculum' => fake()->randomElement(['65', '60']),
             ]);
