@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             ActivitySeeder::class,
             CourseResultSeeder::class,
             AchievementSeeder::class,
+            AlumniSeeder::class,
         ]);
     }
 }
