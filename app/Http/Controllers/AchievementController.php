@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class AchievementController extends Controller
 {
     public function __construct(
-        private AchievementRepository $achievementRepository
+        private AchievementRepository $achievementRepository,
+        private StudentRepository $studentRepository,
     ) {}
     /**
      * Display a listing of the resource.
@@ -20,9 +21,9 @@ class AchievementController extends Controller
     {
         $user_id = auth()->id();
 
-        $achievements = $this->achievementRepository->getAchievementByUserID($user_id);
-//        return view('achievement.index', ['achievements' => $achievements]);
-        return ['achievements' => $achievements];
+        $achievements = $this->studentRepository->getStudentByUserId($user_id)->achievement;
+        return view('achievement.index', ['achievements' => $achievements]);
+//        return ['achievements' => $achievements];
     }
 
     /**

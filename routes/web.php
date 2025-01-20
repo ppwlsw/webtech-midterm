@@ -22,6 +22,8 @@ Route::get('/students/enrolled', [
 
 Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
+Route::get('/login', function () {return view('login/index');})->name('login');
+
 Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
 Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
 Route::get('/announcement/detail', function () {return view('/announcement/detail');})->name('detail-announcement');
