@@ -26,6 +26,8 @@ Route::get('/', [ProfileController::class, 'edit'])->name('profile');
 // Route for Test
 //Route::get('/test', function () {return view('/ui_staff/grade/list_grade');})->name('test');
 
+Route::get('/login', function () {return view('login/index');})->name('login');
+
 Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
 Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
 Route::get('/announcement/detail', function () {return view('/announcement/detail');})->name('detail-announcement');
