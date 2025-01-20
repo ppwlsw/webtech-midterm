@@ -67,9 +67,9 @@ class CourseController extends Controller
         //
     }
 
-    public function getEnrolledCourseByStudentId(Request $request){
+    public function getEnrolledCourseByStudentCode(Request $request){
         $studentCode = $request->get('student_code');
-        $course = $this->courseRepository->getEnrolledCourseByStudentId($studentCode);
+        $course = $this->courseRepository->getEnrolledCourseByStudentCode($studentCode);
         return $course;
     }
 }

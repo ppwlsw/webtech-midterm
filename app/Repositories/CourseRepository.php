@@ -16,7 +16,7 @@ class CourseRepository
         return  $this->model::where("id", $id)->get();
     }
 
-    public function getEnrolledCourseByStudentId(int $studentCode): Collection {
+    public function getEnrolledCourseByStudentCode(int $studentCode): Collection {
         return  $this->model::whereHas("students", function ($s) use ($studentCode) {
             $s->where("student_code", $studentCode);
         })->get();

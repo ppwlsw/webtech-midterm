@@ -8,28 +8,18 @@ Route::get('/students',[
     \App\Http\Controllers\StudentController::class, 'getAllStudents'
 ])->name('get-students');
 
-Route::get('/students/conditions',[
-    \App\Http\Controllers\StudentController::class, 'staffIndex'
-])->name('query-students');
-
 Route::get('/student/info',[
     \App\Http\Controllers\StudentController::class, 'getStudentByUserId'
 ])->name('get-student-info');
 
 
 //Course
-
-Route::get('/student/enrolled', [
-    \App\Http\Controllers\CourseController::class, 'getEnrolledCourseByStudentId'
+Route::get('/students/enrolled', [
+    \App\Http\Controllers\CourseController::class, 'getEnrolledCourseByStudentCode'
 ])->name('get-enrolled-course');
 
 
 
-// Front-side
-//Route::get('/', [ProfileController::class, 'edit'])->name('profile');
-
-// Route for Test
-Route::get('/test', function () {return view('/ui_staff/grade/list_grade');})->name('test');
 Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
 Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
@@ -40,7 +30,10 @@ Route::get('/announcement/edit', function () {return view('/announcement/edit');
 Route::get('/document', function () {return view('/document/index');})->name('document');
 Route::get('/document/create', function () {return view('/document/create');})->name('create-document');
 
-Route::get('/grade', function () {return view('/grade/index');})->name('grade');
+Route::get('/grade/index', [
+    \App\Http\Controllers\StudentController::class, 'index'
+])->name('grade');
+//Route::get('/grade', function () {return view('/grade/index');})->name('grade');
 Route::get('/grade/alumni', function () {return view('/grade/alumni');})->name('alumni-grade');
 Route::get("/grade/create-alumni",function () {return view('/grade/create-alumni');})->name("create-alumni-grade");
 Route::get('/grade/list', function () {return view('/grade/list');})->name('list-grade');

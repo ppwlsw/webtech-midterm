@@ -36,32 +36,30 @@ class StudentRepository
             });
         }
 
-        if (isset($filters['student_name'])) {
-            $studentName = preg_replace('/\s+/', ' ', trim($filters['student_name']));
-            $nameParts = explode(' ', $studentName);
-
-            $first_name = $nameParts[0] ?? '';
-            $last_name = $nameParts[1] ?? '';
-
-            $query->where(function($q) use ($first_name, $last_name) {
-                $q->where('first_name', 'LIKE', "%{$first_name}%");
-                if (!empty($last_name)) {
-                    $q->where('last_name', 'LIKE', "%{$last_name}%");
-                }
-            });
-        }
-
         if (isset($filters['student_code'])) {
             $query->where('student_code', 'like', '%' . $filters['student_code'] . '%');
         }
 
-        if (isset($filters['course_code']) && is_array($filters['course_code'])) {
-            foreach ($filters['course_code'] as $courseCode) {
-                $query->whereHas('courses', function ($q) use ($courseCode) {
-                    $q->where('course_code', $courseCode);
-                });
+        if (!empty($filters['course_code'])) {
+            $courseCodes = explode(',', $filters['course_code']);
+
+            // Ensure at least one student is enrolled in the specified course(s)
+            $hasEnrolledStudents = $this->model::whereHas('courses', function ($q) use ($courseCodes) {
+                $q->whereIn('course_code', $courseCodes);
+            })->exists();
+
+            if (!$hasEnrolledStudents) {
+               return new Collection([
+                   'message' => 'ไม่มีนักเรียนที่ลงทะเบียนในวิชาที่ระบุ'
+               ]);
             }
+
+            // Filter query to only include students who are enrolled in at least one of the specified courses
+            $query->whereHas('courses', function ($q) use ($courseCodes) {
+                $q->whereIn('course_code', $courseCodes);
+            });
         }
+
 
         return $query->get();
     }

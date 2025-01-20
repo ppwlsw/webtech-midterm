@@ -18,7 +18,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        Gate::authorize('view', User::class);
+        return view('grade.index');
     }
 
     /**
@@ -58,7 +59,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //return
+        //
     }
 
     /**
@@ -83,12 +84,12 @@ class StudentController extends Controller
     }
 
     public function queryStudents(Request $request){
+        Gate::authorize('queryStudents', User::class);
         $curriculum = $request->get('course_curriculum') ;
         $student_type = $request->get('student_type');
         $student_name = $request->get('student_name');
         $student_code = $request->get('student_code');
         $course_code = $request->get('course_code');
-        $course_code = json_decode(str_replace("'", '"',$course_code ), true);
 
 
         $request = [
@@ -98,13 +99,24 @@ class StudentController extends Controller
             'student_code' => $student_code,
             'course_code' => $course_code,
         ];
-
         return $this->studentRepository->filterStudents($request);
 
     }
 
     public function staffIndex(Request $request){
+        Gate::authorize('staffIndex', User::class);
         $data = $this->queryStudents($request);
+        if ($data->has('message')) {
+            return view('/ui_staff/grade/list_grade', ["data" => $data]);
+        }
+        foreach ($data as $student) {
+            $student->courses = $student->courses()->select(
+                'course_code',
+                'course_name',
+                'credit',
+                'course_grade'
+            )->get()->toArray();
+        }
 
         return view('/ui_staff/grade/list_grade', ["data" => $data]);
     }
