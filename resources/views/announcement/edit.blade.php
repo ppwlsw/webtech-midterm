@@ -46,23 +46,13 @@
                 </div>
 
                 <!-- Date and Time -->
-                <div class="flex space-x-4">
-                    <div class="flex-1">
-                        <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
-                        <input
-                            type="date"
-                            id="date"
-                            name="date"
-                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-                    </div>
-                    <div class="flex-1">
-                        <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
-                        <input
-                            type="time"
-                            id="time"
-                            name="time"
-                            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-                    </div>
+                <div>
+                    <label for="datetime" class="block text-sm font-medium text-gray-700">Date and Time</label>
+                    <input
+                        type="datetime-local"
+                        id="datetime"
+                        name="datetime"
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
                 </div>
 
                 <!-- Max Participants -->
