@@ -11,11 +11,6 @@
 
     <!-- Main -->
     <div class="flex-1 p-6">
-        <!-- Header -->
-        <a href="{{route('create-document')}}" class="flex justify-between items-center mb-4">
-            <h1 class="text-xl font-semibold">Document</h1>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Create new document</button>
-        </a>
 
         <!-- Search Bar -->
         <div class="mb-4">
@@ -28,13 +23,19 @@
 
         <!-- Document List -->
         <div class="bg-gray-200 p-4 rounded">
-            <!-- Filters -->
-            <div class="mb-4">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">List of categories</button>
-            </div>
 
-            <!-- All Document Table -->
-            <div class="p-4 bg-gray-300 h-48 rounded">All document table</div>
+            <a href="{{route('pdf-ku3.pdf')}}" class="mb-4">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">KU3</button>
+            </a>
+
+            <a href="{{route('pdf-leave-request.pdf')}}" class="mb-4">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">ใบลาป่วย / ลากิจ</button>
+            </a>
+
+            <a href="{{route('pdf-resignation.pdf')}}" class="mb-4">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">ลาออก</button>
+            </a>
+
         </div>
     </div>
 </body>

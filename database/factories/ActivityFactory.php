@@ -24,7 +24,7 @@ class ActivityFactory extends Factory
         $condition = $this->faker->randomElement([
             'Open to all students',
             'Registration required',
-            'Only 3rd year student',
+            'Only 3rd year students',
             'Limited seats available'
         ]);
 

@@ -23,12 +23,6 @@
                 <p class="text-lg font-medium">6510400000</p>
                 <p class="text-lg">name</p>
             </div>
-            <div class="space-x-2">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Update Status</button>
-                <a href="{{route('create-alumni-grade')}}">
-                    <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Alumni</button>
-                </a>
-            </div>
         </div>
 
         <!-- Buttons -->

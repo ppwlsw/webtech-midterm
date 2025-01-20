@@ -59,7 +59,7 @@ class AchievementController extends Controller
      */
     public function edit(Achievement $achievement)
     {
-        // student cannot edit
+        // students cannot edit
     }
 
     /**
@@ -67,7 +67,7 @@ class AchievementController extends Controller
      */
     public function update(Request $request, Achievement $achievement)
     {
-        // student cannot update
+        // students cannot update
     }
 
     /**

@@ -1,8 +1,13 @@
 <?php
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
+
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 Route::get('/students',[
     \App\Http\Controllers\StudentController::class, 'getAllStudents'
@@ -12,18 +17,25 @@ Route::get('/students/conditions',[
     \App\Http\Controllers\StudentController::class, 'staffIndex'
 ])->name('query-students');
 
-Route::get('/student/info',[
+Route::get('/students/info',[
     \App\Http\Controllers\StudentController::class, 'getStudentByUserId'
-])->name('get-student-info');
+])->name('get-students-info');
 
 
 //Course
 
-Route::get('/student/enrolled', [
+Route::get('/students/enrolled', [
     \App\Http\Controllers\CourseController::class, 'getEnrolledCourseByStudentId'
 ])->name('get-enrolled-course');
 
+//Resource
+Route::resource('/students', StudentController::class);
 
+//PDF
+
+Route::get('/pdf/resignation', [\App\Http\Controllers\PDF\PDFResignationController::class, 'pdf'])->name('pdf-resignation.pdf');
+Route::get('/pdf/leave-request', [\App\Http\Controllers\PDF\PDFLeaveRequestController::class, 'pdf'])->name('pdf-leave-request.pdf');
+Route::get('/pdf/ku3', [\App\Http\Controllers\PDF\PDFKU3Controller::class, 'pdf'])->name('pdf-ku3.pdf');
 
 // Front-side
 //Route::get('/', [ProfileController::class, 'edit'])->name('profile');
@@ -52,6 +64,5 @@ Route::get('/achievement/create', function () {return view('/achievement/create'
 Route::get('/profile', function () {return view('/profile/index');})->name('profile');
 
 Route::get('/activity', function () {return view('/activity/index');})->name('activity');
-
 
 

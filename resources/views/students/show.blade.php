@@ -1,5 +1,5 @@
 @extends('layouts.nav')
-@section('topic','ข่าวสารนิสิต')
+@section('topic','ประวัตินิสิต')
 
 <body class="pt-20 w-full bg-gray-100 font-sans">
 <div class="flex h-screen">
@@ -24,77 +24,77 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <p class="text-sm font-medium text-gray-700">First Name</p>
-                        <p class="text-gray-900">Student: {{ $student->name }}</p>
+                        <p class="text-blue-700">{{ $student->first_name }}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Last Name</p>
-                        <p class="text-gray-900">Doe</p>
+                        <p class="text-blue-700">{{$student->last_name}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Student Code</p>
-                        <p class="text-gray-900">12345678</p>
+                        <p class="text-blue-700">{{$student->student_code}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Curriculum</p>
-                        <p class="text-gray-900">Computer Science</p>
+                        <p class="text-blue-700">{{$student->curriculum}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Student Type</p>
-                        <p class="text-gray-900">Full-time</p>
+                        <p class="text-blue-700">{{$student->student_type}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Address</p>
-                        <p class="text-gray-900">123 Main Street, Hometown</p>
+                        <p class="text-blue-700">{{$student->contact_info}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Telephone Number</p>
-                        <p class="text-gray-900">(123) 456-7890</p>
+                        <p class="text-blue-700">{{$student->telephone_num}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Admission Channel</p>
-                        <p class="text-gray-900">Direct Entry</p>
+                        <p class="text-blue-700">{{$student->admission_channel}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Year</p>
-                        <p class="text-gray-900">2023</p>
+                        <p class="text-blue-700">{{$student->admission_year}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Student Status</p>
-                        <p class="text-gray-900">Active</p>
+                        <p class="text-blue-700">{{$student->student_status}}</p>
                     </div>
                 </div>
 
                 <div class="flex justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-700">Completion Year</p>
-                        <p class="text-gray-900">2025</p>
+                        <p class="text-blue-700">{{$student->completion_year}}</p>
                     </div>
                 </div>
             </div>
@@ -102,31 +102,31 @@
         </section>
 
         <div class="py-10">
-        <a href="{{route('achievement')}}">
-            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Achievement</button>
-        </a>
+            <a href="{{route('achievement')}}">
+                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Achievement</button>
+            </a>
 
-        <a href="{{route('activity')}}">
-            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Activity</button>
-        </a>
+            <a href="{{route('activity')}}">
+                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Activity</button>
+            </a>
         </div>
-{{--        <!-- Achievements -->--}}
-{{--        <section class="bg-white p-6 rounded-md shadow-md mt-6">--}}
-{{--            <h2 class="text-xl font-bold mb-4">Achievements</h2>--}}
-{{--            <p class="text-gray-700">No achievements added yet.</p>--}}
-{{--            <a href="{{route('achievement')}}">--}}
-{{--            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Achievement</button>--}}
-{{--            </a>--}}
-{{--        </section>--}}
+        {{--        <!-- Achievements -->--}}
+        {{--        <section class="bg-white p-6 rounded-md shadow-md mt-6">--}}
+        {{--            <h2 class="text-xl font-bold mb-4">Achievements</h2>--}}
+        {{--            <p class="text-gray-700">No achievements added yet.</p>--}}
+        {{--            <a href="{{route('achievement')}}">--}}
+        {{--            <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Achievement</button>--}}
+        {{--            </a>--}}
+        {{--        </section>--}}
 
-{{--        <!-- Activity -->--}}
-{{--        <section class="bg-white p-6 rounded-md shadow-md mt-6">--}}
-{{--            <h2 class="text-xl font-bold mb-4">Activity</h2>--}}
-{{--            <p class="text-gray-700">No achievements added yet.</p>--}}
-{{--            <a href="{{route('activity')}}">--}}
-{{--                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Achievement</button>--}}
-{{--            </a>--}}
-{{--        </section>--}}
+        {{--        <!-- Activity -->--}}
+        {{--        <section class="bg-white p-6 rounded-md shadow-md mt-6">--}}
+        {{--            <h2 class="text-xl font-bold mb-4">Activity</h2>--}}
+        {{--            <p class="text-gray-700">No achievements added yet.</p>--}}
+        {{--            <a href="{{route('activity')}}">--}}
+        {{--                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Achievement</button>--}}
+        {{--            </a>--}}
+        {{--        </section>--}}
 
 
         <!-- Button to trigger pop-up -->
@@ -189,6 +189,7 @@
                                 Confirm
                             </button>
                         </div>
+
 
             </div>
         </div>

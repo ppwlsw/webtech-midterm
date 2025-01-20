@@ -18,7 +18,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -42,7 +42,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return view('students.show', [
+            'student' => $this->studentRepository->getById(auth()->user()->student->id),
+            ]);
     }
 
     /**
@@ -108,4 +110,6 @@ class StudentController extends Controller
 
         return view('/ui_staff/grade/list_grade', ["data" => $data]);
     }
+
+
 }

@@ -47,7 +47,7 @@
                 </div>
             </a>
 
-            <a href="{{route('profile')}}" role="button" class="flex py-5 px-9 items-center hover:bg-[#0042aa]">
+            <a href="{{route('students.show', ['student' => auth()->user()->student])}}" role="button" class="flex py-5 px-9 items-center hover:bg-[#0042aa]">
                 <div class="grid mr-4 place-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zm80 256l64 0c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16L80 384c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
                 </div>
@@ -64,27 +64,34 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
                 </div>
                 <div class="pt-4">
-                    <p class="pb-1 text-[14px] text-green-600">
-                        สุดยอด เลิศล้า
-                    </p>
+{{--                    <p class="pb-1 text-[14px] text-green-600">--}}
+{{--                        สุดยอด เลิศล้า--}}
+{{--                    </p>--}}
+{{--                    <p class="text-[12px]">--}}
+{{--                        นิสิตปัจจุบัน--}}
+{{--                    </p>--}}
                     <p class="text-[12px]">
-                        นิสิตปัจจุบัน
+                        {{ auth()->user()->student->first_name }}
                     </p>
                 </div>
             </a>
 
-            <a href="{{route('login')}}" role="button"
-               class="flex py-5 px-9 items-center w-full p-3 absolute bottom-4 left-0">
-                <div class="grid mr-4 place-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
-                         class="w-6 h-6">
-                        <path fill-rule="evenodd"
-                              d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
-                              clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                Log Out
-            </a>
+            @auth
+                <form action=" {{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="flex py-5 px-9 items-center w-full p-3 absolute bottom-4 left-0">
+                        <div class="grid mr-4 place-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                                 class="w-6 h-6">
+                                <path fill-rule="evenodd"
+                                      d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        Log Out
+                    </button>
+                </form>
+            @endauth
         </div>
     </div>
 </aside>

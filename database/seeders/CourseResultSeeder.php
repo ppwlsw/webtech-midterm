@@ -19,8 +19,8 @@ class CourseResultSeeder extends Seeder
         $students = Student::all();
 
         foreach ($students as $student) {
-            // Attach each student to random courses
-            $studentCourses = $courses->random(rand(1, 3)); // Each student enrolls in 1-3 random courses
+            // Attach each students to random courses
+            $studentCourses = $courses->random(rand(1, 3)); // Each students enrolls in 1-3 random courses
 
             foreach ($studentCourses as $course) {
                 DB::table('course_result')->insert([
