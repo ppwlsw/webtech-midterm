@@ -16,10 +16,10 @@ return new class extends Migration
             $table->text('activity_name');
             $table->text('activity_type');
             $table->text('activity_detail');
-            $table->integer('max_participants');
+            $table->integer('max_participants')->nullable();
             $table->text('condition')->nullable();
-            $table->dateTime('start_datetime');
-            $table->dateTime('end_datetime');
+            $table->dateTime('start_datetime')->nullable();
+            $table->dateTime('end_datetime')->nullable();
             $table->timestamps();
         });
     }

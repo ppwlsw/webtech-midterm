@@ -17,9 +17,10 @@ class UpdateActivityRequest extends FormRequest
             'activity_name' => ['required', 'min:3', 'max:255'],
             'activity_detail' => ['required', 'min:3', 'max:255'],
             'activity_type' => ['required'],
-            'start_datetime' => ['required', 'before:end_datetime'],
-            'end_datetime' => ['required', 'after:start_datetime'],
-            'max_participants' => ['required', 'integer', 'min:1'],
+            'start_datetime' => [],
+            'end_datetime' => [],
+            'max_participants' => [],
+            'condition' => [],
         ];
     }
 
@@ -33,17 +34,7 @@ class UpdateActivityRequest extends FormRequest
             'activity_detail.min' => 'รายละเอียดน้อยเกินไป',
             'activity_detail.max' => 'รายละเอียด้องไม่เกิน 255 ตัวอักษร',
 
-            'activity_type.required' => 'กรุณาระบุประเภทกิจกรรม/ประกาศ',
-
-            'start_datetime.required' => 'กรุณาระบุวันเวลาเริ่มต้น',
-            'start_datetime.before' => 'ต้องเริ่มต้นก่อนวันเวลาสิ้นสุด',
-
-            'end_datetime.required' => 'กรุณาระบุวันเวลาสิ้นสุด',
-            'end_datetime.after' => 'ต้องสิ้นสุดหลังวันเวลาเริ่มต้น',
-
-            'max_participants.required' => 'กรุณาระบุจำนวนผู้เข้าร่วม',
-            'max_participants.integer' => 'ต้องเป็นตัวเลข',
-            'max_participants.min' => 'ต้องมีผู้เข้าร่วมอย่างน้อย 1 คน'
+            'activity_type.required' => 'กรุณาระบุประเภทประกาศ',
         ];
     }
 }

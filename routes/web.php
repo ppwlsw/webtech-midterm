@@ -39,12 +39,14 @@ Route::get('/staff/announcements/', function () {return view('/ui_staff/announce
 
 Route::get('/login', function () {return view('auth/login');})->name('login');
 
-Route::get('/announcement', [ActivityController::class, 'index'])->name('announcement');
-Route::get('/announcement/detail', [ActivityController::class, 'show'])->name('detail-announcement');
-
-
-Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
-Route::get('/announcement/edit', function () {return view('/announcement/edit');})->name('edit-announcement');
+Route::middleware('auth')->group(function () {
+    Route::get('/announcement', [ActivityController::class, 'index'])->name('announcement');
+    Route::get('/announcement/activity', [ActivityController::class, 'show'])->name('announcement.show');
+    Route::get('/announcement/create', [ActivityController::class, 'create'])->name('announcement.create');
+    Route::post('/announcement/store', [ActivityController::class, 'store'])->name('announcement.store');
+    Route::get('/announcement/{activity}/edit', [ActivityController::class, 'edit'])->name('announcement.edit');
+    Route::put('/announcement/{activity}', [ActivityController::class, 'update'])->name('announcement.update');
+});
 
 Route::get('/document', function () {return view('/document/index');})->name('document');
 Route::get('/document/create', function () {return view('/document/create');})->name('create-document');

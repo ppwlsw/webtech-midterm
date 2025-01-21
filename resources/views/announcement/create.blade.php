@@ -16,43 +16,93 @@
         </a>
         <!-- Create New Announcement -->
         <section class="mb-8">
-            <a href="{{route('announcement')}}" class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold">Create New Announcement</h2>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</button>
-            </a>
+            <form action="{{ route('announcement.store') }}" method="POST" class="space-y-4" enctype="multipart/form-data">
+                @csrf
 
-            <form action="#" method="POST" class="space-y-4">
+                    <h2 class="text-xl font-bold">Create New Announcement</h2>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</button>
+
                 <!-- Topic Name -->
                 <div>
                     <label for="topic-name" class="block text-sm font-medium text-gray-700">Topic Name</label>
+                    @error('activity_name')
+                        <p class="text-red-600 text-s">
+                            {{ $message }}
+                        </p>
+                    @enderror
                     <input
                         type="text"
                         id="topic-name"
-                        name="topic-name"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        name="activity_name"
+                        value="{{ old('activity_name') }}"
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 @error('name') border-red-400 bg-red-100 @enderror"
+                        placeholder="Enter topic name"
                         >
+                </div>
+
+                <!-- Type -->
+                <div>
+                    <label for="type" class="block text-gray-700 font-medium">Announcement Type</label>
+                    @error('activity_type')
+                    <p class="text-red-600 text-s">
+                        {{ $message }}
+                    </p>
+                    @enderror
+                    <select id="type" name="activity_type" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('name') border-red-400 bg-red-100 @enderror">
+                        <option value="">Select type</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Seminar">Seminar</option>
+                        <option value="Competition">Competition</option>
+                        <option value="Department">Department</option>
+                    </select>
                 </div>
 
                 <!-- Detail -->
                 <div>
                     <label for="detail" class="block text-sm font-medium text-gray-700">Detail</label>
+                    @error('activity_detail')
+                        <p class="text-red-600 text-s">
+                            {{ $message }}
+                        </p>
+                    @enderror
                     <textarea
                         id="detail"
-                        name="detail"
+                        name="activity_detail"
                         rows="4"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        >
-                    </textarea>
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 @error('name') border-red-400 bg-red-100 @enderror"
+                        placeholder="Enter announcement detail"
+                        >{{ old('activity_detail') }}</textarea>
                 </div>
 
                 <!-- Date and Time -->
                 <div>
-                    <label for="datetime" class="block text-sm font-medium text-gray-700">Date and Time</label>
+                    <label for="start_datetime" class="block text-sm font-medium text-gray-700">Start Time</label>
+                    @error('start_datetime')
+                        <p class="text-red-600 text-s">
+                            {{ $message }}
+                        </p>
+                    @enderror
                     <input
                         type="datetime-local"
-                        id="datetime"
-                        name="datetime"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                        id="start_datetime"
+                        name="start_datetime"
+                        value="{{ old('start_datetime') }}"
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 @error('name') border-red-400 bg-red-100 @enderror">
+                </div>
+
+                <div>
+                    <label for="end_datetime" class="block text-sm font-medium text-gray-700">End Time</label>
+                    @error('end_datetime')
+                        <p class="text-red-600 text-s">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                    <input
+                        type="datetime-local"
+                        id="end_datetime"
+                        name="end_datetime"
+                        value="{{ old('end_datetime') }}"
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 @error('name') border-red-400 bg-red-100 @enderror">
                 </div>
 
                 <!-- Max Participants -->
@@ -62,8 +112,10 @@
                     <input
                         type="number"
                         id="max-participants"
-                        name="max-participants"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        name="max_participants"
+                        value="{{ old('max_participants') }}"
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 @error('name') border-red-400 bg-red-100 @enderror"
+                        placeholder="Enter max participants"
                         >
                 </div>
 
@@ -74,9 +126,9 @@
                         id="condition"
                         name="condition"
                         rows="3"
-                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        >
-                    </textarea>
+                        class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 @error('name') border-red-400 bg-red-100 @enderror"
+                        placeholder="Enter condition"
+                        >{{ old('condition') }}</textarea>
                 </div>
             </form>
         </section>
