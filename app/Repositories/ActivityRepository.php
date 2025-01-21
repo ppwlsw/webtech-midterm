@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Controllers\ActivityController;
 use App\Models\Activity;
 use App\Repositories\Traits\RestAPI;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,8 +13,8 @@ class ActivityRepository
 
     private string $model = Activity::class;
 
-    public function filterByName(string $name) : Collection {
-        return $this->model->where('activity_name', 'LIKE', "%$name%")->get();
+    public function filterByName(string $name): Collection {
+        return Activity::where('activity_name', 'LIKE', "%{$name}%")->get();
     }
 
 }
