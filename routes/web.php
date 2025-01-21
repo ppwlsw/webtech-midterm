@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
@@ -35,7 +36,6 @@ Route::get('/document/create', function () {return view('/document/create');})->
 Route::get('/grade/index', [
     \App\Http\Controllers\StudentController::class, 'index'
 ])->name('grade');
-//Route::get('/grade', function () {return view('/grade/index');})->name('grade');
 Route::get('/grade/alumni', function () {return view('/grade/alumni');})->name('alumni-grade');
 Route::get("/grade/create-alumni",function () {return view('/grade/create-alumni');})->name("create-alumni-grade");
 Route::get('/grade/list', function () {return view('/grade/list');})->name('list-grade');
@@ -44,7 +44,7 @@ Route::get('/grade/list', function () {return view('/grade/list');})->name('list
 Route::get('/achievement', function () {return view('/achievement/index');})->name('achievement');
 Route::get('/achievement/create', function () {return view('/achievement/create');})->name('create-achievement');
 
-Route::get('/profile', function () {return view('/profile/index');})->name('profile');
+Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
 Route::get('/activity', function () {return view('/activity/index');})->name('activity');
 
