@@ -19,11 +19,10 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        $student = $this->studentRepository->getStudentByUserId(auth()->id());
+        $alumni = $this->alumniRepository->get();
 
-        $alumni = $student->alumni;
-        return view('grade.alumni', ['alumni' => $alumni]);
-//        return ['alumni' => $alumni];
+        return view('alumni.index', ['alumni' => $alumni]);
+
     }
 
     /**
@@ -58,13 +57,15 @@ class AlumniController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Alumni $alumni)
+    public function show(Request $request)
     {
-        return view('grade.alumni', ['alumni' => $alumni]);
+        $alumus_id = $request->get('alumnus');
+        $alumnus = $this->alumniRepository->getById($alumus_id);
+        return view('alumni.show', ['alumnus' => $alumnus]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the tspecified resource.
      */
     public function edit(Alumni $alumni)
     {

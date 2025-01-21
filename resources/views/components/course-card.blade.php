@@ -102,7 +102,7 @@
                         <div class="col-span-2 flex flex-col">
                             <span class="text-sm text-gray-500">ชื่อวิชา</span>
                             <span class="font-medium">{{ $courseName[0] }}</span>
-                            <span class="text-sm text-gray-600">{{ $courseName[1] }}</span>
+{{--                            <span class="text-sm text-gray-600">{{ $courseName[1] }}</span>--}}
                         </div>
                         <div class="flex flex-col items-end">
                             <span class="text-sm text-gray-500">เกรด</span>

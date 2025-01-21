@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -38,12 +39,14 @@ class Student extends Model
         return $this->belongsToMany(Course::class, 'course_result');
     }
 
-    public function alumni(): belongsTo {
-        return $this->belongsTo(Alumni::class);
-    }
+
 
     public function activities(): belongsToMany {
         return $this->belongsToMany(Activity::class, 'registration');
     }
 
+    public function alumnus(): hasOne
+    {
+        return $this->hasOne(Student::class);
+    }
 }
