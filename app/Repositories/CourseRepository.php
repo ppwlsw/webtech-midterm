@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Course;
 use App\Repositories\Traits\RestAPI;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class CourseRepository
 {
@@ -16,10 +17,7 @@ class CourseRepository
         return  $this->model::where("id", $id)->get();
     }
 
-    public function getEnrolledCourseByStudentCode(int $studentCode): Collection {
-        return  $this->model::whereHas("students", function ($s) use ($studentCode) {
-            $s->where("student_code", $studentCode);
-        })->get();
-    }
+
+
 
 }

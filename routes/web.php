@@ -16,7 +16,7 @@ Route::get('/student/info',[
 
 //Course
 Route::get('/students/enrolled', [
-    \App\Http\Controllers\CourseController::class, 'getEnrolledCourseByStudentCode'
+    \App\Http\Controllers\StudentController::class, 'getEnrolledCourseByStudentCode'
 ])->name('get-enrolled-course');
 
 
@@ -36,6 +36,8 @@ Route::get('/document/create', function () {return view('/document/create');})->
 Route::get('/grade/index', [
     \App\Http\Controllers\StudentController::class, 'index'
 ])->name('grade');
+
+
 Route::get('/grade/alumni', function () {return view('/grade/alumni');})->name('alumni-grade');
 Route::get("/grade/create-alumni",function () {return view('/grade/create-alumni');})->name("create-alumni-grade");
 Route::get('/grade/list', function () {return view('/grade/list');})->name('list-grade');

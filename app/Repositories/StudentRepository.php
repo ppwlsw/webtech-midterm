@@ -12,12 +12,12 @@ class StudentRepository
 
     private string $model = Student::class;
 
-    public function getStudentByUserId(int $userId): Collection {
-        return  $this->model::where('user_id', $userId)->get();
+    public function getStudentByUserId(int $userId)  {
+        return  $this->model::where('user_id', $userId)->first();
     }
 
-    public function getStudentByStudentCode(string $studentCode): Collection {
-        return  $this->model::where('student_code', $studentCode)->get();
+    public function getStudentByStudentCode(string $studentCode) {
+        return  $this->model::where('student_code', $studentCode)->first();
     }
 
     public function filterStudents(array $filters): Collection
@@ -64,7 +64,21 @@ class StudentRepository
         return $query->get();
     }
 
+    public function getStudentEnrolledCourses(int $studentId) {
+        $student = $this->model::find($studentId);
 
+        if (!$student) {
+            return response()->json(['message' => 'Student not found'], 404);
+        }
+
+        $enrolledCourses = $student->courses()->select(
+            'course_code',
+            'course_name',
+            'credit',
+            'course_grade')->get();
+
+        return $enrolledCourses;
+    }
 
 
 }

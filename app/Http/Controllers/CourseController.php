@@ -70,6 +70,7 @@ class CourseController extends Controller
     public function getEnrolledCourseByStudentCode(Request $request){
         $studentCode = $request->get('student_code');
         $course = $this->courseRepository->getEnrolledCourseByStudentCode($studentCode);
+        dd($course);
         return $course;
     }
 }

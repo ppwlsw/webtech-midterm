@@ -55,6 +55,13 @@ class UserPolicy
         return  $user->isTeacher() || $user->isDepartment();
     }
 
+    public function studentView(User $user): bool {
+        return  $user->isStudent() ;
+    }
+
+    public function teacherView(User $user): bool {
+        return  $user->isTeacher() || $user->isDepartment();
+    }
     /**
      * Determine whether the user can permanently delete the model.
      */

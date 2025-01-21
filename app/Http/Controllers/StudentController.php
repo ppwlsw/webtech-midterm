@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
+use App\Repositories\CourseRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -12,69 +13,36 @@ class StudentController extends Controller
 {
     public function __construct(
         private StudentRepository $studentRepository,
+        private CourseRepository $courseRepository,
     ){}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        Gate::authorize('view', User::class);
-        return view('grade.index');
+        if (Gate::allows('teacherView', User::class)) {
+            return $this->staffIndex(new Request());
+        }
+        $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
+        $courses = $this->studentRepository->getStudentEnrolledCourses($student->id);
+        return view('grade.index', ["data" => $student
+                                        , "coursesData" => $courses ]);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function profileIndex()
     {
-        //
+        if (Gate::allows('studentView', User::class)) {
+            $userId = auth()->guard()->user()->id;
+            $data = $this->studentRepository->getStudentByUserId($userId);
+           return view('profile.index',["data" => $data]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function getEnrolledCourseByStudentCode(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Student $student)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Student $student)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Student $student)
-    {
-        //
-    }
-
-
-    public function getStudentByUserId(Request $request){
-        $userId = auth()->guard()->user()->id;
-//        dd($this->studentRepository->getStudentByUserId($userId));
-        return $this->studentRepository->getStudentByUserId($userId);
+        dd($request);
     }
 
     public function getAllStudents(Request $request)
@@ -84,7 +52,7 @@ class StudentController extends Controller
     }
 
     public function queryStudents(Request $request){
-        Gate::authorize('queryStudents', User::class);
+        Gate::authorize('teacherView', User::class);
         $curriculum = $request->get('course_curriculum') ;
         $student_type = $request->get('student_type');
         $student_name = $request->get('student_name');
@@ -104,10 +72,11 @@ class StudentController extends Controller
     }
 
     public function staffIndex(Request $request){
-        Gate::authorize('staffIndex', User::class);
+        Gate::authorize('teacherView', User::class);
+
         $data = $this->queryStudents($request);
         if ($data->has('message')) {
-            return view('/ui_staff/grade/list_grade', ["data" => $data]);
+            return view('grade.index', ["data" => $data]);
         }
         foreach ($data as $student) {
             $student->courses = $student->courses()->select(
@@ -118,6 +87,6 @@ class StudentController extends Controller
             )->get()->toArray();
         }
 
-        return view('/ui_staff/grade/list_grade', ["data" => $data]);
+        return view('grade.index', ["data" => $data]);
     }
 }
