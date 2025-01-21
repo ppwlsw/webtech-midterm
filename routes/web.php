@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
@@ -59,8 +60,10 @@ Route::get("/grade/create-alumni",function () {return view('/grade/create-alumni
 Route::get('/grade/list', function () {return view('/grade/list');})->name('list-grade');
 
 
-Route::get('/achievement', function () {return view('/achievement/index');})->name('achievement');
-Route::get('/achievement/create', function () {return view('/achievement/create');})->name('create-achievement');
+Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement');
+Route::get('/achievement/create', [AchievementController::class, 'create'])->name('create-achievement');
+Route::post('/achievement', [AchievementController::class, 'store'])->name('store-achievement');
+
 
 Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
