@@ -90,7 +90,7 @@
                     @php
                         $courseName = explode(',', $course['course_name']);
                     @endphp
-                    <div class="grid grid-cols-5 gap-4 py-3 items-center">
+                    <div class="grid grid-cols-4 gap-4 py-3 items-center">
                         <div class="flex flex-col">
                             <span class="text-sm text-gray-500">รหัสวิชา</span>
                             <span class="font-medium">{{ $course['course_code'] }}</span>

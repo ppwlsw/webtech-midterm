@@ -24,7 +24,6 @@ class StudentController extends Controller
             return $this->staffIndex(new Request());
         }
 
-
         $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
         $courses = $this->studentRepository->getStudentEnrolledCourses($student->id);
         return view('grade.index', ["data" => $student
@@ -34,9 +33,7 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         //
-        return view('students.show', [
-            'student' => $this->studentRepository->getById(auth()->user()->student->id),
-        ]);
+        return view('grade.edit');
     }
     public function profileIndex()
     {
@@ -47,6 +44,9 @@ class StudentController extends Controller
         }
     }
 
+    public function editStudentsPage(){
+            return view('grade.student-list', ["data" => $this->studentRepository->getAll()]);
+    }
 
     public function getEnrolledCourseByStudentCode(Request $request)
     {
@@ -97,4 +97,73 @@ class StudentController extends Controller
 
         return view('grade.index', ["data" => $data]);
     }
+
+
+    public function search(Request $request)
+    {
+        $query = Student::query();
+
+        // Search by student code
+        if ($request->filled('student_code')) {
+            $studentCode = $request->student_code;
+            $query->where('student_code', 'LIKE', "%{$studentCode}%");
+        }
+
+        // Search by name (first name or last name)
+        if ($request->filled('name')) {
+            $name = $request->name;
+            $query->where(function($q) use ($name) {
+                $q->where('first_name', 'LIKE', "%{$name}%")
+                    ->orWhere('last_name', 'LIKE', "%{$name}%");
+            });
+        }
+
+        // Search by curriculum
+        if ($request->filled('curriculum')) {
+            $curriculum = $request->curriculum;
+            $query->where('curriculum', 'LIKE', "%{$curriculum}%");
+        }
+
+        // Search by student type
+        if ($request->filled('student_type')) {
+            $studentType = $request->student_type;
+            $query->where('student_type', $studentType);
+        }
+
+        // Search by status
+        if ($request->filled('status')) {
+            $status = $request->status;
+            $query->where('student_status', $status);
+        }
+
+
+        $data = $query->get();
+
+        return view('grade.student-list', ["data" => $data]);
+    }
+
+    public function edit(Student $student)
+    {
+        return view('grade.edit', compact('student'));
+    }
+
+    public function update(Request $request, Student $student)
+    {
+        $validated = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'student_type' => 'required',
+            'student_status' => 'required',
+            'curriculum' => 'required',
+            'completion_year' => 'required',
+            'contact_info' => 'required',
+            'telephone_num' => 'required',
+        ]);
+
+        $student->update($validated);
+
+        return redirect()->route('edit-student', $student)
+            ->with('success', 'อัปเดตข้อมูลนิสิตเรียบร้อยแล้ว');
+    }
+
 }
