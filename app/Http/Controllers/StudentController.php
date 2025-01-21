@@ -23,13 +23,21 @@ class StudentController extends Controller
         if (Gate::allows('teacherView', User::class)) {
             return $this->staffIndex(new Request());
         }
+
+
         $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
         $courses = $this->studentRepository->getStudentEnrolledCourses($student->id);
         return view('grade.index', ["data" => $student
                                         , "coursesData" => $courses ]);
 
     }
-
+    public function show(Student $student)
+    {
+        //
+        return view('students.show', [
+            'student' => $this->studentRepository->getById(auth()->user()->student->id),
+        ]);
+    }
     public function profileIndex()
     {
         if (Gate::allows('studentView', User::class)) {

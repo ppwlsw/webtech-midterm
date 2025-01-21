@@ -20,8 +20,8 @@
 
     $totalPoints = 0;
     $totalCredits = 0;
-
-    foreach ($coursesData as $course) {
+    if (isset($coursesData)){
+        foreach ($coursesData as $course) {
         if (isset($course['course_grade']) && isset($course['credit'])) {
             $totalPoints += ($gradePoints[$course['course_grade']] ?? 0) * $course['credit'];
             $totalCredits += $course['credit'];
@@ -29,6 +29,8 @@
     }
 
     $gpa = $totalCredits > 0 ? round($totalPoints / $totalCredits, 2) : 0.00;
+    }
+
 @endphp
 
 
@@ -159,65 +161,131 @@
         </div>
         <!-- Main -->
         <div class="flex-1 p-6">
-            <form method="GET" action="{{ route('grade') }}">
-                <!-- Search Bar -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="course-code-input" class="font-semibold text-gray-700">ค้นหาด้วยรหัสวิชา (หลายวิชาได้)</label>
-                        <input id="course-code-input" name="course_code" type="text"
-                               value="{{ request('course_code') }}"
-                               placeholder="ค้นหาด้วยรหัสวิชา"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400">
+            <form method="GET" action="{{ route('grade') }}" class="space-y-6">
+                <!-- Primary Search Fields -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Course Code Search -->
+                    <div class="space-y-2">
+                        <label for="course-code-input" class="flex items-center text-gray-700 font-medium">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            ค้นหาด้วยรหัสวิชา
+                            <span class="ml-1 text-sm text-gray-500">(หลายวิชาได้)</span>
+                        </label>
+                        <div class="relative">
+                            <input
+                                id="course-code-input"
+                                name="course_code"
+                                type="text"
+                                value="{{ request('course_code') }}"
+                                placeholder="เช่น 001101, 261103"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+                           placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                           transition-all duration-200"
+                            >
+                        </div>
                     </div>
-                    <div>
-                        <label for="student-code-input" class="font-semibold text-gray-700">กรอกรหัสนิสิต</label>
-                        <input id="student-code-input" name="student_code" type="text"
-                               value="{{ request('student_code') }}"
-                               placeholder="ค้นหาด้วยรหัสนิสิต"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400">
+
+                    <!-- Student Code Search -->
+                    <div class="space-y-2">
+                        <label for="student-code-input" class="flex items-center text-gray-700 font-medium">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            กรอกรหัสนิสิต
+                        </label>
+                        <div class="relative">
+                            <input
+                                id="student-code-input"
+                                name="student_code"
+                                type="text"
+                                value="{{ request('student_code') }}"
+                                placeholder="กรอกรหัสนิสิต"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+                           placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                           transition-all duration-200"
+                            >
+                        </div>
                     </div>
                 </div>
 
+                <!-- Advanced Search Options -->
+                <div class="bg-white shadow-lg rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="flex items-center font-semibold text-lg text-gray-700 mb-6">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                            </svg>
+                            ค้นหาด้วย
+                        </h3>
 
-                <div class="bg-white shadow-lg p-6 rounded-lg border border-gray-200">
-                    <p class="font-bold text-lg mb-4 text-gray-700"> ค้นหาด้วย : </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="course-curriculum" class="block text-gray-600">หลักสูตร</label>
-                            <select name="course_curriculum" class="w-full border-gray-300 rounded-lg shadow-sm">
-                                <option value="">เลือก</option>
-                                <option value="2560" {{ request('course_curriculum') == '2560' ? 'selected' : '' }}> 2560 </option>
-                                <option value="2564" {{ request('course_curriculum') == '2564' ? 'selected' : '' }}> 2564 </option>
-                                <option value="2565" {{ request('course_curriculum') == '2565' ? 'selected' : '' }}> 2565 </option>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Curriculum Select -->
+                            <div class="space-y-2">
+                                <label for="course-curriculum" class="block text-gray-600 font-medium">หลักสูตร</label>
+                                <select
+                                    name="course_curriculum"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+                               focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                               transition-all duration-200"
+                                >
+                                    <option value="">เลือกหลักสูตร</option>
+                                    <option value="2560" {{ request('course_curriculum') == '2560' ? 'selected' : '' }}>หลักสูตร 2560</option>
+                                    <option value="2564" {{ request('course_curriculum') == '2564' ? 'selected' : '' }}>หลักสูตร 2564</option>
+                                    <option value="2565" {{ request('course_curriculum') == '2565' ? 'selected' : '' }}>หลักสูตร 2565</option>
+                                </select>
+                            </div>
 
-                            </select>
-                        </div>
-                        <div>
-                            <label for="student-type" class="block text-gray-600">ภาคการศึกษา</label>
-                            <select name="student_type" class="w-full border-gray-300 rounded-lg shadow-sm">
-                                <option value="">เลือก</option>
-                                <option value="regular" {{ request('student_type') == 'regular' ? 'selected' : '' }}> ปกติ </option>
-                                <option value="special" {{ request('student_type') == 'special' ? 'selected' : '' }}> พิเศษ </option>
-                            </select>
+                            <!-- Student Type Select -->
+                            <div class="space-y-2">
+                                <label for="student-type" class="block text-gray-600 font-medium">ภาคการศึกษา</label>
+                                <select
+                                    name="student_type"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+                               focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                               transition-all duration-200"
+                                >
+                                    <option value="">เลือกภาคการศึกษา</option>
+                                    <option value="regular" {{ request('student_type') == 'regular' ? 'selected' : '' }}>ภาคปกติ</option>
+                                    <option value="special" {{ request('student_type') == 'special' ? 'selected' : '' }}>ภาคพิเศษ</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-all">
-                        ค้นหา
-                    </button>
-                </div>
 
+                    <!-- Search Button -->
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <button
+                            type="submit"
+                            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg
+                       transform transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2
+                       focus:ring-blue-500 focus:ring-offset-2"
+                        >
+                            <div class="flex items-center justify-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                ค้นหา
+                            </div>
+                        </button>
+                    </div>
+                </div>
             </form>
 
             <!-- List -->
-            <div class="space-y-4">
-                <!-- List Item -->
+            <div class="max-w-6xl mx-auto space-y-6">
                 @if (isset($data['message']))
-                    <div class="text-red-500">{{ $data['message'] }}</div>
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <p class="text-red-600">{{ $data['message'] }}</p>
+                    </div>
                 @elseif (!isset($data))
-                    <div class="w-screen h-screen text-center text-2xl"> DATA NOT FOUND </div>
+                    <div class="flex items-center justify-center min-h-[50vh]">
+                        <div class="text-2xl text-gray-500 font-medium">ไม่พบข้อมูล</div>
+                    </div>
                 @else
                     @foreach($data as $listItem)
-                        <div class="p-2 rounded-lg flex flex-col justify-between items-start gap-3">
+                        <div class="rounded-lg">
                             <x-course-card
                                 :listItem="$listItem"
                                 :courses="$listItem->courses ?? []"
@@ -225,7 +293,6 @@
                         </div>
                     @endforeach
                 @endif
-
             </div>
 
         </div>

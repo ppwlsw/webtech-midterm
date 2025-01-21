@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
+Route::get('/', function () {
+    return redirect('/login');
+});
+
 Route::get('/students',[
     \App\Http\Controllers\StudentController::class, 'getAllStudents'
 ])->name('get-students');
@@ -19,11 +23,18 @@ Route::get('/students/enrolled', [
     \App\Http\Controllers\StudentController::class, 'getEnrolledCourseByStudentCode'
 ])->name('get-enrolled-course');
 
+//Resource
+Route::resource('/students', StudentController::class);
 
+//PDF
+
+Route::get('/pdf/resignation', [\App\Http\Controllers\PDF\PDFResignationController::class, 'pdf'])->name('pdf-resignation.pdf');
+Route::get('/pdf/leave-request', [\App\Http\Controllers\PDF\PDFLeaveRequestController::class, 'pdf'])->name('pdf-leave-request.pdf');
+Route::get('/pdf/ku3', [\App\Http\Controllers\PDF\PDFKU3Controller::class, 'pdf'])->name('pdf-ku3.pdf');
 
 Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
-Route::get('/login', function () {return view('login/index');})->name('login');
+
 
 Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
 Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
@@ -49,6 +60,5 @@ Route::get('/achievement/create', function () {return view('/achievement/create'
 Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
 Route::get('/activity', function () {return view('/activity/index');})->name('activity');
-
 
 

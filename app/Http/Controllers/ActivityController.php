@@ -19,7 +19,9 @@ class ActivityController extends Controller
     public function index()
     {
         $activities = $this->activityRepository->get();
-        return view('announcement.index', ['activities' => $activities]);
+        return view('announcement.index', [
+            'activities' => $activities
+        ]);
 //        return ['activities' => $activities];
     }
 
