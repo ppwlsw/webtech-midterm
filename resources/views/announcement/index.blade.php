@@ -1,6 +1,6 @@
 @extends('layouts.nav')
 @section('topic','ข่าวสารนิสิต')
-
+@props(['activities'])
 <body class="pt-20 w-full bg-gray-100 font-sans">
 <div class="flex h-screen">
 
@@ -10,28 +10,35 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-6">
-        <!-- Announcement -->
-        <section class="mb-8">
-            <a href="{{ route('create-announcement') }}" class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Announcement</h2>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create new announcement
-                </button>
-            </a>
-            <div class="grid grid-cols-3 gap-4">
+        <div class="flex-1 p-6">
+            <!-- Announcement -->
+            <section class="mb-8">
+                <form action="{{ route('announcement.create') }}" method="GET"  class="flex justify-between items-center mb-4">
+                    @csrf
+{{--                    @method('PUT')--}}
+                    <h2 class="text-xl font-bold">Announcement</h2>
 
-                @foreach($activities->slice(0, 3) as $activity)
-                    <a href="{{ route('detail-announcement', ['activity', $activity]) }}" class="bg-gray-200 p-4 h-72 rounded-md">
-                        {{ $activity->activity_name }}
-                    </a>
-                @endforeach
+                    @can('create', \App\Models\User::class)
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Create new announcement
+                        </button>
+                    @endcan
+                </form>
 
-            </div>
-        </section>
+                <div class="grid grid-cols-3 gap-4">
+
+                    @foreach($activities->slice(0, 3) as $activity)
+                        <a href="{{ route('announcement.show', ['activity' => $activity]) }}" class="bg-gray-200 p-4 h-72 rounded-md">
+                            {{ $activity->activity_name }}
+                        </a>
+                    @endforeach
+
+                </div>
+            </section>
 
         <!-- Search Bar -->
         <div class="mb-8">
             <form action="{{ route('announcement') }}" method="GET" class="flex">
+                @csrf
                 <input
                     type="text"
                     name="search"
@@ -55,7 +62,7 @@
 
                 @foreach($filteredActivities as $activity)
                     <li class="bg-white p-4 rounded-md shadow-sm">
-                        <a href="{{ route('detail-announcement', ['activity' => $activity]) }}">
+                        <a href="{{ route('announcement.show', ['activity' => $activity]) }}">
                             {{ $activity->activity_name }}
                         </a>
                     </li>

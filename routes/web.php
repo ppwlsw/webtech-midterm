@@ -42,11 +42,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
     Route::get('/announcement', [ActivityController::class, 'index'])->name('announcement');
-    Route::get('/announcement/detail', [ActivityController::class, 'show'])->name('detail-announcement');
-
-
-    Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
-    Route::get('/announcement/edit', function () {return view('/announcement/edit');})->name('edit-announcement');
+    Route::get('/announcement/activity', [ActivityController::class, 'show'])->name('announcement.show');
+    Route::get('/announcement/create', [ActivityController::class, 'create'])->name('announcement.create');
+    Route::post('/announcement/store', [ActivityController::class, 'store'])->name('announcement.store');
+    Route::get('/announcement/{activity}/edit', [ActivityController::class, 'edit'])->name('announcement.edit');
+    Route::put('/announcement/{activity}', [ActivityController::class, 'update'])->name('announcement.update');
 
     Route::get('/document', function () {return view('/document/index');})->name('document');
     Route::get('/document/create', function () {return view('/document/create');})->name('create-document');
@@ -59,11 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get("/grade/create-alumni",function () {return view('/grade/create-alumni');})->name("create-alumni-grade");
     Route::get('/grade/list', function () {return view('/grade/list');})->name('list-grade');
 
-
     Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement');
     Route::get('/achievement/create', [AchievementController::class, 'create'])->name('create-achievement');
     Route::post('/achievement', [AchievementController::class, 'store'])->name('store-achievement');
-
 
     Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
