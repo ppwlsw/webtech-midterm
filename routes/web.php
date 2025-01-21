@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +29,11 @@ Route::get('/students/enrolled', [
 Route::resource('/students', StudentController::class);
 Route::resource('/alumni', AlumniController::class);
 Route::get('/alumni/show', [alumniController::class, 'show'])->name('alumni.show');
+    Route::resource('/students', StudentController::class);
+    Route::get('/staff/edit', [StudentController::class, 'editStudentsPage'] )->name('edit-student');
+    Route::get('/staff/search', [StudentController::class, 'search'])->name('students.search');
+    Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
+    Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
 //PDF
 
 Route::get('/pdf/resignation', [\App\Http\Controllers\PDF\PDFResignationController::class, 'pdf'])->name('pdf-resignation.pdf');
@@ -67,7 +71,5 @@ Route::get('/achievement/create', function () {return view('/achievement/create'
 Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
 Route::get('/activity', function () {return view('/activity/index');})->name('activity');
-
-
 
 

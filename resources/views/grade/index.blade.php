@@ -2,8 +2,6 @@
 @section('topic','ตรวจสอบผลการเรียน')
 @props(['data', 'coursesData'])
 
-
-
 @php
     $gradePoints = [
         'A' => 4.0,
@@ -32,12 +30,6 @@
     }
 
 @endphp
-
-
-
-
-
-
 
 <body class="pt-20 w-full bg-gray-100 font-sans">
 <div class="flex h-screen">
@@ -274,18 +266,15 @@
             </form>
 
             <!-- List -->
-            <div class="max-w-6xl mx-auto space-y-6">
+            <div class="space-y-4">
+                <!-- List Item -->
                 @if (isset($data['message']))
-                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
-                        <p class="text-red-600">{{ $data['message'] }}</p>
-                    </div>
+                    <div class="text-red-500">{{ $data['message'] }}</div>
                 @elseif (!isset($data))
-                    <div class="flex items-center justify-center min-h-[50vh]">
-                        <div class="text-2xl text-gray-500 font-medium">ไม่พบข้อมูล</div>
-                    </div>
+                    <div class="w-screen h-screen text-center text-2xl"> DATA NOT FOUND </div>
                 @else
                     @foreach($data as $listItem)
-                        <div class="rounded-lg">
+                        <div class="p-2 rounded-lg flex flex-col justify-between items-start gap-3">
                             <x-course-card
                                 :listItem="$listItem"
                                 :courses="$listItem->courses ?? []"
@@ -293,6 +282,7 @@
                         </div>
                     @endforeach
                 @endif
+
             </div>
 
         </div>

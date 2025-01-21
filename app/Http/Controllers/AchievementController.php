@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAchievementRequest;
 use App\Models\Achievement;
+use App\Models\Student;
 use App\Repositories\AchievementRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
@@ -20,8 +21,11 @@ class AchievementController extends Controller
     public function index()
     {
         $user_id = auth()->id();
+        $student_id = $this->studentRepository->getStudentByUserId($user_id)->id;
 
-        $achievements = $this->studentRepository->getStudentByUserId($user_id)->achievement;
+//        $achievements = $this->studentRepository->getStudentByUserId($student_id)->achievement;
+//        $achievements = $this->achievementRepository->getAll();
+        $achievements = $this->achievementRepository->getAchievementByStudentId($student_id);
         return view('achievement.index', ['achievements' => $achievements]);
 //        return ['achievements' => $achievements];
     }
@@ -39,11 +43,30 @@ class AchievementController extends Controller
      */
     public function store(StoreAchievementRequest $request)
     {
-        $validated = $request->validated();
+        //dd($request);
+        $student_id = auth()->user()->student->id;
 
-        $achievement = $this->achievementRepository->create($validated);
+        // Validate the request data
+        $validated = $request->validate([
+            'achievement_name' => 'required|string|max:255',
+            'achievement_type' => 'required|string|max:255',
+            'achievement_year' => 'required|integer',
+            'achievement_detail' => 'required|string',
+        ]);
 
-        return redirect()->route('achievement.index', ['achievement' => $achievement]);
+        // Add the student_id to the validated data
+        $validated['student_id'] = $student_id;
+
+        // Debugging output (optional)
+//        dd($validated);
+
+
+        // Save the data to the database
+//        Achievement::creating($validated);
+        $this->achievementRepository->create($validated);
+        $achievements = $this->achievementRepository->getAchievementByStudentId($student_id);
+
+        return redirect()->route('achievement', ['achievement' => $achievements]);
     }
 
     /**
