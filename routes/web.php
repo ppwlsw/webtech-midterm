@@ -39,7 +39,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
 
-    Route::get('/login', function () {return view('auth/login');})->name('login');
 
     Route::get('/announcement', [ActivityController::class, 'index'])->name('announcement');
     Route::get('/announcement/detail', [ActivityController::class, 'show'])->name('detail-announcement');
