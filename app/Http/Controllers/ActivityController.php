@@ -16,13 +16,21 @@ class ActivityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $activities = $this->activityRepository->get();
+        $search = $request->query('search');
+
+        $allActivities = $this->activityRepository->getAll();
+
+        $filteredActivities = $search
+            ? $this->activityRepository->filterByName($search)
+            : $allActivities;
+
         return view('announcement.index', [
-            'activities' => $activities
+            'activities' => $allActivities,
+            'filteredActivities' => $filteredActivities,
+            'searchTerm' => $search,
         ]);
-//        return ['activities' => $activities];
     }
 
 
@@ -59,7 +67,7 @@ class ActivityController extends Controller
             'condition' => $condition
         ]);
 
-        return redirect()->route('announcement.detail', ['activity' => $activity]);
+        return redirect()->route('detail-announcement', ['activity' => $activity]);
     }
 
     /**
@@ -95,7 +103,7 @@ class ActivityController extends Controller
             'condition' => $request->input('condition')
         ], $activity->id);
 
-        return redirect()->route('announcement.detail', ['activity' => $activity]);
+        return redirect()->route('detail-announcement', ['activity' => $activity]);
     }
 
     /**

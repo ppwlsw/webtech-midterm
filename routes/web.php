@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +17,7 @@ Route::get('/students',[
 
 Route::get('/student/info',[
     \App\Http\Controllers\StudentController::class, 'getStudentByUserId'
-])->name('get-student-info');
+])->name('get-students-info');
 
 
 //Course
@@ -35,10 +37,13 @@ Route::get('/pdf/ku3', [\App\Http\Controllers\PDF\PDFKU3Controller::class, 'pdf'
 Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
 
+Route::get('/login', function () {return view('auth/login');})->name('login');
 
-Route::get('/announcement', function () {return view('/announcement/index');})->name('announcement');
+Route::get('/announcement', [ActivityController::class, 'index'])->name('announcement');
+Route::get('/announcement/detail', [ActivityController::class, 'show'])->name('detail-announcement');
+
+
 Route::get('/announcement/create', function () {return view('/announcement/create');})->name('create-announcement');
-Route::get('/announcement/detail', function () {return view('/announcement/detail');})->name('detail-announcement');
 Route::get('/announcement/edit', function () {return view('/announcement/edit');})->name('edit-announcement');
 
 Route::get('/document', function () {return view('/document/index');})->name('document');
