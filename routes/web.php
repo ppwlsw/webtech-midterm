@@ -38,8 +38,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 
-
-
     Route::get('/announcement', [ActivityController::class, 'index'])->name('announcement');
     Route::get('/announcement/detail', [ActivityController::class, 'show'])->name('detail-announcement');
 
@@ -69,10 +67,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/activity', function () {return view('/activity/index');})->name('activity');
 });
 
-
-Route::get('/', function () {
-    return redirect('/login');
-});
-
-
-
+Route::get('/', function () {return redirect('login');});

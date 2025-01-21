@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
         ($role === 'TEACHER' || $role === 'DEPARTMENT') ? $path = 'grade' : "";
 
 
-        return redirect()->route($role === 'STUDENT' ? 'announcement' : 'grade');
+        return redirect()->route($path);
     }
 
     /**
