@@ -21,40 +21,68 @@
 
                 <!-- Picture -->
                 <div class="mt-6">
-                    <form action="#" method="POST" class="space-y-4">
-                        <!-- Topic Name -->
+                    <form action="{{route('store-achievement')}}" method="POST" class="space-y-4">
+                        @csrf
+                        <!-- Information -->
                         <div>
-                            <label for="topic-name" class="block text-sm font-medium text-gray-700">Detail</label>
-                            <textarea
-                                id="detail"
-                                name="detail"
-                                rows="4"
+                            <label class="block text-sm font-medium text-gray-700">Type</label>
+                            <input
+                                type="text"
+                                id="achievement_type"
+                                name="achievement_type"
                                 class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                             >
-                    </textarea>
                         </div>
 
                         <div>
-                            <label for="topic-name" class="block text-sm font-medium text-gray-700">Type</label>
+                            <label class="block text-sm font-medium text-gray-700">Name</label>
                             <input
                                 type="text"
-                                id="type"
-                                name="type"
+                                id="achievement_name"
+                                name="achievement_name"
+                                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            >
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Year</label>
+                            <input
+                                type="text"
+                                id="achievement_year"
+                                name="achievement_year"
                                 class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                              >
                         </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Detail</label>
+                            <textarea
+                                id="achievement_detail"
+                                name="achievement_detail"
+                                rows="4"
+                                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            >
+                            </textarea>
+                        </div>
+
+
+{{--                    <h3 class="text-lg font-bold mb-4">Achievement Picture</h3>--}}
+{{--                    <div class="bg-gray-200 h-48 rounded-md flex items-center justify-center">--}}
+{{--                        <span class="text-gray-500">Picture Placeholder</span>--}}
+{{--                    </div>--}}
+
+
+                        <!-- Button -->
+                        <div class="flex justify-between">
+                            <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</a>
+                            <a href="{{route('store-achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                <button type="submit">
+                                    Save
+                                </button>
+                            </a>
+                        </div>
+
                     </form>
-
-                    <h3 class="text-lg font-bold mb-4">Achievement Picture</h3>
-                    <div class="bg-gray-200 h-48 rounded-md flex items-center justify-center">
-                        <span class="text-gray-500">Picture Placeholder</span>
-                    </div>
-                </div>
-
-                <!-- Button -->
-                <div class="flex justify-between">
-                    <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</a>
-                    <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</a>
                 </div>
             </div>
 
