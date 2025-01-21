@@ -33,7 +33,9 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         //
-        return view('grade.edit');
+        return view('students.show', [
+            'student' => $this->studentRepository->getById(auth()->user()->student->id),
+        ]);
     }
     public function profileIndex()
     {
