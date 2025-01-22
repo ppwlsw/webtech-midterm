@@ -21,7 +21,7 @@ class AlumniFactory extends Factory
         $contribution = $this->faker->realText(255);
 
         return [
-            'student_id' => fake()->randomElement(Student::all()->pluck('id')->toArray()),
+            'student_id' => fake()->randomElement(Student::where('student_status','inactive')->pluck('id')->toArray()),
             'workplace' => $workplace,
             'contribution' => $contribution,
         ];

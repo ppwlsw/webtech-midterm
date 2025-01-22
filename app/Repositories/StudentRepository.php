@@ -42,7 +42,6 @@ class StudentRepository
         if (!empty($filters['course_code'])) {
             $courseCodes = explode(',', $filters['course_code']);
 
-            // Ensure at least one student is enrolled in the specified course(s)
             $hasEnrolledStudents = $this->model::whereHas('courses', function ($q) use ($courseCodes) {
                 $q->whereIn('course_code', $courseCodes);
             })->exists();
@@ -53,7 +52,6 @@ class StudentRepository
                ]);
             }
 
-            // Filter query to only include students who are enrolled in at least one of the specified courses
             $query->whereHas('courses', function ($q) use ($courseCodes) {
                 $q->whereIn('course_code', $courseCodes);
             });
