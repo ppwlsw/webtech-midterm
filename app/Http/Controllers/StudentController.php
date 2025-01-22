@@ -52,7 +52,7 @@ class StudentController extends Controller
 
     public function getEnrolledCourseByStudentCode(Request $request)
     {
-        dd($request);
+       return $this->staffIndex($request);
     }
 
     public function getAllStudents(Request $request)

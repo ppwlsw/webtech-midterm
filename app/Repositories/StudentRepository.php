@@ -23,7 +23,6 @@ class StudentRepository
     public function filterStudents(array $filters): Collection
     {
         $query = $this->model::query();
-
         if (isset($filters['course_curriculum'])) {
             $query->whereHas('courses', function ($q) use ($filters) {
                 $q->where('course_curriculum', $filters['course_curriculum']);

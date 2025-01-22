@@ -153,12 +153,12 @@
         </div>
         <!-- Main -->
         <div class="flex-1 p-6">
-            <form method="GET" action="{{ route('grade') }}" class="space-y-6">
+            <form method="GET" action="{{ route('get-enrolled-course') }}" class="space-y-6">
                 <!-- Primary Search Fields -->
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Course Code Search -->
                     <div class="space-y-2">
-                        <label for="course-code-input" class="flex items-center text-gray-700 font-medium">
+                        <label for="course_code" class="flex items-center text-gray-700 font-medium">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
@@ -167,10 +167,9 @@
                         </label>
                         <div class="relative">
                             <input
-                                id="course-code-input"
+                                id="course_code"
                                 name="course_code"
                                 type="text"
-                                value="{{ request('course_code') }}"
                                 placeholder="เช่น 001101, 261103"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
                            placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
@@ -192,7 +191,6 @@
                                 id="student-code-input"
                                 name="student_code"
                                 type="text"
-                                value="{{ request('student_code') }}"
                                 placeholder="กรอกรหัสนิสิต"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
                            placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
