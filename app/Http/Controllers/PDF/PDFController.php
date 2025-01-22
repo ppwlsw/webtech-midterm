@@ -64,28 +64,6 @@ abstract class PDFController extends Controller
         $this->writeInPosition($pdf, $x + 1.25, $y - 0.75, "/");
     }
 
-//    protected function getSemester() {
-//        $date_array = $this->getDateTime();
-//        $period = "ต้น";
-//        $semester_year = $date_array['full_year'];
-//        if (in_array($date_array['month'], [12, 1, 2, 3, 4]) ||
-//            ((int) $date_array['day'] > 15 && $date_array['month'] == 11)) {
-//            $period = "ปลาย";
-//            if ($date_array['month'] != 12) {
-//                $semester_year = $date_array['full_year'] - 1;
-//            }
-//        }
-//        return [
-//            'period' => $period,
-//            'semester_year' => (string) $semester_year,
-//        ];
-//    }
 
-    /**
-     * @throws CrossReferenceException
-     * @throws PdfReaderException
-     * @throws PdfParserException
-     * @throws PdfTypeException
-     * @throws FilterException
-     */
+
 }

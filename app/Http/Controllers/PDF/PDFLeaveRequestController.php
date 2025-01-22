@@ -7,13 +7,6 @@ use App\Repositories\StudentRepository;
 
 class PDFLeaveRequestController extends PDFController
 {
-    /**
-
-    @throws CrossReferenceException
-    @throws PdfReaderException
-    @throws PdfParserException
-    @throws PdfTypeException
-    @throws FilterException*/
 
     public function __construct(
         private StudentRepository $studentRepository,
