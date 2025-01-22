@@ -14,7 +14,7 @@
 
         <!-- Navigation Buttons -->
         <div class="flex justify-between mb-6">
-            <a href="{{ route('profile') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            <a href="{{ route('students.show', ['student' => auth()->user()->student]) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                 Back
             </a>
             <a href="{{ route('create-achievement') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
