@@ -3,19 +3,6 @@
 @props(['data', 'coursesData'])
 
 @php
-    $gradePoints = [
-        'A' => 4.0,
-        'B+' => 3.5,
-        'B' => 3.0,
-        'C+' => 2.5,
-        'C' => 2.0,
-        'D+' => 1.5,
-        'D' => 1.0,
-        'F' => 0.0
-    ];
-
-
-
     $totalPoints = 0;
     $totalCredits = 0;
     if (isset($coursesData)){
@@ -122,16 +109,16 @@
                                     <div class="md:w-1/6 text-center">
                                         <p class="text-sm text-gray-500 mb-1">เกรด</p>
                                         <span class="inline-block px-4 py-1 rounded-full font-semibold
-                            @if($course->course_grade === 'A' || $course->course_grade === 'B+' || $course->course_grade === 'B')
-                                bg-green-100 text-green-800
-                            @elseif($course->course_grade === 'C+' || $course->course_grade === 'C')
-                                bg-yellow-100 text-yellow-800
-                            @else
-                                bg-red-100 text-red-800
-                            @endif
-                        ">
-                            {{ $course->course_grade }}
-                        </span>
+                                           @if($course->course_grade == 4 || $course->course_grade == 3.5 || $course->course_grade == 3)
+                                             bg-green-100 text-green-800
+                                           @elseif($course->course_grade == 2.5 || $course->course_grade == 2 )
+                                                bg-yellow-100 text-yellow-800
+                                           @else
+                                                bg-red-100 text-red-800
+                                           @endif
+                                          ">
+                        {{ $course->course_grade }}
+                    </span>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +140,7 @@
         </div>
         <!-- Main -->
         <div class="flex-1 p-6">
-            <form method="GET" action="{{ route('get-enrolled-course') }}" class="space-y-6">
+            <form method="GET" action="{{ route('grade') }}" class="space-y-6">
                 <!-- Primary Search Fields -->
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Course Code Search -->

@@ -26,9 +26,9 @@ class CourseResultSeeder extends Seeder
                 DB::table('course_result')->insert([
                     'course_id' => $course->id,
                     'student_id' => $student->id,
-                    'semester' => ['1', '2'][array_rand(['1', '2'])], // Random semester
+                    'semester' => fake()->randomElement([1,1.5,2,2.5,3,3.5,4]),
                     'academic_year' => rand(2020, 2025),
-                    'course_grade' => ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F'][array_rand(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F'])], // Random grade
+                    'course_grade' => fake()->randomElement([1,1.5,2,2.5,3,3.5,4]) , // Random grade
                 ]);
             }
         }

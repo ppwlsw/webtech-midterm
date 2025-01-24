@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -20,19 +19,12 @@ Route::middleware('auth')->group(function () {
     ])->name('get-students-info');
 
 
-//Course
-    Route::get('/students/enrolled', [
-        \App\Http\Controllers\StudentController::class, 'getEnrolledCourseByStudentCode'
-    ])->name('get-enrolled-course');
-
 //Resource
     Route::resource('/students', StudentController::class);
     Route::get('/staff/edit', [StudentController::class, 'editStudentsPage'] )->name('edit-student');
     Route::get('/staff/search', [StudentController::class, 'search'])->name('students.search');
     Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
     Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
-    Route::resource('/alumni', AlumniController::class);
-    Route::get('/alumni/show', [AlumniController::class, 'show'])->name('alumni.show');
 //PDF
 
     Route::get('/pdf/resignation', [\App\Http\Controllers\PDF\PDFResignationController::class, 'pdf'])->name('pdf-resignation.pdf');

@@ -25,6 +25,8 @@ class Student extends Model
         'admission_channel',
         'admission_year',
         'student_status',
+        'workplace',
+        'contribution',
     ];
 
     public function user(): BelongsTo {
@@ -45,8 +47,5 @@ class Student extends Model
         return $this->belongsToMany(Activity::class, 'registration');
     }
 
-    public function alumnus(): hasOne
-    {
-        return $this->hasOne(Student::class);
-    }
+
 }
