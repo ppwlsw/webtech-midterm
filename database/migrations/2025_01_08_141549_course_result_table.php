@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(App\Models\Course::class);
             $table->foreignIdFor(App\Models\Student::class);
-            $table->enum('semester',['1','2']);
-            $table->integer('academic_year')->nullable()    ;
-            $table->enum('course_grade',['A','B+','B','C+','C','D+','D','F']);
+            $table->float('semester');
+            $table->integer('academic_year');
+            $table->integer('course_grade')->nullable();
             $table->timestamps();
 
         });

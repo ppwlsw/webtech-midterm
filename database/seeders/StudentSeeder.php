@@ -15,35 +15,44 @@ class StudentSeeder extends Seeder
 
     public function run(): void
     {
-        // Fetch users with the 'STUDENT' role
+        $faker = \Faker\Factory::create('th_TH');
+
         $users = User::where('role', 'STUDENT')->get();
 
-
-        // Ensure we have enough users with 'STUDENT' role
         if ($users->isEmpty()) {
             $this->command->info('No users found with the "STUDENT" role.');
             return;
         }
 
-        // Create a Student record for each user with the 'STUDENT' role
-        $users->each(function ($user) {
+        $users->each(function ($user) use ($faker) {
+            $names = explode(" ", $user->name);
+            $first_name = $names[0];
+            $last_name = $names[1];
+            $admission_year = $faker->year();
+            $student_status = $faker->randomElement(['active', 'inactive']);
 
-            $first_name = explode(" ",$user->name)[0];
-            $last_name = explode(" ",$user->name)[1];
-            Student::create([
-                'user_id' => $user->id, // Link the user_id to the existing user
-                'student_code' => fake()->unique()->isbn10(),
+            $completionDate = [];
+            if ($student_status === 'inactive') {
+                $completionDate['completion_year'] = $faker->numberBetween((int)$admission_year + 4, (int)$admission_year + 8);
+            }
+
+            $completionData = array_merge([
+                'user_id' => $user->id,
+                'student_code' => $faker->unique()->isbn10(),
                 'first_name' => $first_name,
                 'last_name' => $last_name,
-                'student_type' => fake()->randomElement(['regular', 'special']),
-                'contact_info' => fake()->address(),
-                'telephone_num' => fake()->phoneNumber(),
-                'admission_channel' => fake()->randomElement(['1', '2', '3']),
-                'admission_year' => $admission_year = fake()->year(),
-                'completion_year' => fake()->numberBetween((int)$admission_year + 4, (int)$admission_year + 8) ?? null,
-                'student_status' => fake()->randomElement(['active', 'inactive']),
-                'curriculum' => fake()->randomElement(['65', '60']),
-            ]);
+                'student_type' => $faker->randomElement(['regular', 'special']),
+                'contact_info' => $faker->address(),
+                'telephone_num' => $faker->phoneNumber(),
+                'admission_channel' => $faker->randomElement(['1', '2', '3']),
+                'admission_year' => $admission_year,
+                'student_status' => $student_status,
+                'curriculum' => $faker->randomElement(['65', '60']),
+                'workplace' =>  $faker->company(),
+                'contribution' => $faker->paragraph()
+            ], $completionDate);
+
+            Student::create($completionData);
         });
     }
 }
