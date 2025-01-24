@@ -7,13 +7,15 @@ use App\Models\User;
 use App\Repositories\CourseRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
     public function __construct(
         private StudentRepository $studentRepository,
-        private CourseRepository $courseRepository,
     ){}
     /**
      * Display a listing of the resource.
@@ -23,7 +25,6 @@ class StudentController extends Controller
         if (Gate::allows('teacherView', User::class)) {
             return $this->staffIndex(new Request());
         }
-
         $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
         $courses = $this->studentRepository->getStudentEnrolledCourses($student->id);
         return view('grade.index', ["data" => $student
@@ -50,25 +51,19 @@ class StudentController extends Controller
             return view('grade.student-list', ["data" => $this->studentRepository->getAll()]);
     }
 
-    public function getEnrolledCourseByStudentCode(Request $request)
-    {
-       return $this->staffIndex($request);
-    }
-
     public function getAllStudents(Request $request)
     {
         Gate::authorize('getAllStudents', User::class);
-        return $this->studentRepository->getAll();
+        return $this->studentRepository->getActiveStudents($request);
     }
 
-    public function queryStudents(Request $request){
+    public function staffIndex(Request $request){
         Gate::authorize('teacherView', User::class);
         $curriculum = $request->get('course_curriculum') ;
         $student_type = $request->get('student_type');
         $student_name = $request->get('student_name');
         $student_code = $request->get('student_code');
         $course_code = $request->get('course_code');
-
 
         $request = [
             'course_curriculum' => $curriculum,
@@ -77,14 +72,8 @@ class StudentController extends Controller
             'student_code' => $student_code,
             'course_code' => $course_code,
         ];
-        return $this->studentRepository->filterStudents($request);
 
-    }
-
-    public function staffIndex(Request $request){
-        Gate::authorize('teacherView', User::class);
-
-        $data = $this->queryStudents($request);
+        $data = $this->studentRepository->filterStudents($request);
         if ($data->has('message')) {
             return view('grade.index', ["data" => $data]);
         }
@@ -93,13 +82,13 @@ class StudentController extends Controller
                 'course_code',
                 'course_name',
                 'credit',
-                'course_grade'
+                'course_grade',
+                'course_category'
             )->get()->toArray();
         }
 
         return view('grade.index', ["data" => $data]);
     }
-
 
     public function search(Request $request)
     {
@@ -139,6 +128,7 @@ class StudentController extends Controller
         }
 
 
+
         $data = $query->get();
 
         return view('grade.student-list', ["data" => $data]);
@@ -151,21 +141,68 @@ class StudentController extends Controller
 
     public function update(Request $request, Student $student)
     {
+        if ($student->student_status === 'inactive') {
+            return back()->with('error', 'ไม่สามารถแก้ไขข้อมูลนิสิตที่จบการศึกษาแล้ว');
+        }
+
         $validated = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'student_type' => 'required',
-            'student_status' => 'required',
-            'curriculum' => 'required',
-            'completion_year' => 'required',
-            'contact_info' => 'required',
-            'telephone_num' => 'required',
+            'student_status' => ['required', 'in:active,inactive'],
+            'completion_year' => ['required'],
         ]);
 
         $student->update($validated);
 
-        return redirect()->route('edit-student', $student)
-            ->with('success', 'อัปเดตข้อมูลนิสิตเรียบร้อยแล้ว');
+        $data = $student->toArray();
+
+        return redirect()->route('students.search', ["data" => $data])
+            ->with('success', 'อัพเดทสถานะนิสิตเรียบร้อยแล้ว');
     }
+
+    public function create(){
+        return view('students.create');
+    }
+    public function store(Request $request){
+        $validated = $request->validate([
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'student_code' => 'required|unique:students',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'student_type' => 'required|in:regular,special',
+            'contact_info' => 'nullable',
+            'telephone_num' => 'required',
+            'curriculum' => 'required',
+            'admission_channel' => 'required',
+            'admission_year' => 'required|numeric',
+
+        ]);
+
+
+        DB::transaction(function () use ($validated) {
+            $user = User::create([
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role' => 'STUDENT',
+                'name' => $validated['first_name'] . ' ' . $validated['last_name'],
+                'remember_token' => Str::random(10),
+
+            ]);
+            $student = new Student([
+                'student_code' => $validated['student_code'],
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'student_type' => $validated['student_type'],
+                'contact_info' => $validated['contact_info'],
+                'telephone_num' => $validated['telephone_num'],
+                'curriculum' => $validated['curriculum'],
+                'admission_channel' => $validated['admission_channel'],
+                'admission_year' => $validated['admission_year'],
+                'student_status' => 'active',
+            ]);
+            $user->student()->save($student);
+        });
+        return view('students.create');
+    }
+
 
 }

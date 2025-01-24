@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Student;
 use App\Repositories\Traits\RestAPI;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class StudentRepository
 {
@@ -77,5 +78,9 @@ class StudentRepository
         return $enrolledCourses;
     }
 
-
+    public function getActiveStudents()
+    {
+        $query = $this->model::query();
+        return  $query->where('student_status', 'active')->get();
+    }
 }

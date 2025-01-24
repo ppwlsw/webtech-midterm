@@ -1,22 +1,12 @@
 @props(['courses', 'listItem'])
 @php
-        $gradePoints = [
-            'A' => 4.0,
-            'B+' => 3.5,
-            'B' => 3.0,
-            'C+' => 2.5,
-            'C' => 2.0,
-            'D+' => 1.5,
-            'D' => 1.0,
-            'F' => 0.0
-        ];
 
         $totalPoints = 0;
         $totalCredits = 0;
 
         foreach ($courses as $course) {
             if (isset($course['course_grade']) && isset($course['credit'])) {
-                $totalPoints += ($gradePoints[$course['course_grade']] ?? 0) * $course['credit'];
+                $totalPoints += ($course['course_grade']) * $course['credit'];
                 $totalCredits += $course['credit'];
             }
         }
@@ -95,21 +85,17 @@
                             <span class="text-sm text-gray-500">รหัสวิชา</span>
                             <span class="font-medium">{{ $course['course_code'] }}</span>
                         </div>
-{{--                        <div class="flex flex-col">--}}
-{{--                            <span class="text-sm text-gray-500">รหัสวิชา</span>--}}
-{{--                            <span class="font-medium">{{ $course['academic_year'] }}</span>--}}
-{{--                        </div>--}}
+
                         <div class="col-span-2 flex flex-col">
                             <span class="text-sm text-gray-500">ชื่อวิชา</span>
                             <span class="font-medium">{{ $courseName[0] }}</span>
-{{--                            <span class="text-sm text-gray-600">{{ $courseName[1] }}</span>--}}
                             <span class="text-sm text-gray-600">{{ $courseName[1] ?? '' }}</span>
                         </div>
                         <div class="flex flex-col items-end">
                             <span class="text-sm text-gray-500">เกรด</span>
                             <span class="inline-block px-3 py-1 rounded-full text-sm font-medium
-                                {{ $course['course_grade'] === 'A' ? 'bg-green-100 text-green-700' :
-                                   ($course['course_grade'] === 'F' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700') }}">
+                                {{ $course['course_grade'] === 4 ? 'bg-green-100 text-green-700' :
+                                   ($course['course_grade'] === 0 ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700') }}">
                                 {{ $course['course_grade'] }}
                             </span>
                         </div>
