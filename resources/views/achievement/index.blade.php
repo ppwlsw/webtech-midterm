@@ -32,14 +32,16 @@
             <div class="space-y-4">
                 @foreach($achievements as $achievement)
                     <div class="bg-gray-100 p-4 rounded-md shadow-sm">
-                        <div class="flex justify-between text-sm text-gray-700 font-medium">
-                            <span>{{ $achievement->achievement_type }}</span>
-                            <span>{{ $achievement->achievement_year }}</span>
-                        </div>
-                        <span>{{ $achievement->achievement_name }}</span>
-                        <p class="text-gray-600 mt-2">
-                            {{ $achievement->achievement_detail }}
-                        </p>
+                        <a href="{{route("update-achievement", ['$achievement' => $achievement])}}">
+                            <div class="flex justify-between text-sm text-gray-700 font-medium">
+                                <span>{{ $achievement->achievement_type }}</span>
+                                <span>{{ $achievement->achievement_year }}</span>
+                            </div>
+                            <span>{{ $achievement->achievement_name }}</span>
+                            <p class="text-gray-600 mt-2">
+                                {{ $achievement->achievement_detail }}
+                            </p>
+                        </a>
                     </div>
                 @endforeach
             </div>

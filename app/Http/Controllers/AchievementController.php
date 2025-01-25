@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAchievementRequest;
 use App\Models\Achievement;
 use App\Models\Student;
+use App\Models\User;
 use App\Repositories\AchievementRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AchievementController extends Controller
 {
@@ -82,7 +84,8 @@ class AchievementController extends Controller
      */
     public function edit(Achievement $achievement)
     {
-        // students cannot edit
+        Gate::authorize('update', User::class);
+        return view('achievement.edit', ['achievement' => $achievement]);
     }
 
     /**
@@ -90,7 +93,16 @@ class AchievementController extends Controller
      */
     public function update(Request $request, Achievement $achievement)
     {
-        // students cannot update
+        Gate::authorize('update', User::class);
+        $validated = $request->validated();
+        $this->achievementRepository->update([
+            'achievement_name' => $validated['achievement_name'],
+            'achievement_type' => $validated['achievement_type'],
+            'achievement_year' => $validated['achievement_year'],
+            'achievement_detail' => $validated['achievement_detail'],
+        ], $achievement->id);
+
+        return redirect()->route('achievement', ['achievement' => $achievement]);
     }
 
     /**
