@@ -1,0 +1,127 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Course;
+use App\Models\Student;
+use App\Models\User;
+use App\Repositories\CourseRepository;
+use App\Repositories\EnrollmentRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
+class EnrollmentController extends Controller
+{
+    public function __construct(
+        private EnrollmentRepository $enrollmentRepository, private CourseRepository $courseRepository
+    ){}
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    public function availableCourses()
+    {
+        $student = auth()->user()->student;
+        $availableCourses = Course::whereDoesntHave('students', function($query) use ($student) {
+            $query->where('student_id', $student->id);
+        })->get();
+        return view('enrollments.available', compact('availableCourses'));
+    }
+
+    public function enroll(Request $request)
+    {
+        $validatedData = $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'semester' => 'required',
+            'academic_year' => 'required',
+        ]);
+
+        $student =auth()->user()->student;
+        $course = Course::findOrFail($validatedData['course_id']);
+        $semester = $validatedData['semester'];
+        $academicYear = $validatedData['academic_year'];
+
+        if ($this->enrollmentRepository->enrollCourse($student, $course, $semester, $academicYear)) {
+            return redirect()->back()->with('success', 'Enrollment request submitted.');
+        }
+
+        return redirect()->back()->with('error', 'Enrollment failed. Check prerequisites.');
+    }
+
+    public function pendingEnrollments()
+    {
+        Gate::authorize('teacherView', User::class);
+        $pendingEnrollments = $this->enrollmentRepository->getPendingEnrollments();
+        return view('enrollments.pending', compact('pendingEnrollments'));
+    }
+
+    public function approve(Request $request)
+    {
+       Gate::authorize('approveEnrollment', User::class);
+        $this->enrollmentRepository->approveEnrollment($request->enrollment_id);
+        return redirect()->back()->with('success', 'Enrollment approved.');
+    }
+
+    public function reject(Request $request)
+    {
+        Gate::authorize('approveEnrollment', User::class);
+        $this->enrollmentRepository->rejectEnrollment($request->enrollment_id);
+        return redirect()->back()->with('success', 'Enrollment rejected.');
+    }
+
+
+
+}

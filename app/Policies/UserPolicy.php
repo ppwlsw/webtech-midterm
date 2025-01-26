@@ -73,4 +73,9 @@ class UserPolicy
     {
         return  $user->isTeacher() || $user->isDepartment();
     }
+
+    public function approveEnrollment(User $user): bool
+    {
+        return  $user->isTeacher() || $user->isDepartment();
+    }
 }
