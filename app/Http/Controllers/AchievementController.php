@@ -82,9 +82,12 @@ class AchievementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Achievement $achievement)
+    public function edit($achievementId)
     {
-        Gate::authorize('update', User::class);
+//        Gate::authorize('update', User::class);
+//        dd($achievementId);
+        $achievement = $this->achievementRepository->getById($achievementId);
+
         return view('achievement.edit', ['achievement' => $achievement]);
     }
 
@@ -93,15 +96,18 @@ class AchievementController extends Controller
      */
     public function update(Request $request, Achievement $achievement)
     {
-        Gate::authorize('update', User::class);
-        $validated = $request->validated();
-        $this->achievementRepository->update([
-            'achievement_name' => $validated['achievement_name'],
-            'achievement_type' => $validated['achievement_type'],
-            'achievement_year' => $validated['achievement_year'],
-            'achievement_detail' => $validated['achievement_detail'],
-        ], $achievement->id);
+//        dd($achievement);
+        // Validate the input data
+        $validated = $request->validate([
+            'achievement_name' => 'required|string|max:255',
+            'achievement_type' => 'required|string|max:255',
+            'achievement_year' => 'required|integer',
+            'achievement_detail' => 'nullable|string',
+        ]);
 
+        // Update the achievement using mass assignment
+        $achievement->update($validated);
+//        dd($achievement);
         return redirect()->route('achievement', ['achievement' => $achievement]);
     }
 

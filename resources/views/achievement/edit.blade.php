@@ -1,6 +1,6 @@
 @extends('layouts.nav')
 @section('topic','ข่าวสารนิสิต')
-
+{{--@dd($achievement)--}}
 <body class="pt-20 w-full bg-gray-100 font-sans">
 <div class="flex h-screen">
 
@@ -21,8 +21,11 @@
 
                 <!-- Picture -->
                 <div class="mt-6">
-                    <form action="{{route('update-achievement')}}" method="POST" class="space-y-4">
+                    <form action="{{route('update-achievement', ['achievement' => $achievement->id])}}" method="POST" class="space-y-4">
                         @csrf
+                        @method('PUT')
+{{--                        @method('PATCH')--}}
+
                         <!-- Information -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Type</label>
@@ -78,13 +81,13 @@
                         <!-- Button -->
                         <div class="flex justify-between">
                             <a href="{{route('achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</a>
-                            <a href="{{route('store-achievement')}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                            <a href="{{route('update-achievement', ['achievement' => $achievement->id])}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                                 <button type="submit">
                                     Save
                                 </button>
                             </a>
-                        </div>
 
+                        </div>
                     </form>
                 </div>
             </div>
