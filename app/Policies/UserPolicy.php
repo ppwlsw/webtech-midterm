@@ -78,4 +78,13 @@ class UserPolicy
     {
         return  $user->isTeacher() || $user->isDepartment();
     }
+
+    public function teacherUpdate(User $user): bool {
+        return  $user->isTeacher() || $user->isDepartment();
+    }
+
+    public function studentUpdate(User $user): bool {
+        return  $user->isStudent();
+    }
+
 }

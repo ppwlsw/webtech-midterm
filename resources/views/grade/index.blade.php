@@ -1,14 +1,13 @@
 @extends('layouts/nav')
 @section('topic','ตรวจสอบผลการเรียน')
 @props(['data', 'coursesData'])
-
 @php
     $totalPoints = 0;
     $totalCredits = 0;
     if (isset($coursesData)){
         foreach ($coursesData as $course) {
-        if (isset($course['course_grade']) && isset($course['credit'])) {
-            $totalPoints += ($gradePoints[$course['course_grade']] ?? 0) * $course['credit'];
+        if (isset($course['credit'])) {
+            $totalPoints += ($course['course_grade'] ?? 0) * $course['credit'];
             $totalCredits += $course['credit'];
         }
     }

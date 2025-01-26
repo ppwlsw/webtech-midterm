@@ -1,7 +1,7 @@
 @extends('layouts/nav')
 @section('topic','แก้ไขสถานะนิสิต')
 <body class="pt-20 bg-gray-100 font-sans min-h-screen">
-<div class="flex">
+<div class="flex justify-center"
     @can('teacherView',\App\Models\User::class)
         <div class="w-64 bg-white shadow-lg">
             @extends('layouts/sidebar')
@@ -128,6 +128,93 @@
                 </div>
             </div>
         </div>
+
     @endcan
-</div>
+
+@can('studentView', \App\Models\User::class)
+    <div class="min-h-screen flex bg-gradient-to-r from-blue-50 to-blue-100 py-8">
+        <div class="w-full flex justify-center px-4">
+            <!-- Sidebar -->
+            <div>
+                @extends('layouts/sidebar')
+            </div>
+
+            <!-- Main Content -->
+            <form method="POST" action="{{ route('students.update', $student->id) }}" class="w-2/4 bg-white rounded-2xl shadow-lg border border-gray-300 p-8">
+                @csrf
+                @method('PUT')
+
+                @if ($errors->any())
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                        <ul class="list-disc list-inside text-red-600">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">แก้ไขข้อมูลนิสิต</h2>
+
+                <!-- Personal Information -->
+                <div class="flex flex-col gap-8">
+                    <div class="relative">
+                        <label class="block text-lg font-semibold text-gray-800 mb-2">รหัสนิสิต</label>
+                        <div class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $student->student_code }}</div>
+                        <i class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 fas fa-id-badge"></i>
+                    </div>
+                    <div class="relative">
+                        <label class="block text-lg font-semibold text-gray-800 mb-2">ชื่อ</label>
+                        <input type="text" name="first_name" value="{{ $student->first_name }}" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <i class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 fas fa-user"></i>
+                    </div>
+                    <div class="relative">
+                        <label class="block text-lg font-semibold text-gray-800 mb-2">นามสกุล</label>
+                        <input type="text" name="last_name" value="{{ $student->last_name }}" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <i class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 fas fa-user"></i>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="flex flex-col gap-8 mt-8">
+                    <div class="relative">
+                        <label class="block text-lg font-semibold text-gray-800 mb-2">เบอร์โทรศัพท์</label>
+                        <input type="text" name="telephone_num" value="{{ $student->telephone_num }}" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <i class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <label class="block text-lg font-semibold text-gray-800 mb-2">ที่อยู่</label>
+                        <textarea name="contact_info" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $student->contact_info }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Alumni Information (if inactive) -->
+                @if($student->student_status === 'inactive')
+                    <div class="flex flex-col gap-8 mt-8">
+                        <div class="relative">
+                            <label class="block text-lg font-semibold text-gray-800 mb-2">ที่ทำงานปัจจุบัน</label>
+                            <input type="text" name="workplace" value="{{ $student->workplace }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-lg font-semibold text-gray-800 mb-2">ผลงาน</label>
+                            <textarea name="contribution" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $student->contribution }}</textarea>
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Form Actions -->
+                <div class="flex justify-end space-x-4 mt-8">
+                    <a href="{{route('students.show', ['student' => auth()->user()->student])}}" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300 shadow-md">
+                        ยกเลิก
+                    </a>
+                    <button type="submit" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 shadow-md">
+                        บันทึก
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endcan
+
+    </div>
 </body>

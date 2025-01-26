@@ -45,6 +45,7 @@ class StudentSeeder extends Seeder
                 'contact_info' => $faker->address(),
                 'telephone_num' => $faker->phoneNumber(),
                 'admission_channel' => $faker->randomElement(['1', '2', '3']),
+                'semester' => $faker->randomElement([1,1.5,2,2.5,3,3.5,4]),
                 'admission_year' => $admission_year,
                 'student_status' => $student_status,
                 'curriculum' => $faker->randomElement(['65', '60']),

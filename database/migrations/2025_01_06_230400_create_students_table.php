@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('telephone_num')->nullable();
             $table->string('admission_channel');
             $table->string('admission_year');
+            $table->float('semester');
             $table->string('completion_year')->nullable();
             $table->enum('student_status', ['active', 'inactive'])->default('active');
             $table->enum('curriculum', ['65', '60']);

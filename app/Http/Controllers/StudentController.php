@@ -145,19 +145,13 @@ class StudentController extends Controller
             return back()->with('error', 'ไม่สามารถแก้ไขข้อมูลนิสิตที่จบการศึกษาแล้ว');
         }
 
-        $validated = $request->validate([
-            'student_status' => ['required', 'in:active,inactive'],
-            'completion_year' => ['required'],
-        ]);
-
-        $student->update($validated);
+        $student->update($request->all());
 
         $data = $student->toArray();
 
-        return redirect()->route('students.search', ["data" => $data])
+        return redirect()->route('students.show', ['student' => $student])
             ->with('success', 'อัพเดทสถานะนิสิตเรียบร้อยแล้ว');
     }
-
     public function create(){
         return view('students.create');
     }

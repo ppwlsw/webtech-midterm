@@ -25,6 +25,7 @@ class Student extends Model
         'admission_channel',
         'admission_year',
         'student_status',
+        'semester',
         'workplace',
         'contribution',
     ];
