@@ -54,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement');
     Route::get('/achievement/create', [AchievementController::class, 'create'])->name('create-achievement');
     Route::post('/achievement', [AchievementController::class, 'store'])->name('store-achievement');
+    Route::get('/achievement/edit/{achievementId}', [AchievementController::class, 'edit'])->name('edit-achievement');
+    Route::put('/achievement/{achievement}', [AchievementController::class, 'update'])->name('update-achievement');
+
 
     Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
