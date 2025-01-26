@@ -1,18 +1,29 @@
 @extends('layouts/nav')
-@section('topic','แก้ไขสถานะนิสิต')
-<body class="pt-20 bg-gray-100 font-sans min-h-screen">
-<div class="flex justify-center"
-    @can('teacherView',\App\Models\User::class)
-        <div class="w-64 bg-white shadow-lg">
-            @extends('layouts/sidebar')
-        </div>
+@section('topic','ข้อมูลนิสิต')
 
-        <div class="flex-1 p-8">
+<body class="flex h-screen pt-10 w-full bg-gray-100 font-sans min-h-screen">
+    <div class="flex-1 p-10">
+    @can('teacherView',\App\Models\User::class)
+
+            <div class="w-2/12 bg-gray-100 p-4">
+                @extends('layouts.sidebar')
+            </div>
+
+        <a  href="{{route('edit-student')}}" class=" justify-between items-center ml-64">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back</button>
+        </a>
+
+        <div class="flex-1 p-10">
             <div class="max-w-4xl mx-auto">
                 <div class="mb-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h1 class="text-2xl font-bold text-gray-800">แก้ไขสถานะนิสิต</h1>
+                            @if($student->student_status === 'active')
+                                    <h1 class="text-2xl font-bold text-gray-800">แก้ไขสถานะนิสิต</h1>
+                            @endif
+                            @if($student->student_status === 'inactive')
+                                    <h1 class="text-2xl font-bold text-gray-800">ข้อมูลศิษย์เก่า</h1>
+                            @endif
                             <div class="flex items-center space-x-2 mt-2">
                                 <span class="text-gray-600 font-medium">รหัสนิสิต:</span>
                                 <span class="text-gray-800">{{ $student->student_code }}</span>
@@ -67,6 +78,13 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">หลักสูตร</label>
                                 <p class="mt-1 p-2 rounded">{{ $student->curriculum }}</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">อาจารย์ที่ปรึกษา</label>
+                                <p class="mt-1 p-2 rounded">{{ $student->advisor_first_name }} {{ $student->advisor_last_name }}</p>
                             </div>
                         </div>
 

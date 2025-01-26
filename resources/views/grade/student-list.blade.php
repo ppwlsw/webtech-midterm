@@ -1,12 +1,12 @@
 @extends('layouts/nav')
-@section('topic','รายละเอียดนิสิต')
+@section('topic','ข้อมูลนิสิต')
 @props(['data'])
 <body class="pt-20 bg-gray-100 font-sans min-h-screen">
 <div class="flex">
     @can('teacherView',\App\Models\User::class)
         <!-- Sidebar -->
-        <div class="w-64 bg-white shadow-lg">
-            @extends('layouts/sidebar')
+        <div class="w-2/12 bg-gray-100 p-4">
+            @extends('layouts.sidebar')
         </div>
 
         <!-- Main Content -->
@@ -152,6 +152,10 @@
                                                     <div>
                                                         <p class="text-sm text-gray-500">หลักสูตร</p>
                                                         <p class="font-medium">{{ $listItem->curriculum }}</p>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-sm text-gray-500">อาจารย์ที่ปรึกษา</p>
+                                                        <p class="font-medium">{{ $listItem->advisor_first_name }} {{ $listItem->advisor_last_name }}</p>
                                                     </div>
                                                 </div>
                                             </div>
