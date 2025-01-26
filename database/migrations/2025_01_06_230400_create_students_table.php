@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('completion_year')->nullable();
             $table->enum('student_status', ['active', 'inactive'])->default('active');
             $table->enum('curriculum', ['65', '60']);
+            $table->string('advisor_first_name');
+            $table->string('advisor_last_name');
             $table->string('workplace')->nullable();
             $table->text('contribution')->nullable();
             $table->timestamps();

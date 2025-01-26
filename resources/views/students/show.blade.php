@@ -12,94 +12,101 @@
     <!-- Main -->
     <div class="flex-1 p-6">
 
-        <!-- Student Profile -->
-        <section class="bg-white p-6 rounded-md shadow-md">
-            <div class="flex justify-between">
-                <h2 class="text-xl font-bold mb-6">Student Profile</h2>
+            <div>
+                <div class="bg-white rounded-xl shadow-xl border border-gray-200 transition-all duration-200 mb-4">
+                    <!-- Student Card Header -->
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex justify-between items-start">
+                            <div class="space-y-1">
+                                <h2 class="text-xl font-semibold text-gray-800">
+                                    {{ $student->first_name }} {{ $student->last_name }}
+                                </h2>
+                                <p class="text-gray-600">รหัสนิสิต: {{ $student->student_code }}</p>
+                            </div>
+
+                            <div class="flex flex-col items-end">
+                                            <span class="px-3 py-1 rounded-full text-sm font-medium w-fit
+                                                {{ $student->student_status === 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                                {{ $student->student_status === 'active' ? 'กำลังศึกษา' : 'จบการศึกษา' }}
+                                            </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Student Details -->
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Academic Information -->
+                            <div class="space-y-4">
+                                <h3 class="font-semibold text-gray-600 text-sm uppercase tracking-wider">ข้อมูลการศึกษา</h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-sm text-gray-500">ประเภทนิสิต</p>
+                                        <p class="font-medium">
+                                            {{ $student->student_type === 'special' ? 'ภาคพิเศษ' : 'ภาคปกติ' }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">หลักสูตร</p>
+                                        <p class="font-medium">{{ $student->curriculum }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">อาจารย์ที่ปรึกษา</p>
+                                        <p class="font-medium">{{ $student->advisor_first_name }} {{ $student->advisor_last_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Admission Information -->
+                            <div class="space-y-4">
+                                <h3 class="font-semibold text-gray-600 text-sm uppercase tracking-wider">ข้อมูลการรับเข้า</h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-sm text-gray-500">ช่องทางการรับเข้า</p>
+                                        <p class="font-medium">รอบที่ {{ $student->admission_channel }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">ปีที่เข้าศึกษา</p>
+                                        <p class="font-medium">{{ $student->admission_year }}</p>
+                                    </div>
+                                    @if($student->student_status !== 'active')
+                                        <div>
+                                            <p class="text-sm text-gray-500">ปีที่จบการศึกษา</p>
+                                            <p class="font-medium">{{ $student->completion_year }}</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="space-y-4">
+                                <h3 class="font-semibold text-gray-600 text-sm uppercase tracking-wider">ข้อมูลการติดต่อ</h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-sm text-gray-500">ที่อยู่</p>
+                                        <p class="font-medium">{{ $student->contact_info }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">เบอร์โทรศัพท์</p>
+                                        <p class="font-medium">{{ $student->telephone_num }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 text-sm text-gray-500 rounded-lg">
+                        <div class="flex justify-between">
+                            <span>สร้างเมื่อ: {{ \Carbon\Carbon::parse($student->created_at)->format('d/m/Y H:i') }}</span>
+                            <span>อัปเดตล่าสุด: {{ \Carbon\Carbon::parse($student->updated_at)->format('d/m/Y H:i') }}</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
-
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">First Name</p>
-                        <p class="text-blue-700">{{ $student->first_name }}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Last Name</p>
-                        <p class="text-blue-700">{{$student->last_name}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Student Code</p>
-                        <p class="text-blue-700">{{$student->student_code}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Curriculum</p>
-                        <p class="text-blue-700">{{$student->curriculum}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Student Type</p>
-                        <p class="text-blue-700">{{$student->student_type}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Address</p>
-                        <p class="text-blue-700">{{$student->contact_info}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Telephone Number</p>
-                        <p class="text-blue-700">{{$student->telephone_num}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Admission Channel</p>
-                        <p class="text-blue-700">{{$student->admission_channel}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Year</p>
-                        <p class="text-blue-700">{{$student->admission_year}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Student Status</p>
-                        <p class="text-blue-700">{{$student->student_status}}</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Completion Year</p>
-                        <p class="text-blue-700">{{$student->completion_year}}</p>
-                    </div>
-                </div>
-            </div>
-
-        </section>
 
         <div class="py-10">
             <a href="{{route('achievement')}}">

@@ -9,8 +9,7 @@
 <div class="min-h-screen bg-gray-100 pt-20">
     <div class="max-w-4xl mx-auto p-8">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">เพิ่มข้อมูลนิสิต</h1>
-            <p class="text-gray-600">กรอกข้อมูลนิสิตใหม่</p>
+            <h1 class="text-2xl font-bold text-gray-800">กรอกข้อมูลนิสิตใหม่</h1>
         </div>
 
         @if ($errors->any())

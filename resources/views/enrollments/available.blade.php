@@ -5,7 +5,7 @@
         <div>
             @extends('layouts/sidebar')
         </div>
-        <div class="ml-20 mt-20 w-2/4">
+        <div class="ml-2 mt-20 w-9/12">
             <!-- Search Section -->
             <div class="mb-6 w-full">
 {{--                <form action="{{ route('courses.search') }}" method="GET" class="flex">--}}
@@ -27,7 +27,7 @@
             <h1 class="text-2xl font-bold mb-4">Available Courses</h1>
 
             @forelse($availableCourses as $course)
-                <div class="border rounded-lg p-4 shadow-md mb-4">
+                <div class="w-full border rounded-lg p-6 shadow-md mb-4">
                     <h2 class="text-xl font-semibold mb-2">{{ $course->course_name }}</h2>
                     <p class="text-gray-600 mb-2">Code: {{ $course->course_code }}</p>
                     <p class="text-gray-600 mb-2">Credits: {{ $course->credit }}</p>

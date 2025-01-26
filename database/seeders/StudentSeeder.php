@@ -30,6 +30,16 @@ class StudentSeeder extends Seeder
             $last_name = $names[1];
             $admission_year = $faker->year();
             $student_status = $faker->randomElement(['active', 'inactive']);
+            $second_element = $faker->randomElement([3,4,5,6]);
+            $sixth_element = $faker->randomElement([0,5]);
+            $contribution = $faker->randomElement([
+                    'การพัฒนาโครงการซอฟต์แวร์ที่ช่วยเพิ่มประสิทธิภาพในกระบวนการธุรกิจ',
+                    'การออกแบบระบบที่ช่วยในการจัดการฐานข้อมูลขนาดใหญ่',
+                    'การเขียนบทความวิจัยในวารสารระดับสากลเกี่ยวกับเทคโนโลยีสารสนเทศ',
+                    'การทำงานเป็นที่ปรึกษาทางเทคนิคให้กับองค์กรต่างๆ',
+                    'ผลงานในการพัฒนาแอปพลิเคชันที่ได้รับการยอมรับจากผู้ใช้งานกว่า 1 ล้านคน'
+                ]);
+
 
             $completionDate = [];
             if ($student_status === 'inactive') {
@@ -38,7 +48,7 @@ class StudentSeeder extends Seeder
 
             $completionData = array_merge([
                 'user_id' => $user->id,
-                'student_code' => $faker->unique()->isbn10(),
+                'student_code' => '6'. $second_element . '104'. $sixth_element . $faker->numberBetween(1000, 9999),
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'student_type' => $faker->randomElement(['regular', 'special']),
@@ -48,8 +58,10 @@ class StudentSeeder extends Seeder
                 'admission_year' => $admission_year,
                 'student_status' => $student_status,
                 'curriculum' => $faker->randomElement(['65', '60']),
+                'advisor_first_name' => $faker-> firstName,
+                'advisor_last_name' => $faker->lastName,
                 'workplace' =>  $faker->company(),
-                'contribution' => $faker->paragraph()
+                'contribution' => $contribution,
             ], $completionDate);
 
             Student::create($completionData);
