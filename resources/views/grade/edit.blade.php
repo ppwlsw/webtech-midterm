@@ -104,6 +104,25 @@
                             @endif
                         </div>
 
+                        <!-- Alumni information -->
+                        @if($student->student_status === 'inactive')
+                        <div class="space-y-2 ">
+
+                            <div class="gap-6">
+                                <div>
+                                    <label class=" text-sm font-medium text-gray-700">ผลงาน</label>
+                                    <p class="mt-1 p-2 rounded pb-6">{{ $student->contribution}}</p>
+                                </div>
+                                <div>
+                                    <label class=" text-sm font-medium text-gray-700">ที่ทำงานปัจจุบัน</label>
+                                    <p class="mt-1 p-2 rounded">{{ $student->workplace}}</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        @endif
+
 
                     </form>
                 </div>
