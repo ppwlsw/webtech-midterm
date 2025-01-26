@@ -18,6 +18,8 @@ return new class extends Migration
             $table->float('semester');
             $table->integer('academic_year');
             $table->integer('course_grade')->nullable();
+            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
+            $table->timestamp('enrolled_at')->nullable();
             $table->timestamps();
 
         });

@@ -19,16 +19,24 @@ class CourseResultSeeder extends Seeder
         $students = Student::all();
 
         foreach ($students as $student) {
-            // Attach each student to random courses
-            $studentCourses = $courses->random(rand(1, 40));
+            $studentCourses = $courses->random(rand(1, min(5, $courses->count())));
 
             foreach ($studentCourses as $course) {
+                $status = fake()->randomElement(['APPROVED', 'REJECTED', 'PENDING']);
+
+                $courseGrade = $status == 'PENDING'
+                    ? null
+                    : fake()->randomElement([1, 1.5, 2, 2.5, 3, 3.5, 4]);
+
                 DB::table('course_result')->insert([
                     'course_id' => $course->id,
                     'student_id' => $student->id,
-                    'semester' => fake()->randomElement([1,1.5,2,2.5,3,3.5,4]),
+                    'semester' => fake()->randomElement([1, 1.5, 2, 2.5, 3, 3.5, 4]),
+                    'status' => $status,
                     'academic_year' => rand(2020, 2025),
-                    'course_grade' => fake()->randomElement([1,1.5,2,2.5,3,3.5,4]) , // Random grade
+                    'course_grade' => $courseGrade,
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
             }
         }

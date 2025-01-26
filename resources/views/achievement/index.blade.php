@@ -32,14 +32,22 @@
             <div class="space-y-4">
                 @foreach($achievements as $achievement)
                     <div class="bg-gray-100 p-4 rounded-md shadow-sm">
-                        <div class="flex justify-between text-sm text-gray-700 font-medium">
-                            <span>{{ $achievement->achievement_type }}</span>
-                            <span>{{ $achievement->achievement_year }}</span>
-                        </div>
-                        <span>{{ $achievement->achievement_name }}</span>
-                        <p class="text-gray-600 mt-2">
-                            {{ $achievement->achievement_detail }}
-                        </p>
+                        <form action="{{route("edit-achievement", ['achievementId' => $achievement->id])}}" method="GET">
+                            @csrf
+                            <div class="flex justify-between text-md text-gray-700 font-medium">
+                                <span>{{ $achievement->achievement_type }}</span>
+                                <span>{{ $achievement->achievement_year }}</span>
+                            </div>
+                            <span>{{ $achievement->achievement_name }}</span>
+                            <p class="text-gray-600 mt-2">
+                                {{ $achievement->achievement_detail }}
+                            </p>
+                            <div class="flex justify-end ">
+                                <button type="submit" class="py-2 px-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                                    edit
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 @endforeach
             </div>

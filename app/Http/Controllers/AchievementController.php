@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAchievementRequest;
 use App\Models\Achievement;
 use App\Models\Student;
+use App\Models\User;
 use App\Repositories\AchievementRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AchievementController extends Controller
 {
@@ -80,9 +82,13 @@ class AchievementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Achievement $achievement)
+    public function edit($achievementId)
     {
-        // students cannot edit
+//        Gate::authorize('update', User::class);
+//        dd($achievementId);
+        $achievement = $this->achievementRepository->getById($achievementId);
+
+        return view('achievement.edit', ['achievement' => $achievement]);
     }
 
     /**
@@ -90,7 +96,19 @@ class AchievementController extends Controller
      */
     public function update(Request $request, Achievement $achievement)
     {
-        // students cannot update
+//        dd($achievement);
+        // Validate the input data
+        $validated = $request->validate([
+            'achievement_name' => 'required|string|max:255',
+            'achievement_type' => 'required|string|max:255',
+            'achievement_year' => 'required|integer',
+            'achievement_detail' => 'nullable|string',
+        ]);
+
+        // Update the achievement using mass assignment
+        $achievement->update($validated);
+//        dd($achievement);
+        return redirect()->route('achievement', ['achievement' => $achievement]);
     }
 
     /**

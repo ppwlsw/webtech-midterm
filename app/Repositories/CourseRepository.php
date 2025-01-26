@@ -13,10 +13,6 @@ class CourseRepository
 
     private string $model = Course::class;
 
-    public function getCourseById(int $id): Collection {
-        return  $this->model::where("id", $id)->get();
-    }
-
 
 
 
