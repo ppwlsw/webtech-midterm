@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentGradeController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
@@ -61,6 +63,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
     Route::get('/activity', function () {return view('/activity/index');})->name('activity');
+
+    //Course
+    Route::get('/courses/available', [EnrollmentController::class, 'availableCourses'])->name('courses.available');
+    Route::post('/courses/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
+    Route::get('/enrollments/pending', [EnrollmentController::class, 'pendingEnrollments'])->name('enrollments.pending');
+    Route::post('/enrollments/approve', [EnrollmentController::class, 'approve'])->name('enrollments.approve');
+    Route::post('/enrollments/reject', [EnrollmentController::class, 'reject'])->name('enrollments.reject');
+
+    // Edit Grade
+    Route::prefix('staff/student-grades')->group(function () {
+        Route::get('/', [StudentGradeController::class, 'index'])->name('grades.index');
+        Route::get('/student/{studentId}', [StudentGradeController::class, 'showEnrolledCourses'])->name('grades.courses');
+        Route::get('/edit/{resultId}', [StudentGradeController::class, 'editGrade'])->name('grades.edit');
+        Route::post('/update/{resultId}', [StudentGradeController::class, 'updateGrade'])->name('grades.update');
+    });
+
 });
 
 Route::get('/', function () {return redirect('login');});
