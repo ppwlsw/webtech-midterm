@@ -41,10 +41,9 @@ class Student extends Model
         return $this->belongsToMany(Course::class, 'course_result');
     }
 
-
-
     public function activities(): belongsToMany {
-        return $this->belongsToMany(Activity::class, 'registration');
+        return $this->belongsToMany(Activity::class, 'registrations')
+            ->withPivot('time_stamp');
     }
 
 

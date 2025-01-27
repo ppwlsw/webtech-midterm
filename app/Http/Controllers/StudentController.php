@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Student;
 use App\Models\User;
 use App\Repositories\CourseRepository;
+use App\Repositories\RegistrationRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -204,5 +206,31 @@ class StudentController extends Controller
         return view('students.create');
     }
 
+    public function joinActivity(Request $request, $activityId, RegistrationRepository $registrationRepository)
+    {
+        $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
+        $activity = Activity::findOrFail($activityId);
+
+        if ($activity->students()->count() >= $activity->max_participants) {
+            return redirect()->back()->with('error', 'กิจกรรมเต็มแล้ว');
+        }
+
+        if ($activity->students()->where('student_id', $student->id)->exists()) {
+            return redirect()->back()->with('info', 'คุณเข้าร่วมกิจกรรมนี้แล้ว');
+        }
+
+        if (!now()->between($activity->join_start_datetime, $activity->join_end_datetime)) {
+            return redirect()->back()->with('error', 'หมดเขตรับสมัครแล้ว');
+        }
+
+        $registrationRepository->create([
+            'student_id' => $student->id,
+            'activity_id' => $activity->id,
+            'time_stamp' => now(),
+        ]);
+
+        return redirect()->route('announcement.show', ['activity' => $activityId])
+            ->with('success', 'เข้าร่วมกิจกรรมเรียบร้อยแล้ว');
+    }
 
 }
