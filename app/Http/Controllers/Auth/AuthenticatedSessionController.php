@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
         $role = Auth::user()->role;
         $path = "";
         $role === 'STUDENT' ? $path = 'announcement' : "" ;
-        ($role === 'TEACHER' || $role === 'DEPARTMENT') ? $path = 'grade' : "";
+        ($role === 'TEACHER' || $role === 'DEPARTMENT') ? $path = 'grade-staff' : "";
 
 
         return redirect()->route($path);
