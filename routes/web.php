@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/announcement/store', [ActivityController::class, 'store'])->name('announcement.store');
     Route::get('/announcement/{activity}/edit', [ActivityController::class, 'edit'])->name('announcement.edit');
     Route::put('/announcement/{activity}', [ActivityController::class, 'update'])->name('announcement.update');
+    Route::get('/announcement/join/{activityId}', [StudentController::class, 'joinActivity'])->name('announcement.join');
 
     Route::get('/document', function () {return view('/document/index');})->name('document');
     Route::get('/document/create', function () {return view('/document/create');})->name('create-document');

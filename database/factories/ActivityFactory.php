@@ -22,14 +22,17 @@ class ActivityFactory extends Factory
         $activity_details = $this->faker->realText(255);
         $max_participants = $this->faker->numberBetween(10, 200);
         $condition = $this->faker->randomElement([
-            'Open to all students',
-            'Registration required',
-            'Only 3rd year students',
-            'Limited seats available'
+            'เฉพาะนิสิตรหัส 65',
+            'เฉพาะนิสิตรหัส 64',
+            'นิสิตทุกชั้นปี'
         ]);
 
-        $start_datetime = $this->faker->dateTimeBetween('now', '+1 month');
-        $random_days = $this->faker->numberBetween(1, 7);
+        $join_start_datetime = $this->faker->dateTimeBetween('-1 month', '+1 month');
+        $random_join = $this->faker->numberBetween(1, 15);
+        $join_end_datetime = (clone $join_start_datetime)->modify("+{$random_join} days");
+
+        $random_days = $this->faker->numberBetween(1, 15);
+        $start_datetime = (clone $join_end_datetime)->modify("+{$random_days} days");
         $end_datetime = (clone $start_datetime)->modify("+{$random_days} days");
 
         return [
@@ -37,6 +40,8 @@ class ActivityFactory extends Factory
             'activity_type' => $activity_type,
             'activity_detail' => $activity_details,
             'max_participants' => $max_participants,
+            'join_start_datetime' => $join_start_datetime,
+            'join_end_datetime' => $join_end_datetime,
             'start_datetime' => $start_datetime,
             'end_datetime' => $end_datetime,
             'condition' => $condition,
