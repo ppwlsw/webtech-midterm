@@ -138,7 +138,7 @@
         </div>
         <!-- Main -->
         <div class="flex-1 p-6">
-            <form method="GET" action="{{ route('grade') }}" class="space-y-6">
+            <form method="GET" action="{{ route('grade-staff-search')}}" class="space-y-6">
                 <!-- Primary Search Fields -->
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Course Code Search -->

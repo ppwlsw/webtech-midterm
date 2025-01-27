@@ -22,9 +22,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        if (Gate::allows('teacherView', User::class)) {
-            return $this->staffIndex(new Request());
-        }
+
         $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
         $courses = $this->studentRepository->getStudentEnrolledCourses($student->id);
         return view('grade.index', ["data" => $student
@@ -57,7 +55,21 @@ class StudentController extends Controller
         return $this->studentRepository->getActiveStudents($request);
     }
 
-    public function staffIndex(Request $request){
+    public function staffIndex(){
+        $data = $this->studentRepository->getAll();
+        foreach ($data as $student) {
+            $student->courses = $student->courses()->select(
+                'course_code',
+                'course_name',
+                'credit',
+                'course_grade',
+                'course_category'
+            )->get()->toArray();
+        }
+      return view('grade.index', ["data" => $data]);
+    }
+
+    public function filterStudents(Request $request){
         Gate::authorize('teacherView', User::class);
         $curriculum = $request->get('course_curriculum') ;
         $student_type = $request->get('student_type');
@@ -89,7 +101,6 @@ class StudentController extends Controller
 
         return view('grade.index', ["data" => $data]);
     }
-
     public function search(Request $request)
     {
         $query = Student::query();

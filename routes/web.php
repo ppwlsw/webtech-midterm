@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
         \App\Http\Controllers\StudentController::class, 'index'
     ])->name('grade');
 
+    Route::get('staff/student-grade', [StudentController::class, 'staffIndex'])->name('grade-staff');
+    Route::get('staff/student-grade/search', [StudentController::class, 'filterStudents'])->name('grade-staff-search');
+
     Route::get('/grade/alumni', function () {return view('/grade/alumni');})->name('alumni-grade');
     Route::get("/grade/create-alumni",function () {return view('/grade/create-alumni');})->name("create-alumni-grade");
     Route::get('/grade/list', function () {return view('/grade/list');})->name('list-grade');

@@ -26,7 +26,7 @@ class StudentRepository
         $query = $this->model::query();
         if (isset($filters['course_curriculum'])) {
             $query->whereHas('courses', function ($q) use ($filters) {
-                $q->where('course_curriculum', $filters['course_curriculum']);
+                $q->where('course_curriculum',  $filters['course_curriculum']);
             });
         }
 
@@ -37,7 +37,7 @@ class StudentRepository
         }
 
         if (isset($filters['student_code'])) {
-            $query->where('student_code', 'like', '%' . $filters['student_code'] . '%');
+            $query->where('student_code', 'like',  $filters['student_code'] . '%');
         }
 
         if (!empty($filters['course_code'])) {
