@@ -31,15 +31,17 @@ class EnrollmentController extends Controller
     public function enroll(Request $request)
     {
         $validatedData = $request->validate([
-            'course_id' => 'required|exists:courses,id',
+            'course_id' => 'required',
             'semester' => 'required',
             'academic_year' => 'required',
         ]);
 
-        $student =auth()->user()->student;
+
+        $student = auth()->user()->student;
         $course = Course::findOrFail($validatedData['course_id']);
         $semester = $validatedData['semester'];
         $academicYear = $validatedData['academic_year'];
+
 
         if ($this->enrollmentRepository->enrollCourse($student, $course, $semester, $academicYear)) {
             return redirect()->back()->with('success', 'Enrollment request submitted.');

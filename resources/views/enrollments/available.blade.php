@@ -28,8 +28,6 @@
 
             @forelse($availableCourses as $course)
 
-
-
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:border-blue-300 transition-all duration-200 mb-4">
                         <!-- Student Card Header -->
                         <div class="p-6 border-b border-gray-100">
@@ -91,6 +89,7 @@
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
                                         <input type="hidden" name="semester" value="{{ 3.5 }}">
+                                        <input type="hidden" name="academic_year" value="{{ 3 }}">
                                         <button type="submit" class="flex bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
                                             Enroll
                                         </button>
@@ -101,6 +100,7 @@
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
                                         <input type="hidden" name="semester" value="{{ 3.5 }}">
+                                        <input type="hidden" name="academic_year" value="{{ 3 }}">
                                         <button type="submit" class="flex bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
                                             Enroll
                                         </button>
