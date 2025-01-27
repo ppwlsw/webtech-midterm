@@ -18,10 +18,20 @@ class PDFKU3Controller extends PDFController
         $pdf->SetFont('THSarabun', '', 14);
 
 
+        $semester = $student->semester;
+        if ($semester == 1 || $semester == 2 || $semester == 3 || $semester == 4) {
+            $x = 1;
+        }else {$x = 2;}
+        $this->writeInPosition($pdf,40, 30.5, $x);
 
 
-        $this->writeInPosition($pdf, 70.5, 46, $this->thaiText($student->first_name));
-        $this->writeInPosition($pdf, 85.5, 46, $this->thaiText($student->last_name));
+        $date_array = $this->getDateTime();
+        $this->writeInPosition($pdf, 115, 30.5, 25 . $date_array["year"]);
+
+        $this->writeInPosition($pdf, 170, 30.5, $this->thaiText('บางเขน'));
+
+        $this->writeInPosition($pdf, 55.5, 46, $this->thaiText($student->first_name));
+        $this->writeInPosition($pdf, 70.5, 46, $this->thaiText($student->last_name));
 
 
         $student_code = $student->student_code;
@@ -41,6 +51,8 @@ class PDFKU3Controller extends PDFController
         $this->writeInPosition($pdf, 48.75, 60.3, $this->thaiText("วิทยาการคอมพิวเตอร์"));
 
         $this->writeInPosition($pdf, 170, 46, $student->telephone_num);
+
+        $this->writeInPosition($pdf, 70, 67.55, $this->thaiText($student->advisor_first_name . ' ' . $student->advisor_last_name));
 
 
         $pdf->Output();

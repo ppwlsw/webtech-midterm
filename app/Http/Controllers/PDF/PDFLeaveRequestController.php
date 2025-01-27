@@ -18,6 +18,8 @@ class PDFLeaveRequestController extends PDFController
 
         $pdf->SetFont('THSarabun', '', 14);
 
+        $this->writeInPosition($pdf,35,34.25, $this->thaiText($student->advisor_first_name . ' ' . $student->advisor_last_name));
+
         $date_array = $this->getDateTime();
 
         $this->writeInPosition($pdf, 134.75, 34.25, $date_array["day"]);
@@ -41,6 +43,13 @@ class PDFLeaveRequestController extends PDFController
             if ($i == 7) { $x -= 0.25; }
             if ($i == 8) { $x -= 0.25; }
         }
+
+        $semester = $student->semester;
+        if ($semester == 1 || $semester == 1.5) {$x = 1;}
+        if ($semester == 2 || $semester == 2.5) {$x = 2;}
+        if ($semester == 3 || $semester == 3.5) {$x = 3;}
+        if ($semester == 4 || $semester == 4.5) {$x = 4;}
+        $this->writeInPosition($pdf,110, 59.5, $x);
 
 
         $this->writeInPosition($pdf, 151.75, 59.5, $this->thaiText("วิทยาการคอมพิวเตอร์"));
