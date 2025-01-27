@@ -45,7 +45,8 @@ class Student extends Model
     }
 
     public function activities(): belongsToMany {
-        return $this->belongsToMany(Activity::class, 'registration');
+        return $this->belongsToMany(Activity::class, 'registrations')
+            ->withPivot('time_stamp');
     }
 
 
