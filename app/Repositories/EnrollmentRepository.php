@@ -90,7 +90,7 @@ class EnrollmentRepository
                 });
             })
             ->orderBy('course_code')
-            ->get();
+            ->paginate(10);
     }
 
 

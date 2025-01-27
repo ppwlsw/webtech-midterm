@@ -24,7 +24,10 @@ class EnrollmentController extends Controller
         $student = auth()->user()->student;
         $availableCourses = Course::whereDoesntHave('students', function($query) use ($student) {
             $query->where('student_id', $student->id);
-        })->get();
+        })->paginate(10);
+
+
+
         return view('enrollments.available', compact('availableCourses'));
     }
 

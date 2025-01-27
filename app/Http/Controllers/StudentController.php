@@ -24,7 +24,11 @@ class StudentController extends Controller
      */
     public function index()
     {
+        if (Gate::allows('teacherView', User::class)){
+            return redirect()->route('grade-staff');
+        }
 
+        Gate::authorize('studentView', User::class);
         $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
         $courses = $this->studentRepository->getStudentEnrolledCourses($student->id);
         return view('grade.index', ["data" => $student
@@ -188,6 +192,7 @@ class StudentController extends Controller
             'curriculum' => 'required',
             'admission_channel' => 'required',
             'admission_year' => 'required|numeric',
+            'semester' => 'required',
 
         ]);
 
@@ -212,6 +217,7 @@ class StudentController extends Controller
                 'admission_channel' => $validated['admission_channel'],
                 'admission_year' => $validated['admission_year'],
                 'student_status' => 'active',
+                'semester' => $validated['semester'],
             ]);
             $user->student()->save($student);
         });
