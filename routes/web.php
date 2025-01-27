@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
 
     //Course
     Route::get('/courses/available', [EnrollmentController::class, 'availableCourses'])->name('courses.available');
+    Route::get('/courses/available/search', [EnrollmentController::class, 'search'])->name('courses.search');
     Route::post('/courses/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
     Route::get('/enrollments/pending', [EnrollmentController::class, 'pendingEnrollments'])->name('enrollments.pending');
     Route::post('/enrollments/approve', [EnrollmentController::class, 'approve'])->name('enrollments.approve');

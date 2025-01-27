@@ -36,6 +36,7 @@
                                         <div>
                                             <h2 class="text-lg font-semibold text-gray-800">{{ $enrollment->course_name }}</h2>
                                             <p class="text-sm text-gray-500">Course Code: {{ $enrollment->course_code }}</p>
+                                            <p class="text-sm text-gray-500">Course Curriculum:  {{ $enrollment->course_curriculum }}</p>
                                         </div>
                                         <div class="flex space-x-3">
                                             <form action="{{ route('enrollments.approve') }}" method="POST">

@@ -8,11 +8,11 @@
         <div class="ml-2 mt-20 w-9/12">
             <!-- Search Section -->
             <div class="mb-6 w-full">
-{{--                <form action="{{ route('courses.search') }}" method="GET" class="flex">--}}
+                <form action="{{ route('courses.search') }}" method="GET" class="flex">
                     <input
                         type="text"
-                        name="query"
-                        placeholder="Search courses by name, code, or prerequisite"
+                        name="course_code"
+                        placeholder="ค้นหาด้วยรหัสวิชา"
                         class="w-3/4 flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                     <button
@@ -21,7 +21,7 @@
                     >
                         Search
                     </button>
-{{--                </form>--}}
+                </form>
             </div>
 
             <h1 class="text-2xl font-bold mb-4">Available Courses</h1>
@@ -32,6 +32,7 @@
                     <p class="text-gray-600 mb-2">Code: {{ $course->course_code }}</p>
                     <p class="text-gray-600 mb-2">Credits: {{ $course->credit }}</p>
                     <p class="text-gray-600 mb-2">Category: {{ $course->course_category }}</p>
+                    <p class="text-gray-600">Curriculum: {{ $course->course_curriculum }}</p>
 
                     @if($course->prerequisite_course)
                         <p class="text-sm text-yellow-600 mb-2">
