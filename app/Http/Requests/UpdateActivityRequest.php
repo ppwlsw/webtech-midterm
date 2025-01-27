@@ -17,6 +17,8 @@ class UpdateActivityRequest extends FormRequest
             'activity_name' => ['required', 'min:3', 'max:255'],
             'activity_detail' => ['required', 'min:3', 'max:255'],
             'activity_type' => ['required'],
+            'join_start_datetime' => [],
+            'join_end_datetime' => [],
             'start_datetime' => [],
             'end_datetime' => [],
             'max_participants' => [],

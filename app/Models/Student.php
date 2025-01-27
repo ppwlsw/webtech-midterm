@@ -28,6 +28,8 @@ class Student extends Model
         'semester',
         'workplace',
         'contribution',
+        'advisor_first_name',
+        'advisor_last_name',
     ];
 
     public function user(): BelongsTo {
@@ -43,7 +45,8 @@ class Student extends Model
     }
 
     public function activities(): belongsToMany {
-        return $this->belongsToMany(Activity::class, 'registration');
+        return $this->belongsToMany(Activity::class, 'registrations')
+            ->withPivot('time_stamp');
     }
 
 

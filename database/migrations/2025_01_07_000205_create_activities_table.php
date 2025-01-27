@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('activity_detail');
             $table->integer('max_participants')->nullable();
             $table->text('condition')->nullable();
+            $table->dateTime('join_start_datetime')->nullable();
+            $table->dateTime('join_end_datetime')->nullable();
             $table->dateTime('start_datetime')->nullable();
             $table->dateTime('end_datetime')->nullable();
             $table->timestamps();

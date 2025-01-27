@@ -14,7 +14,7 @@ class ActivityRepository
     private string $model = Activity::class;
 
     public function filterByName(string $name): Collection {
-        return Activity::where('activity_name', 'LIKE', "%{$name}%")->get();
+        return (new $this->model)->where('activity_name', 'LIKE', "%{$name}%")->get();
     }
 
 }

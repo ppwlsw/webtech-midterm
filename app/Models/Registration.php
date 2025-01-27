@@ -10,7 +10,7 @@ class Registration extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_code',
+        'student_id',
         'activity_id',
         'time_stamp'
     ];

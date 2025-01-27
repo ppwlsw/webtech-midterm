@@ -53,7 +53,7 @@ class EnrollmentRepository
             ->where('status', 'PENDING')
             ->join('students', 'course_result.student_id', '=', 'students.id')
             ->join('courses', 'course_result.course_id', '=', 'courses.id')
-            ->select('students.first_name', 'students.last_name', 'courses.course_name', 'courses.course_code', 'course_result.id')
+            ->select('students.first_name', 'students.last_name', 'courses.course_name', 'courses.course_code', 'course_result.id', 'course_curriculum')
             ->get();
     }
 
@@ -68,25 +68,30 @@ class EnrollmentRepository
 
     public function rejectEnrollment($enrollmentId)
     {
-        return DB::table('course_result')
-            ->where('id', $enrollmentId)
-            ->update([
-                'status' => 'REJECTED',
-            ]);
+        return DB::table('course_result')->where('id', $enrollmentId)->delete();
+
     }
 
-    public function getStudentApprovedCourses(int $studentId)
+    public function searchAvailableCourses(Student $student, ?string $query = null)
     {
-        return DB::table('course_result')
-            ->join('courses', 'course_result.course_id', '=', 'courses.id')
-            ->where('course_result.student_id', $studentId)
-            ->where('course_result.status', 'APPROVED')
-            ->select('courses.course_name', 'courses.course_code', 'course_result.id',
-                'course_result.course_grade', 'course_result.semester',
-                'course_result.academic_year')
+        return Course::whereDoesntHave('students', function($q) use ($student) {
+            $q->where('student_id', $student->id);
+        })
+            ->when($query, function ($q) use ($query) {
+                return $q->where(function($subQuery) use ($query) {
+                    $searchTerms = explode(' ', $query);
+
+                    foreach ($searchTerms as $term) {
+                        $subQuery->where(function($innerQuery) use ($term) {
+                            $innerQuery->Where('course_code', 'LIKE', "%{$term}%")
+                                ->orWhere('course_category', 'LIKE', "%{$term}%");
+                        });
+                    }
+                });
+            })
+            ->orderBy('course_code')
             ->get();
     }
-
 
 
 }

@@ -18,9 +18,12 @@ class Activity extends Model
         'condition',
         'start_datetime',
         'end_datetime',
+        'join_start_datetime',
+        'join_end_datetime',
     ];
 
-    public function students() : belongsToMany {
-        return $this->belongsToMany(Student::class, 'registration');
+    public function students(): belongsToMany {
+        return $this->belongsToMany(Student::class, 'registrations')
+            ->withPivot('time_stamp');
     }
 }

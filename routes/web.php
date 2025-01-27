@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/announcement/store', [ActivityController::class, 'store'])->name('announcement.store');
     Route::get('/announcement/{activity}/edit', [ActivityController::class, 'edit'])->name('announcement.edit');
     Route::put('/announcement/{activity}', [ActivityController::class, 'update'])->name('announcement.update');
+    Route::get('/announcement/join/{activityId}', [StudentController::class, 'joinActivity'])->name('announcement.join');
 
     Route::get('/document', function () {return view('/document/index');})->name('document');
     Route::get('/document/create', function () {return view('/document/create');})->name('create-document');
@@ -48,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/grade', [
         \App\Http\Controllers\StudentController::class, 'index'
     ])->name('grade');
+
+    Route::get('staff/student-grade', [StudentController::class, 'staffIndex'])->name('grade-staff');
+    Route::get('staff/student-grade/search', [StudentController::class, 'filterStudents'])->name('grade-staff-search');
 
     Route::get('/grade/alumni', function () {return view('/grade/alumni');})->name('alumni-grade');
     Route::get("/grade/create-alumni",function () {return view('/grade/create-alumni');})->name("create-alumni-grade");
@@ -66,6 +70,7 @@ Route::middleware('auth')->group(function () {
 
     //Course
     Route::get('/courses/available', [EnrollmentController::class, 'availableCourses'])->name('courses.available');
+    Route::get('/courses/available/search', [EnrollmentController::class, 'search'])->name('courses.search');
     Route::post('/courses/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
     Route::get('/enrollments/pending', [EnrollmentController::class, 'pendingEnrollments'])->name('enrollments.pending');
     Route::post('/enrollments/approve', [EnrollmentController::class, 'approve'])->name('enrollments.approve');
