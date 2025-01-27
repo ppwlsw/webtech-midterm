@@ -68,11 +68,8 @@ class EnrollmentRepository
 
     public function rejectEnrollment($enrollmentId)
     {
-        return DB::table('course_result')
-            ->where('id', $enrollmentId)
-            ->update([
-                'status' => 'REJECTED',
-            ]);
+        return DB::table('course_result')->where('id', $enrollmentId)->delete();
+
     }
 
     public function searchAvailableCourses(Student $student, ?string $query = null)
