@@ -14,11 +14,12 @@ class StudentGradeController extends Controller
     {
         $query = Student::query();
 
+
         if ($request->filled('search')) {
             $query->where(function($q) use ($request) {
-                $q->where('first_name', 'like', '%'.$request->search.'%')
-                    ->orWhere('last_name', 'like', '%'.$request->search.'%')
-                    ->orWhere('student_code', 'like', '%'.$request->search.'%');
+                $q->where('first_name', 'like', $request->search.'%')
+                    ->orWhere('last_name', 'like',$request->search.'%')
+                    ->orWhere('student_code', 'like',$request->search.'%');
             });
         }
 
@@ -59,8 +60,10 @@ class StudentGradeController extends Controller
 
     public function updateGrade(Request $request, $resultId)
     {
+
         $validatedData = $request->validate([
-            'course_grade' => 'required|numeric|between:0,4',
+            'course_grade' => 'nullable|numeric|between:0,4',
+            'student_id' => 'required',
             'result_id' => 'required|numeric',
             'course_code' => 'nullable',
             'course_name' => 'nullable',
@@ -71,13 +74,9 @@ class StudentGradeController extends Controller
             ->where('id', $resultId)
             ->update(['course_grade' => $validatedData['course_grade']]);
 
-//        dd(
-//            $request->all(),
-//            'Result ID: ' .  $resultId,
-//            $validatedData,
-//            'Student ID: ' . $request->student_id,
-//            DB::table('course_result')->where('student_id', $request->student_id)->get()
-//        );
+//        dd($request->all(), $resultId, $validatedData, DB::table('course_result')
+//            ->where('id', $resultId)
+//            ->get());
 
         return redirect()->route('grades.courses', ['studentId' => $request->student_id]);
     }

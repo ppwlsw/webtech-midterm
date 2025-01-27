@@ -5,7 +5,7 @@
         <div>
             @extends('layouts/sidebar')
         </div>
-        <div class="ml-2 mt-20 w-9/12">
+        <div class="ml-56 mt-20 w-9/12">
             <!-- Search Section -->
             <div class="mb-6 w-full">
                 <form action="{{ route('courses.search') }}" method="GET" class="flex">
@@ -27,29 +27,91 @@
             <h1 class="text-2xl font-bold mb-4">Available Courses</h1>
 
             @forelse($availableCourses as $course)
-                <div class="w-full border rounded-lg p-6 shadow-md mb-4">
-                    <h2 class="text-xl font-semibold mb-2">{{ $course->course_name }}</h2>
-                    <p class="text-gray-600 mb-2">Code: {{ $course->course_code }}</p>
-                    <p class="text-gray-600 mb-2">Credits: {{ $course->credit }}</p>
-                    <p class="text-gray-600 mb-2">Category: {{ $course->course_category }}</p>
-                    <p class="text-gray-600">Curriculum: {{ $course->course_curriculum }}</p>
 
-                    @if($course->prerequisite_course)
-                        <p class="text-sm text-yellow-600 mb-2">
-                            Prerequisite: {{ $course->prerequisite_course }}
-                        </p>
-                    @endif
 
-                    <form action="{{ route('courses.enroll') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="course_id" value="{{ $course->id }}">
-                        <input type="hidden" name="semester" value="{{ 1.5 }}">
-                        <input type="hidden" name="academic_year" value="{{3}}">
-                        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-                            Enroll
-                        </button>
-                    </form>
-                </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:border-blue-300 transition-all duration-200 mb-4">
+                        <!-- Student Card Header -->
+                        <div class="p-6 border-b border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div class="space-y-1">
+                                    <h2 class="text-xl font-semibold text-gray-800">
+                                        {{ $course->course_name }}
+                                    </h2>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- Student Details -->
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <!-- Academic Information -->
+                                <div class="space-y-4">
+                                    <div class="space-y-3">
+                                        <div>
+                                            <p class="text-sm text-gray-500">รหัสวิชา</p>
+                                            <p class="font-medium">
+                                                {{ $course->course_code}}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">เครดิต</p>
+                                            <p class="font-medium">{{ $course->credit }}</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Admission Information -->
+                                <div class="space-y-4">
+                                    <div class="space-y-3">
+                                        <div>
+                                            <p class="text-sm text-gray-500">หมวดหมู่</p>
+                                            <p class="font-medium"> {{ $course->course_category }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">หลักสูตร</p>
+                                            <p class="font-medium">{{ $course->course_curriculum }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 text-sm text-gray-500 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                @if($course->prerequisite_course)
+                                    <span>Prerequisite : {{ $course->prerequisite_course}} </span>
+                                    <form action="{{ route('courses.enroll') }}" method="POST" class="mb-0 w-full flex justify-end items-center">
+                                        @csrf
+                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <input type="hidden" name="semester" value="{{ 3.5 }}">
+                                        <button type="submit" class="flex bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                                            Enroll
+                                        </button>
+                                    </form>
+                                    @else
+                                    <p>Prerequisite : - </p>
+                                    <form action="{{ route('courses.enroll') }}" method="POST" class="mb-0 w-full flex justify-end items-center">
+                                        @csrf
+                                        <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        <input type="hidden" name="semester" value="{{ 3.5 }}">
+                                        <button type="submit" class="flex bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                                            Enroll
+                                        </button>
+                                    </form>
+                                @endif
+
+                            </div>
+                        </div>
+
+                    </div>
+
             @empty
                 <div class="col-span-3 text-center py-4">
                     <p class="text-gray-600">No courses available for enrollment.</p>
