@@ -105,8 +105,29 @@
                                 </option>
 
                             </select>
+                                <div class="flex flex-row gap-6 mb-6 items-center mt-10">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">อาจารย์ที่ปรึกษา</label>
+                                        <input
+                                            type="text"
+                                            name="advisor_first_name"
+                                            value="{{ old('advisor_first_name', $student->advisor_first_name) }}"
+                                            class="mt-1 p-2 rounded border border-gray-300 w-full"
 
-                            <!-- Form Actions -->
+                                        />
+                                    </div>
+                                    <div class="mt-5">
+                                        <input
+                                            type="text"
+                                            name="advisor_last_name"
+                                            value="{{ old('advisor_last_name', $student->advisor_last_name) }}"
+                                            class="mt-1 p-2 rounded border border-gray-300 w-full"
+                                        />
+                                    </div>
+                                </div>
+
+
+                                <!-- Form Actions -->
                             <div class="flex justify-end space-x-4 mt-6">
                                 <button type="button"
                                         onclick="window.history.back()"
@@ -149,7 +170,7 @@
 
     @endcan
 
-@can('studentView', \App\Models\User::class)
+    @can('studentView', \App\Models\User::class)
     <div class="min-h-screen flex bg-gradient-to-r from-blue-50 to-blue-100 py-8">
         <div class="w-full flex justify-center px-4">
             <!-- Sidebar -->

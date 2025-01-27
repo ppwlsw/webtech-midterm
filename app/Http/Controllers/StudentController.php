@@ -149,6 +149,7 @@ class StudentController extends Controller
 
         $student->update($request->all());
 
+
         $data = $student->toArray();
 
         if($role == 'DEPARTMENT'||'TEACHER'){

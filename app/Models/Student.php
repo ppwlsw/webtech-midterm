@@ -28,6 +28,8 @@ class Student extends Model
         'semester',
         'workplace',
         'contribution',
+        'advisor_first_name',
+        'advisor_last_name',
     ];
 
     public function user(): BelongsTo {
