@@ -21,16 +21,17 @@ return new class extends Migration
             $table->enum('student_type', ['regular', 'special']);
             $table->string('contact_info')->nullable();
             $table->string('telephone_num')->nullable();
-            $table->string('admission_channel');
-            $table->string('admission_year');
-            $table->float('semester');
+            $table->string('admission_channel')->nullable();
+            $table->string('admission_year')->nullable();
+            $table->float('semester')->default(3);
             $table->string('completion_year')->nullable();
             $table->enum('student_status', ['active', 'inactive'])->default('active');
-            $table->enum('curriculum', ['65', '60']);
+            $table->enum('curriculum', ['65', '60'])->default('65');
             $table->string('advisor_first_name')->nullable();
             $table->string('advisor_last_name')->nullable();
             $table->string('workplace')->nullable();
             $table->text('contribution')->nullable();
+            $table->string('academic_year')->default(3);
             $table->timestamps();
         });
     }

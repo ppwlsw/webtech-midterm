@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreActivityRequest;
 use App\Http\Requests\UpdateActivityRequest;
 use App\Models\Activity;
+use App\Models\Student;
 use App\Models\User;
 use App\Repositories\ActivityRepository;
 use Illuminate\Http\Request;
@@ -190,5 +191,21 @@ class ActivityController extends Controller
     public function destroy(Activity $activity)
     {
         //
+    }
+
+    public function showStudentHistory(Request $request)
+    {
+        $student = auth()->user()->student;
+
+        if (!$student) {
+            return redirect()->route('home')->withErrors('Student record not found.');
+        }
+
+        $activities = $student->activities()->with('students')->get();
+
+        return view('activity.index', [
+            'student' => $student,
+            'activities' => $activities,
+        ]);
     }
 }

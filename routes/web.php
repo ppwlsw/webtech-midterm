@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile',[StudentController::class, 'profileIndex'])->name('profile');
 
-    Route::get('/activity', function () {return view('/activity/index');})->name('activity');
+    Route::get('/activity', [ActivityController::class, 'showStudentHistory'])->name('activity');
 
     //Course
     Route::get('/courses/available', [EnrollmentController::class, 'availableCourses'])->name('courses.available');

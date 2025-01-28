@@ -24,22 +24,27 @@ class EnrollmentController extends Controller
         $student = auth()->user()->student;
         $availableCourses = Course::whereDoesntHave('students', function($query) use ($student) {
             $query->where('student_id', $student->id);
-        })->get();
+        })->paginate(10);
+
+
+
         return view('enrollments.available', compact('availableCourses'));
     }
 
     public function enroll(Request $request)
     {
         $validatedData = $request->validate([
-            'course_id' => 'required|exists:courses,id',
+            'course_id' => 'required',
             'semester' => 'required',
             'academic_year' => 'required',
         ]);
 
-        $student =auth()->user()->student;
+
+        $student = auth()->user()->student;
         $course = Course::findOrFail($validatedData['course_id']);
         $semester = $validatedData['semester'];
         $academicYear = $validatedData['academic_year'];
+
 
         if ($this->enrollmentRepository->enrollCourse($student, $course, $semester, $academicYear)) {
             return redirect()->back()->with('success', 'Enrollment request submitted.');

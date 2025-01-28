@@ -25,10 +25,10 @@
             </div>
 
             <h1 class="text-2xl font-bold mb-4">Available Courses</h1>
-
+            <div class="mb-4">
+                {{ $availableCourses->links() }}
+            </div>
             @forelse($availableCourses as $course)
-
-
 
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:border-blue-300 transition-all duration-200 mb-4">
                         <!-- Student Card Header -->
@@ -90,7 +90,8 @@
                                     <form action="{{ route('courses.enroll') }}" method="POST" class="mb-0 w-full flex justify-end items-center">
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                        <input type="hidden" name="semester" value="{{ 3.5 }}">
+                                        <input type="hidden" name="semester" value="{{ 3 }}">
+                                        <input type="hidden" name="academic_year" value="{{ 3 }}">
                                         <button type="submit" class="flex bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
                                             Enroll
                                         </button>
@@ -100,11 +101,13 @@
                                     <form action="{{ route('courses.enroll') }}" method="POST" class="mb-0 w-full flex justify-end items-center">
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                        <input type="hidden" name="semester" value="{{ 3.5 }}">
+                                        <input type="hidden" name="semester" value="{{ 3 }}">
+                                        <input type="hidden" name="academic_year" value="{{ 3 }}">
                                         <button type="submit" class="flex bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
                                             Enroll
                                         </button>
                                     </form>
+
                                 @endif
 
                             </div>
@@ -113,6 +116,7 @@
                     </div>
 
             @empty
+
                 <div class="col-span-3 text-center py-4">
                     <p class="text-gray-600">No courses available for enrollment.</p>
                 </div>
