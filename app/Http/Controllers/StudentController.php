@@ -159,7 +159,7 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $role = auth()->user()->role;
-      
+
         $student->update($request->all());
 
 

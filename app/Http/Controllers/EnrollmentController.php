@@ -47,10 +47,10 @@ class EnrollmentController extends Controller
 
 
         if ($this->enrollmentRepository->enrollCourse($student, $course, $semester, $academicYear)) {
-            return redirect()->back()->with('success', 'Enrollment request submitted.');
+            return redirect()->back()->with('success', 'ลงทะเบียนเรียบร้อยแล้ว');
         }
 
-        return redirect()->back()->with('error', 'Enrollment failed. Check prerequisites.');
+        return redirect()->back()->with('error', 'กรุณาตรวจสอบรายวิชาตัวต่อของท่าน');
     }
 
     public function pendingEnrollments()
