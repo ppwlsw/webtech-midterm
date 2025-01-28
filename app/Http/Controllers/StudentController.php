@@ -159,7 +159,6 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $role = auth()->user()->role;
-
         if ($student->student_status === 'inactive') {
             return back()->with('error', 'ไม่สามารถแก้ไขข้อมูลนิสิตที่จบการศึกษาแล้ว');
         }
@@ -169,12 +168,13 @@ class StudentController extends Controller
 
         $data = $student->toArray();
 
-        if($role == 'DEPARTMENT'||'TEACHER'){
+        if($role == 'DEPARTMENT'|| $role == 'TEACHER'){
             return redirect()->route('edit-student');
         }
+        else{
+          return redirect()->route('students.show', ['student' => $student]);
+        }
 
-        return redirect()->route('students.show', ['student' => $student])
-            ->with('success', 'อัพเดทสถานะนิสิตเรียบร้อยแล้ว');
     }
     public function create(){
         return view('students.create');
