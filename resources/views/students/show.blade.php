@@ -102,18 +102,24 @@
 
         <div class="py-10 flex flex-row w-3/12 gap-12">
             <a href="{{route('achievement')}}">
-                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Achievement</button>
+                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 whitespace-nowrap">
+                    Achievement
+                </button>
             </a>
+
+            <a href="{{route('activity')}}">
+                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 whitespace-nowrap">
+                    Activity
+                </button>
+            </a>
+
             <!-- Student Card Header -->
             @if($student->student_status == 'active')
-                <a href="{{ route('students.edit' , $student) }}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                <a href="{{ route('students.edit', $student) }}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 whitespace-nowrap">
                     แก้ไขข้อมูล
                 </a>
             @endif
         </div>
-
-
-
     </div>
 
 </div>
