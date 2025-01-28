@@ -112,11 +112,11 @@
             </a>
 
             <!-- Student Card Header -->
-            @if($student->student_status == 'active')
+{{--            @if($student->student_status == 'active')--}}
                 <a href="{{ route('students.edit', $student) }}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 whitespace-nowrap">
                     แก้ไขข้อมูล
                 </a>
-            @endif
+{{--            @endif--}}
         </div>
 
 

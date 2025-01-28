@@ -159,10 +159,7 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $role = auth()->user()->role;
-        if ($student->student_status === 'inactive') {
-            return back()->with('error', 'ไม่สามารถแก้ไขข้อมูลนิสิตที่จบการศึกษาแล้ว');
-        }
-
+      
         $student->update($request->all());
 
 

@@ -227,19 +227,31 @@
                     </div>
                 </div>
 
-                <!-- Alumni Information (if inactive) -->
-                @if($student->student_status === 'inactive')
-                    <div class="flex flex-col gap-8 mt-8">
-                        <div class="relative">
-                            <label class="block text-lg font-semibold text-gray-800 mb-2">ที่ทำงานปัจจุบัน</label>
-                            <input type="text" name="workplace" value="{{ $student->workplace }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-lg font-semibold text-gray-800 mb-2">ผลงาน</label>
-                            <textarea name="contribution" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $student->contribution }}</textarea>
-                        </div>
+                <div class="flex flex-col gap-8 mt-8">
+                    <div class="relative">
+                        <label class="block text-lg font-semibold text-gray-800 mb-2">ที่ทำงานปัจจุบัน</label>
+                        <input type="text" name="workplace" value="{{ $student->workplace }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     </div>
-                @endif
+                    <div>
+                        <label class="block text-lg font-semibold text-gray-800 mb-2">ผลงาน</label>
+                        <textarea name="contribution" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $student->contribution }}</textarea>
+                    </div>
+
+                </div>
+
+{{--                <!-- Alumni Information (if inactive) -->--}}
+{{--                @if($student->student_status === 'inactive')--}}
+{{--                    <div class="flex flex-col gap-8 mt-8">--}}
+{{--                        <div class="relative">--}}
+{{--                            <label class="block text-lg font-semibold text-gray-800 mb-2">ที่ทำงานปัจจุบัน</label>--}}
+{{--                            <input type="text" name="workplace" value="{{ $student->workplace }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">--}}
+{{--                        </div>--}}
+{{--                        <div>--}}
+{{--                            <label class="block text-lg font-semibold text-gray-800 mb-2">ผลงาน</label>--}}
+{{--                            <textarea name="contribution" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $student->contribution }}</textarea>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
 
                 <!-- Form Actions -->
                 <div class="flex justify-end space-x-4 mt-8">
