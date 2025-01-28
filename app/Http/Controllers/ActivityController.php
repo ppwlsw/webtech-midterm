@@ -201,7 +201,7 @@ class ActivityController extends Controller
             return redirect()->route('home')->withErrors('Student record not found.');
         }
 
-        $activities = $student->activities()->with('students')->get();
+        $activities = $student->activities()->with('students')->orderBy('created_at', 'desc')->get();
 
         return view('activity.index', [
             'student' => $student,
