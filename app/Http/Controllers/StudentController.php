@@ -24,11 +24,13 @@ class StudentController extends Controller
      */
     public function index()
     {
-
+        if (Gate::allows('teacherView', User::class)) {
+            return $this->staffIndex(new Request());
+        }
         $student = $this->studentRepository->getStudentByUserId(auth()->guard()->user()->id);
         $courses = $this->studentRepository->getStudentEnrolledCourses($student->id);
         return view('grade.index', ["data" => $student
-                                        , "coursesData" => $courses ]);
+            , "coursesData" => $courses ]);
 
     }
     public function show(Student $student)
@@ -43,12 +45,12 @@ class StudentController extends Controller
         if (Gate::allows('studentView', User::class)) {
             $userId = auth()->guard()->user()->id;
             $data = $this->studentRepository->getStudentByUserId($userId);
-           return view('profile.index',["data" => $data]);
+            return view('profile.index',["data" => $data]);
         }
     }
 
     public function editStudentsPage(){
-            return view('grade.student-list', ["data" => $this->studentRepository->getAll()]);
+        return view('grade.student-list', ["data" => $this->studentRepository->getAll()]);
     }
 
     public function getAllStudents(Request $request)
@@ -57,21 +59,7 @@ class StudentController extends Controller
         return $this->studentRepository->getActiveStudents($request);
     }
 
-    public function staffIndex(){
-        $data = $this->studentRepository->getAll();
-        foreach ($data as $student) {
-            $student->courses = $student->courses()->select(
-                'course_code',
-                'course_name',
-                'credit',
-                'course_grade',
-                'course_category'
-            )->get()->toArray();
-        }
-      return view('grade.index', ["data" => $data]);
-    }
-
-    public function filterStudents(Request $request){
+    public function staffIndex(Request $request){
         Gate::authorize('teacherView', User::class);
         $curriculum = $request->get('course_curriculum') ;
         $student_type = $request->get('student_type');
@@ -103,6 +91,7 @@ class StudentController extends Controller
 
         return view('grade.index', ["data" => $data]);
     }
+
     public function search(Request $request)
     {
         $query = Student::query();
@@ -154,24 +143,23 @@ class StudentController extends Controller
 
     public function update(Request $request, Student $student)
     {
-        $role = auth()->user()->role;
-
         if ($student->student_status === 'inactive') {
             return back()->with('error', 'ไม่สามารถแก้ไขข้อมูลนิสิตที่จบการศึกษาแล้ว');
         }
 
-        $student->update($request->all());
+        $validated = $request->validate([
+            'student_status' => ['required', 'in:active,inactive'],
+            'completion_year' => ['required'],
+        ]);
 
+        $student->update($validated);
 
         $data = $student->toArray();
 
-        if($role == 'DEPARTMENT'||'TEACHER'){
-            return redirect()->route('edit-student');
-        }
-
-        return redirect()->route('students.show', ['student' => $student])
+        return redirect()->route('students.search', ["data" => $data])
             ->with('success', 'อัพเดทสถานะนิสิตเรียบร้อยแล้ว');
     }
+
     public function create(){
         return view('students.create');
     }
