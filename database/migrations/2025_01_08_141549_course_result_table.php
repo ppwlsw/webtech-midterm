@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\Student::class);
             $table->float('semester');
             $table->integer('academic_year');
-            $table->integer('course_grade')->nullable();
+            $table->float('course_grade')->nullable();
             $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
             $table->timestamp('enrolled_at')->nullable();
             $table->timestamps();
