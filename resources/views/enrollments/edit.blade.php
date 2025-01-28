@@ -13,8 +13,7 @@
             <input type="hidden" name="result_id" value="{{ $courseResult->id }}">
             <input type="hidden" name="student_id" value="{{ $courseResult->student_id }}">
             <div class="mb-4">
-                <label class="block text-gray-700 font-bold mb-2">Student_ID</label>
-                <input type="text" name="course_code" value="{{ $courseResult->student_id }}" class="w-full px-3 py-2 border rounded-md" readonly>
+                <input type="hidden" name="course_code" value="{{ $courseResult->student_id }}" class="w-full px-3 py-2 border rounded-md" readonly>
             </div>
 
             <div class="mb-4">
