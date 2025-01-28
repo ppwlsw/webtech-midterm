@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdf/resignation', [\App\Http\Controllers\PDF\PDFResignationController::class, 'pdf'])->name('pdf-resignation.pdf');
     Route::get('/pdf/leave-request', [\App\Http\Controllers\PDF\PDFLeaveRequestController::class, 'pdf'])->name('pdf-leave-request.pdf');
     Route::get('/pdf/ku3', [\App\Http\Controllers\PDF\PDFKU3Controller::class, 'pdf'])->name('pdf-ku3.pdf');
+    Route::get('/pdf/ku1', [\App\Http\Controllers\PDF\PDFKU1Controller::class, 'pdf'])->name('pdf-ku1.pdf');
+    Route::get('/pdf/general-request', [\App\Http\Controllers\PDF\PDFGeneralRequestController::class, 'pdf'])->name('pdf-general-request.pdf');
+    Route::get('/pdf/study-colab', [\App\Http\Controllers\PDF\PDFStudyColabController::class, 'pdf'])->name('pdf-study-colab.pdf');
 
     Route::get('/staff/announcements/', function () {return view('/ui_staff/announcement/index');})->name('announcements');
 

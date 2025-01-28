@@ -102,7 +102,7 @@
 
         <div class="py-10 flex flex-row w-3/12 gap-12">
             <a href="{{route('achievement')}}">
-                <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Achievement</button>
+                <button class="mt-4 bg-yellow-400 text-white w-52 px-4 py-2 shadow-lg rounded-md hover:bg-yellow-500">Achievement</button>
             </a>
             <!-- Student Card Header -->
             @if($student->student_status == 'active')

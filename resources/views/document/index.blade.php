@@ -32,14 +32,17 @@
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</body>--}}
+
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-    <div class="w-2/12 bg-gray-100 p-4">
-        @extends('layouts.sidebar')
-    </div>
+<div class="w-2/12 bg-gray-100 p-4">
+    @extends('layouts.sidebar')
+</div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl p-6">
 
+
+    <!-- Box 1 -->
     <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
         <h2 class="text-xl font-bold text-gray-800">KU 3</h2>
         <p class="text-gray-600 mt-2">
@@ -71,5 +74,40 @@
             <a href="{{route('pdf-resignation.pdf')}}">Download</a>
         </button>
     </div>
+
+    <!-- Box 4 -->
+    <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
+        <h2 class="text-xl font-bold text-gray-800">KU 1</h2>
+        <p class="text-gray-600 mt-2">
+            แบบลงทะเบียนเรียน
+        </p>
+        <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+            <a href="{{route('pdf-ku1.pdf')}}">Download</a>
+        </button>
+    </div>
+
+    <!-- Box 5 -->
+    <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
+        <h2 class="text-xl font-bold text-gray-800">คำร้องขอทั่วไป</h2>
+        <p class="text-gray-600 mt-2">
+            คำร้องเปลี่ยนแปลงที่อยู่
+        </p>
+        <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+            <a href="{{route('pdf-general-request.pdf')}}">Download</a>
+        </button>
+    </div>
+
+    <!-- Box 6 -->
+    <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
+        <h2 class="text-xl font-bold text-gray-800">ใบขอเรียนร่วม</h2>
+        <p class="text-gray-600 mt-2">
+            ใช้สำหรับคำร้องขอคืนเงิน
+        </p>
+        <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+            <a href="{{route('pdf-study-colab.pdf')}}">Download</a>
+        </button>
+    </div>
+
 </div>
+
 </body>

@@ -58,7 +58,5 @@ class PDFKU3Controller extends PDFController
         $pdf->Output();
     }
 
-    public function index() {
-        return view('pdf.leave-request.index');
-    }
+
 }

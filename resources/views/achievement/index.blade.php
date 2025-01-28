@@ -14,54 +14,60 @@
 
         <!-- Navigation Buttons -->
         <div class="flex justify-between mb-6">
-            <a href="{{ route('students.show', ['student' => auth()->user()->student]) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            <a href="{{ route('students.show', ['student' => auth()->user()->student]) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow">
                 Back
             </a>
-            <a href="{{ route('create-achievement') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            <a href="{{ route('create-achievement') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 shadow">
                 Add New Achievement
             </a>
         </div>
 
         <!-- Achievements Section -->
-        <section class="bg-white p-6 rounded-md shadow-md">
+        <section class="bg-white p-6 rounded-md shadow-lg">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold">Achievements</h2>
+                <h2 class="text-2xl font-bold text-gray-800">Achievements</h2>
             </div>
 
             <!-- Achievements List -->
             <div class="space-y-4">
                 @foreach($achievements as $achievement)
-                    <div class="bg-gray-100 p-4 rounded-md shadow-sm">
+                    <div class="bg-gray-50 p-6 rounded-md shadow-sm border border-gray-200">
                         <form action="{{route("edit-achievement", ['achievementId' => $achievement->id])}}" method="GET">
                             @csrf
-                            <div class="flex justify-between text-md text-gray-700 font-medium">
-                                <span>{{ $achievement->achievement_type }}</span>
-                                <span>{{ $achievement->achievement_year }}</span>
+                            <div class="flex justify-between items-center text-lg font-medium">
+                                <!-- Achievement Type -->
+                                <span class="bg-blue-100 text-blue-700 py-1 px-3 rounded-full shadow-sm">
+                                    {{ $achievement->achievement_type }}
+                                </span>
+                                <!-- Achievement Year -->
+                                <span class="bg-green-100 text-green-700 py-1 px-3 rounded-full shadow-sm">
+                                    {{ $achievement->achievement_year }}
+                                </span>
                             </div>
-                            <span>{{ $achievement->achievement_name }}</span>
+
+                            <!-- Achievement Name -->
+                            <div class="mt-2">
+                                <h3 class="text-xl font-semibold text-gray-800">
+                                    {{ $achievement->achievement_name }}
+                                </h3>
+                            </div>
+
+                            <!-- Achievement Details -->
                             <p class="text-gray-600 mt-2">
                                 {{ $achievement->achievement_detail }}
                             </p>
-                            <div class="flex justify-end ">
-                                <button type="submit" class="py-2 px-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                                    edit
+
+                            <!-- Edit Button -->
+                            <div class="flex justify-end mt-4">
+                                <button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 shadow">
+                                    Edit
                                 </button>
                             </div>
                         </form>
                     </div>
                 @endforeach
             </div>
-
-            <!-- Achievement Picture -->
-{{--            <div class="mt-6">--}}
-{{--                <h3 class="text-lg font-bold mb-4">Achievement Picture</h3>--}}
-{{--                <div class="bg-gray-200 h-48 rounded-md flex items-center justify-center">--}}
-{{--                    <span class="text-gray-500">Picture Placeholder</span>--}}
-{{--                </div>--}}
-{{--            </div>--}}
         </section>
-
     </div>
-
 </div>
 </body>
