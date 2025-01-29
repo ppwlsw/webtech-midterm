@@ -177,10 +177,11 @@ class StudentController extends Controller
         return view('students.create');
     }
     public function store(Request $request){
+
         $validated = $request->validate([
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            'student_code' => 'required|unique:students',
+            'student_code' => 'required|unique:students,student_code',
             'first_name' => 'required',
             'last_name' => 'required',
             'student_type' => 'required|in:regular,special',
@@ -190,7 +191,6 @@ class StudentController extends Controller
             'admission_channel' => 'required',
             'admission_year' => 'required|numeric',
             'semester' => 'required',
-
         ]);
 
 
@@ -218,7 +218,7 @@ class StudentController extends Controller
             ]);
             $user->student()->save($student);
         });
-        return view('students.create');
+        return  view('students.create');
     }
 
     public function joinActivity(Request $request, $activityId, RegistrationRepository $registrationRepository)

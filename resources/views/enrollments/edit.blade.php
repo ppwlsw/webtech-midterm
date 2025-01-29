@@ -2,6 +2,7 @@
 @section('topic', 'แก้ไขเกรด')
 @extends('layouts/sidebar')
 
+
 <div class="container mx-auto px-4 py-6">
     <div class="bg-white shadow-md rounded-lg max-w-md mx-auto">
         <div class="p-4 bg-gray-50 border-b">
