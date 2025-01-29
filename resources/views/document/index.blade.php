@@ -90,7 +90,7 @@
     <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
         <h2 class="text-xl font-bold text-gray-800">คำร้องขอทั่วไป</h2>
         <p class="text-gray-600 mt-2">
-            คำร้องเปลี่ยนแปลงที่อยู่
+            คำร้องขอเรื่องทั่วไป
         </p>
         <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
             <a href="{{route('pdf-general-request.pdf')}}">Download</a>
@@ -101,7 +101,7 @@
     <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
         <h2 class="text-xl font-bold text-gray-800">ใบขอเรียนร่วม</h2>
         <p class="text-gray-600 mt-2">
-            ใช้สำหรับคำร้องขอคืนเงิน
+            คำร้องขอลงทะเบียนเรียนร่วม
         </p>
         <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
             <a href="{{route('pdf-study-colab.pdf')}}">Download</a>

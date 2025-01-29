@@ -1,5 +1,5 @@
 @extends('layouts.nav')
-@section('topic','ข่าวสารนิสิต')
+@section('topic','ประวัตินิสิต')
 @props(['data'])
 
 <body class="pt-20 bg-gray-50 font-sans min-h-screen">

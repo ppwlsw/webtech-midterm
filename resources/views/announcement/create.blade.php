@@ -120,7 +120,7 @@
                             type="datetime-local"
                             id="join_start_datetime"
                             name="join_start_datetime"
-                            value="{{ old('join_start_datetime') }}"
+{{--                            value="{{ old('join_start_datetime') }}"--}}
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('join_start_datetime') border-red-400 bg-red-100 @enderror">
                     </div>
 
@@ -135,7 +135,7 @@
                             type="datetime-local"
                             id="join_end_datetime"
                             name="join_end_datetime"
-                            value="{{ old('join_end_datetime') }}"
+{{--                            value="{{ old('join_end_datetime') }}"--}}
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('join_end_datetime') border-red-400 bg-red-100 @enderror">
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                             type="datetime-local"
                             id="start_datetime"
                             name="start_datetime"
-                            value="{{ old('start_datetime') }}"
+{{--                            value="{{ old('start_datetime') }}"--}}
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('start_datetime') border-red-400 bg-red-100 @enderror">
                     </div>
 
@@ -168,7 +168,7 @@
                             type="datetime-local"
                             id="end_datetime"
                             name="end_datetime"
-                            value="{{ old('end_datetime') }}"
+{{--                            value="{{ old('end_datetime') }}"--}}
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 @error('end_datetime') border-red-400 bg-red-100 @enderror">
                     </div>
                 </div>
